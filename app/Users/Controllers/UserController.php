@@ -208,4 +208,17 @@ class UserController extends Controller
 
         return redirect('/settings/users');
     }
+
+    /**
+     * Reset MFA for the specified user.
+     */
+    public function resetMfa(Request $request, int $id)
+    {
+        $this->checkPermission(Permission::UsersManage);
+        $user = $this->userRepo->getById($id);
+        // Resetear el 2FA del usuario 
+        $user->mfaValues()->delete();
+        session()->flash('success', trans('settings.users_mfa_reset_success', ['userName' => $user->name]));
+        return redirect()->back();
+    }
 }

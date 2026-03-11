@@ -263,6 +263,11 @@ return [
     'users_mfa_desc' => 'Setup multi-factor authentication as an extra layer of security for your user account.',
     'users_mfa_x_methods' => ':count method configured|:count methods configured',
     'users_mfa_configure' => 'Configure Methods',
+    'users_mfa_reset' => 'Reset 2FA',
+    'users_mfa_reset_desc' => 'Reset and clear all configured MFA methods for :userName. They will be prompted to reconfigure on next login.',
+    'users_mfa_reset_confirm' => 'Are you sure you want to reset 2FA for :userName?',
+    'users_mfa_reset_success' => '2FA has been reset for :userName',
+    'users_mfa_reset_error' => 'Failed to reset 2FA for :userName',
 
     // API Tokens
     'user_api_token_create' => 'Create API Token',

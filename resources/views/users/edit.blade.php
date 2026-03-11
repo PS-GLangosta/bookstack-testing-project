@@ -71,6 +71,26 @@
                 </div>
             </div>
 
+            @if(user()->hasSystemRole('admin'))
+                <div class="mt-xl">
+                    <hr class="my-m">
+                    <div class="grid half gap-xl v-center">
+                        <div>
+                            <strong class="text-neg">{{ trans('settings.users_mfa_reset') }}</strong>
+                            <p class="text-small text-muted">{{ trans('settings.users_mfa_reset_desc', ['userName' => $user->name]) }}</p>
+                        </div>
+                        <div class="text-m-right">
+                            <form action="{{ url("/settings/users/{$user->id}/reset-mfa") }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="button neg" 
+                                        onclick="return confirm('{{ trans('settings.users_mfa_reset_confirm', ['userName' => $user->name]) }}')">
+                                    {{ trans('settings.users_mfa_reset') }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </section>
 
         @if(count($activeSocialDrivers) > 0)
