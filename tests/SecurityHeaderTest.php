@@ -151,6 +151,42 @@ class SecurityHeaderTest extends TestCase
         $this->assertEquals('frame-src \'self\' https://example.com https://diagrams.example.com:8080', $scriptHeader);
     }
 
+    public function test_style_src_csp_header_set_to_permissive_defaults_when_not_configured()
+    {
+        $resp = $this->get('/');
+        $header = $this->getCspHeader($resp, 'style-src');
+
+        $this->assertEquals("style-src 'self' 'unsafe-inline' http: https:", $header);
+    }
+
+    public function test_style_src_csp_header_can_be_overridden_by_config()
+    {
+        config()->set('app.css_sources', 'https://fonts.example.com');
+
+        $resp = $this->get('/');
+        $header = $this->getCspHeader($resp, 'style-src');
+
+        $this->assertEquals("style-src 'self' https://fonts.example.com", $header);
+    }
+
+    public function test_img_src_csp_header_set_to_permissive_defaults_when_not_configured()
+    {
+        $resp = $this->get('/');
+        $header = $this->getCspHeader($resp, 'img-src');
+
+        $this->assertEquals("img-src 'self' data: blob: http: https:", $header);
+    }
+
+    public function test_img_src_csp_header_can_be_overridden_by_config()
+    {
+        config()->set('app.image_sources', 'https://images.example.com data:');
+
+        $resp = $this->get('/');
+        $header = $this->getCspHeader($resp, 'img-src');
+
+        $this->assertEquals("img-src 'self' https://images.example.com data:", $header);
+    }
+
     public function test_cache_control_headers_are_set_on_responses()
     {
         // Public access

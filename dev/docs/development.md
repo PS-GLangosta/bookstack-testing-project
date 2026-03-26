@@ -31,6 +31,48 @@ BookStack has a large suite of PHP tests to cover application functionality. We 
 
 For details about setting-up, running and writing tests please see the [php-testing.md document](php-testing.md).
 
+## Content Security Policy Controls
+
+BookStack enforces a Content Security Policy (CSP) response header to reduce risk from injected content and untrusted embeds.
+
+For backward compatibility, image and CSS controls are intentionally permissive by default, but can be tightened via environment options.
+
+### Related Environment Options
+
+These values are defined in `.env.example.complete`:
+
+- `ALLOWED_CSS_SOURCES`
+	- Controls allowed `style-src` sources.
+	- Defaults to a permissive fallback if unset.
+- `ALLOWED_IMAGE_SOURCES`
+	- Controls allowed `img-src` sources.
+	- Defaults to a permissive fallback if unset.
+
+Values should be space-separated source expressions.
+
+### Example Configurations
+
+Allow Google Fonts CSS and local styles only:
+
+```bash
+ALLOWED_CSS_SOURCES="https://fonts.googleapis.com"
+```
+
+Allow local images, embedded data images, and a dedicated image CDN:
+
+```bash
+ALLOWED_IMAGE_SOURCES="data: https://images.example.com"
+```
+
+### Tightening Guidance
+
+When hardening a deployment:
+
+1. Start with defaults to avoid unexpected breakage.
+2. Set explicit `ALLOWED_CSS_SOURCES` and `ALLOWED_IMAGE_SOURCES` values for the domains you actually use.
+3. Test key workflows (editor, page display, theme assets, external embeds) and browser console CSP warnings.
+4. Remove unnecessary protocols and hosts over time.
+
 ## Code Standards
 
 We use tools to manage code standards and formatting within the project. If submitting a PR, formatting as per our project standards would help for clarity but don't worry too much about using/understanding these tools as we can always address issues at a later stage when they're picked up by our automated tools.

@@ -30,6 +30,8 @@ class CspService
             $this->getFrameAncestors(),
             $this->getFrameSrc(),
             $this->getScriptSrc(),
+            $this->getStyleSrc(),
+            $this->getImgSrc(),
             $this->getObjectSrc(),
             $this->getBaseUri(),
         ];
@@ -45,6 +47,8 @@ class CspService
         $headers = [
             $this->getFrameSrc(),
             $this->getScriptSrc(),
+            $this->getStyleSrc(),
+            $this->getImgSrc(),
             $this->getObjectSrc(),
             $this->getBaseUri(),
         ];
@@ -116,6 +120,22 @@ class CspService
     }
 
     /**
+     * Creates CSP 'style-src' rule to restrict where styles can be loaded from.
+     */
+    protected function getStyleSrc(): string
+    {
+        return 'style-src ' . implode(' ', $this->getAllowedStyleSources());
+    }
+
+    /**
+     * Creates CSP 'img-src' rule to restrict where images can be loaded from.
+     */
+    protected function getImgSrc(): string
+    {
+        return 'img-src ' . implode(' ', $this->getAllowedImageSources());
+    }
+
+    /**
      * Creates CSP 'base-uri' rule to restrict what base tags can be set on
      * the page to prevent manipulation of relative links.
      */
@@ -142,6 +162,51 @@ class CspService
         $sources[] = $this->getDrawioHost();
 
         return array_filter($sources);
+    }
+
+    /**
+     * Get allowed style sources for the style-src directive.
+     */
+    protected function getAllowedStyleSources(): array
+    {
+        $configured = config('app.css_sources');
+
+        if (is_string($configured)) {
+            $sources = array_filter(explode(' ', $configured));
+            array_unshift($sources, "'self'");
+
+            return array_values(array_unique($sources));
+        }
+
+        return [
+            "'self'",
+            "'unsafe-inline'",
+            'http:',
+            'https:',
+        ];
+    }
+
+    /**
+     * Get allowed image sources for the img-src directive.
+     */
+    protected function getAllowedImageSources(): array
+    {
+        $configured = config('app.image_sources');
+
+        if (is_string($configured)) {
+            $sources = array_filter(explode(' ', $configured));
+            array_unshift($sources, "'self'");
+
+            return array_values(array_unique($sources));
+        }
+
+        return [
+            "'self'",
+            'data:',
+            'blob:',
+            'http:',
+            'https:',
+        ];
     }
 
     /**
