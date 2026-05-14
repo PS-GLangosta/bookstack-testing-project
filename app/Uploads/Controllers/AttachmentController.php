@@ -195,6 +195,7 @@ class AttachmentController extends Controller
         $this->validate($request, [
             'order' => ['required', 'array'],
         ]);
+
         $page = $this->pageQueries->findVisibleByIdOrFail($pageId);
         $this->checkOwnablePermission(Permission::PageUpdate, $page);
 
@@ -221,8 +222,6 @@ class AttachmentController extends Controller
             throw new NotFoundException(trans('errors.attachment_not_found'));
         }
 
-        $this->checkOwnablePermission(Permission::PageView, $page);
-
         if ($attachment->external) {
             return redirect($attachment->path);
         }
@@ -247,6 +246,13 @@ class AttachmentController extends Controller
     {
         /** @var Attachment $attachment */
         $attachment = Attachment::query()->findOrFail($attachmentId);
+
+        try {
+            $this->pageQueries->findVisibleByIdOrFail($attachment->uploaded_to);
+        } catch (NotFoundException $exception) {
+            throw new NotFoundException(trans('errors.attachment_not_found'));
+        }
+
         $this->checkOwnablePermission(Permission::AttachmentDelete, $attachment);
         $this->attachmentService->deleteFile($attachment);
 
