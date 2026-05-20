@@ -48,6 +48,24 @@ export class ToolboxContents extends Component {
         const onContentChangeDebounced = debounce(this.onContentChange.bind(this), 500, false);
         window.$events.listen('editor-html-change', onContentChangeDebounced);
         window.$events.listen('editor-markdown-change', onContentChangeDebounced);
+
+        // Listen to header click
+        this.container.addEventListener('click', (event) => {
+            const header = (event.target as HTMLElement).closest('li[data-index]');
+            if (header instanceof HTMLElement) {
+                event.preventDefault();
+                this.onHeaderSelect(header);
+            }
+        });
+    }
+
+    protected onHeaderSelect(headerElement: HTMLElement): void {
+        const id = headerElement.getAttribute('data-id') || '';
+        const index = Number(headerElement.getAttribute('data-index') || '');
+        window.$events.emit('editor::focus-heading', {
+            index,
+            id,
+        });
     }
 
     protected onContentChange(): void {
@@ -118,7 +136,9 @@ export class ToolboxContents extends Component {
         const headerItems = headers.map(header => {
             return elem('li', {
                 'data-level': String(header.level),
-                id: header.id,
+                'data-index': String(header.index),
+                'data-id': header.id,
+                id: `page-contents-${header.id}`,
                 class: `page-nav-item h${header.level}`,
             }, [
                 elem('a', {class: 'text-limit-lines-1 block', href: `#${header.id}`}, [header.text]),

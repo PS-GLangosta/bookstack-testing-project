@@ -1,6 +1,7 @@
 import {
     init,
     attributesModule,
+    datasetModule,
     toVNode,
 } from 'snabbdom';
 import {VNode} from "snabbdom/build/vnode";
@@ -14,6 +15,7 @@ function getPatcher(): vDomPatcher {
 
     patcher = init([
         attributesModule,
+        datasetModule,
     ]);
 
     return patcher;

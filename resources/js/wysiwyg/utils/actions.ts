@@ -1,6 +1,7 @@
 import {$createParagraphNode, $getRoot, $getSelection, $insertNodes, $isBlockElementNode, LexicalEditor} from "lexical";
 import {$generateHtmlFromNodes} from "@lexical/html";
-import {$getNearestNodeBlockParent, $htmlToBlockNodes, $htmlToNodes} from "./nodes";
+import {$getAllNodesOfType, $getNearestNodeBlockParent, $htmlToBlockNodes, $htmlToNodes} from "./nodes";
+import {$isHeadingNode} from "@lexical/rich-text/LexicalHeadingNode";
 
 export function setEditorContentFromHtml(editor: LexicalEditor, html: string) {
     editor.update(() => {
@@ -101,4 +102,14 @@ export function focusEditor(editor: LexicalEditor): void {
     });
     editor.commitUpdates();
     editor.focus(() => {}, {defaultSelection: "rootStart"});
+}
+
+export function focusOnHeader(editor: LexicalEditor, headerIndex: number): void {
+    editor.update(() => {
+        const headers = $getAllNodesOfType($isHeadingNode);
+        const target = headers[headerIndex];
+        if (target) {
+            target.selectStart();
+        }
+    });
 }
