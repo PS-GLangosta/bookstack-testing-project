@@ -1,8 +1,14 @@
 # BookStack Testing Project
 
-> **Asignatura:** Pruebas de Software · UNSA 2026
-> **Docente:** Ing. Robert Edison Arisaca Mamani
-> **Integrantes:** Flores · Zegarra · Meza · Chambi · Perez · Lopez
+> **Asignatura:** Pruebas de Software · UNSA 2026  
+> **Docente:** Ing. Robert Edison Arisaca Mamani  
+> **Integrantes:**  
+> - Chambi Velasquez Rommel Abraham  
+> - Flores Choquehuanca Joe Daniel  
+> - Lopez Arela Ower Frank  
+> - Meza Vizcarra Cielo Cristal  
+> - Perez Huamani Jeremy Joshua  
+> - Zegarra Puma Mauricio Eduardo
 
 Proyecto académico orientado al análisis, diseño, implementación y documentación de un proceso completo de pruebas de software sobre [**BookStack**](https://github.com/BookStackApp/BookStack), una plataforma de documentación de código abierto construida con PHP y Laravel.
 
