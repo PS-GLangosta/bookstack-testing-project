@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Open Issues Here Instead
+    url: https://codeberg.org/bookstack/bookstack/issues
+    about: This project has migrated to Codeberg, please open issues there instead.
+
+  - name: Debugging & Common Issues
+    url: https://www.bookstackapp.com/docs/admin/debugging/
+    about: Find details on how to debug issues and view common issues with their resolutions.
+
+  - name: Official Support Plans
+    url: https://www.bookstackapp.com/support/
+    about: View our official support plans that offer assured support for business.
