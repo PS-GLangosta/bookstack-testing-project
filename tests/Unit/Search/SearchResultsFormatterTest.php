@@ -11,8 +11,8 @@ use Tests\TestCase;
  *
  * Clase bajo prueba: BookStack\Search\SearchResultsFormatter
  * Ubicación: app/Search/SearchResultsFormatter.php
- * Issue: #9
- * Sprint: 1
+ * Issue: #14 (y complementos)
+ * Sprint: 2
  * Responsable: Ower Frank Lopez Arela (Test Designer)
  *
  * Cobertura objetivo:
@@ -21,7 +21,7 @@ use Tests\TestCase;
  *   - highlightTagsContainingTerms(): marcado de tags
  *   - formatTextUsingMatchPositions(): preview con elipsis y ventana
  *
- * @group sprint-1
+ * @group sprint-2
  * @group search
  * @group formatter
  */

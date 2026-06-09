@@ -10,8 +10,8 @@ use Tests\TestCase;
  *
  * Clase bajo prueba: BookStack\Search\SearchOptions
  * Ubicación: app/Search/SearchOptions.php
- * Issue: #9
- * Sprint: 1
+ * Issue: #14 (y complementos)
+ * Sprint: 2
  * Responsable: Ower Frank Lopez Arela (Test Designer)
  *
  * Cobertura objetivo:
@@ -20,7 +20,7 @@ use Tests\TestCase;
  *   - limitOptions(): rate limiting por nivel de autenticación
  *   - toString(): serialización inversa
  *
- * @group sprint-1
+ * @group sprint-2
  * @group search
  * @group search-options
  */

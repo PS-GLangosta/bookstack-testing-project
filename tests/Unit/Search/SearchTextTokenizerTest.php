@@ -11,8 +11,8 @@ use Tests\TestCase;
  *
  * Clase bajo prueba: BookStack\Search\SearchTextTokenizer
  * Ubicación: app/Search/SearchTextTokenizer.php
- * Issue: #9
- * Sprint: 1
+ * Issue: #14 (y complementos)
+ * Sprint: 2
  * Responsable: Ower Frank Lopez Arela (Test Designer)
  *
  * Cobertura objetivo:
@@ -21,7 +21,7 @@ use Tests\TestCase;
  *   - Comportamiento con delimitadores duros vs blandos
  *   - Manejo de entradas vacías y edge cases
  *
- * @group sprint-1
+ * @group sprint-2
  * @group search
  * @group tokenizer
  */
