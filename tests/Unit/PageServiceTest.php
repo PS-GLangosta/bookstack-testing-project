@@ -323,48 +323,48 @@ class PageServiceTest extends TestCase
         ]);
     }
      /**
- * UT-PG-09
- * Borrador de un usuario no visible como página publicada para otro usuario.
- */
-public function test_ut_pg_09_borrador_de_un_usuario_no_visible_como_pagina_publicada_para_otro_usuario(): void
-{
-    $creator = $this->users->editor();
-    $otherUser = $this->users->editor();
+     * UT-PG-09
+     * Borrador de un usuario no visible como página publicada para otro usuario.
+     */
+    public function test_ut_pg_09_borrador_de_un_usuario_no_visible_como_pagina_publicada_para_otro_usuario(): void
+    {
+        $creator = $this->users->editor();
+        $otherUser = $this->users->editor();
 
-    $this->actingAs($creator);
+        $this->actingAs($creator);
 
-    $book = $this->entities->book();
-    $pageRepo = app(PageRepo::class);
+        $book = $this->entities->book();
+        $pageRepo = app(PageRepo::class);
 
-    $draft = $pageRepo->getNewDraftPage($book);
-    $draft->name = 'Borrador privado de usuario';
-    $draft->save();
-    $draft->refresh();
+        $draft = $pageRepo->getNewDraftPage($book);
+        $draft->name = 'Borrador privado de usuario';
+        $draft->save();
+        $draft->refresh();
 
-    $publishedPageIdsForBook = $book->pages()
-        ->where('draft', false)
-        ->pluck('id')
-        ->all();
+        $publishedPageIdsForBook = $book->pages()
+            ->where('draft', false)
+            ->pluck('id')
+            ->all();
 
-    $this->actingAs($otherUser);
+        $this->actingAs($otherUser);
 
-    $otherUserPublishedPageIdsForBook = $book->pages()
-        ->where('draft', false)
-        ->pluck('id')
-        ->all();
+        $otherUserPublishedPageIdsForBook = $book->pages()
+            ->where('draft', false)
+            ->pluck('id')
+            ->all();
 
-    $this->assertTrue($draft->draft);
-    $this->assertSame($book->id, $draft->book_id);
-    $this->assertSame($creator->id, $draft->created_by);
+        $this->assertTrue($draft->draft);
+        $this->assertSame($book->id, $draft->book_id);
+        $this->assertSame($creator->id, $draft->created_by);
 
-    $this->assertNotContains($draft->id, $publishedPageIdsForBook);
-    $this->assertNotContains($draft->id, $otherUserPublishedPageIdsForBook);
+        $this->assertNotContains($draft->id, $publishedPageIdsForBook);
+        $this->assertNotContains($draft->id, $otherUserPublishedPageIdsForBook);
 
-    $this->assertDatabaseHas('entity_page_data', [
-        'page_id' => $draft->id,
-        'draft' => true,
-    ]);
-}
+        $this->assertDatabaseHas('entity_page_data', [
+            'page_id' => $draft->id,
+            'draft' => true,
+        ]);
+    }
 
     /**
      * UT-PG-10
@@ -461,6 +461,200 @@ public function test_ut_pg_09_borrador_de_un_usuario_no_visible_como_pagina_publ
             'revision_number' => 2,
             'name' => 'Página con caracteres especiales',
             'summary' => 'Actualización con caracteres especiales',
+        ]);
+
+        $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
+    }
+        /**
+     * UT-PG-12
+     * Actualizar página con HTML vacío válido.
+     */
+    public function test_ut_pg_12_actualizar_pagina_con_html_vacio_valido(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con contenido para limpiar',
+            'html' => '<p>Contenido que será eliminado</p>',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Contenido que será eliminado', $page->text);
+        $this->assertSame(1, $page->revision_count);
+
+        $page = $pageRepo->update($page, [
+            'name' => 'Página con contenido vacío',
+            'html' => '',
+            'summary' => 'Se limpia el contenido de la página',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Página con contenido vacío', $page->name);
+        $this->assertSame('', $page->html);
+        $this->assertSame('', $page->text);
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'name' => 'Página con contenido vacío',
+            'text' => '',
+            'summary' => 'Se limpia el contenido de la página',
+        ]);
+
+        $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
+    }
+
+    /**
+     * UT-PG-13
+     * Usuario sin permisos no debe actualizar página.
+     */
+    public function test_ut_pg_13_usuario_sin_permisos_no_debe_actualizar_pagina(): void
+    {
+        $admin = $this->users->admin();
+        $viewer = $this->users->viewer();
+
+        $this->actingAs($admin);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página protegida',
+            'html' => '<p>Contenido protegido</p>',
+        ]);
+
+        $page->refresh();
+
+        $originalName = $page->name;
+        $originalText = $page->text;
+        $originalRevisionCount = $page->revision_count;
+
+        $this->actingAs($viewer);
+
+        $canUpdate = userCan('page-update', $page);
+
+        if ($canUpdate) {
+            $this->fail('El usuario viewer no debería tener permiso para actualizar la página.');
+        }
+
+        $page->refresh();
+
+        $this->assertFalse($canUpdate);
+        $this->assertSame($originalName, $page->name);
+        $this->assertSame($originalText, $page->text);
+        $this->assertSame($originalRevisionCount, $page->revision_count);
+
+        $this->assertDatabaseMissing('page_revisions', [
+            'page_id' => $page->id,
+            'revision_number' => $originalRevisionCount + 1,
+        ]);
+    }
+
+        /**
+     * UT-PG-14
+     * Publicar actualización elimina borradores temporales.
+     */
+    public function test_ut_pg_14_publicar_actualizacion_elimina_borradores_temporales(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con borrador temporal',
+            'html' => '<p>Contenido original</p>',
+        ]);
+
+        $page->refresh();
+
+        $draftRevision = $pageRepo->updatePageDraft($page, [
+            'name' => 'Borrador temporal de edición',
+            'html' => '<p>Contenido temporal</p>',
+        ]);
+
+        $draftRevision->refresh();
+
+        $this->assertInstanceOf(PageRevision::class, $draftRevision);
+        $this->assertSame($page->id, $draftRevision->page_id);
+        $this->assertSame('update_draft', $draftRevision->type);
+        $this->assertSame('Borrador temporal de edición', $draftRevision->name);
+        $this->assertSame('<p>Contenido temporal</p>', $draftRevision->html);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'id' => $draftRevision->id,
+            'page_id' => $page->id,
+            'type' => 'update_draft',
+            'name' => 'Borrador temporal de edición',
+            'html' => '<p>Contenido temporal</p>',
+        ]);
+
+        $page = $pageRepo->update($page, [
+            'name' => 'Página actualizada oficialmente',
+            'html' => '<p>Contenido oficial</p>',
+            'summary' => 'Actualización oficial',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Página actualizada oficialmente', $page->name);
+        $this->assertSame('Contenido oficial', $page->text);
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseMissing('page_revisions', [
+            'id' => $draftRevision->id,
+            'type' => 'update_draft',
+        ]);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'name' => 'Página actualizada oficialmente',
+            'text' => 'Contenido oficial',
+            'summary' => 'Actualización oficial',
+        ]);
+
+        $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
+    }
+
+    /**
+     * UT-PG-15
+     * Actualización con resumen registra trazabilidad.
+     */
+    public function test_ut_pg_15_actualizacion_con_resumen_registra_trazabilidad(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con resumen',
+            'html' => '<p>Contenido inicial</p>',
+        ]);
+
+        $summary = 'Resumen de cambio para trazabilidad';
+
+        $page = $pageRepo->update($page, [
+            'name' => 'Página con resumen actualizado',
+            'html' => '<p>Contenido actualizado con resumen</p>',
+            'summary' => $summary,
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Página con resumen actualizado', $page->name);
+        $this->assertSame('Contenido actualizado con resumen', $page->text);
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'summary' => $summary,
+            'text' => 'Contenido actualizado con resumen',
         ]);
 
         $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
