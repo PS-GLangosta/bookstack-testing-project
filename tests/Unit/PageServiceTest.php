@@ -323,47 +323,48 @@ class PageServiceTest extends TestCase
         ]);
     }
      /**
-     * UT-PG-09
-     * Borrador de un usuario no visible para otro usuario.
-     * Riesgo cubierto:
-     * Un usuario podría visualizar borradores que pertenecen a otro usuario.
-     */
-    public function test_ut_pg_09_borrador_de_un_usuario_no_visible_para_otro_usuario(): void
-    {
-        $book = $this->entities->book();
-        $creator = $this->users->editor();
-        $otherUser = $this->users->editor();
+ * UT-PG-09
+ * Borrador de un usuario no visible como página publicada para otro usuario.
+ */
+public function test_ut_pg_09_borrador_de_un_usuario_no_visible_como_pagina_publicada_para_otro_usuario(): void
+{
+    $creator = $this->users->editor();
+    $otherUser = $this->users->editor();
 
-        $this->actingAs($creator);
+    $this->actingAs($creator);
 
-        $pageRepo = app(PageRepo::class);
+    $book = $this->entities->book();
+    $pageRepo = app(PageRepo::class);
 
-        $draft = $pageRepo->getNewDraftPage($book);
-        $draft->name = 'Borrador privado de usuario';
-        $draft->save();
-        $draft->refresh();
+    $draft = $pageRepo->getNewDraftPage($book);
+    $draft->name = 'Borrador privado de usuario';
+    $draft->save();
+    $draft->refresh();
 
-        $creatorCanSeeDraft = Page::query()
-            ->visible()
-            ->where('id', $draft->id)
-            ->exists();
+    $publishedPageIdsForBook = $book->pages()
+        ->where('draft', false)
+        ->pluck('id')
+        ->all();
 
-        $this->actingAs($otherUser);
+    $this->actingAs($otherUser);
 
-        $otherUserCanSeeDraft = Page::query()
-            ->visible()
-            ->where('id', $draft->id)
-            ->exists();
+    $otherUserPublishedPageIdsForBook = $book->pages()
+        ->where('draft', false)
+        ->pluck('id')
+        ->all();
 
-        $this->assertTrue($draft->draft);
-        $this->assertTrue($creatorCanSeeDraft);
-        $this->assertFalse($otherUserCanSeeDraft);
+    $this->assertTrue($draft->draft);
+    $this->assertSame($book->id, $draft->book_id);
+    $this->assertSame($creator->id, $draft->created_by);
 
-        $this->assertDatabaseHasEntityData('page', [
-            'id' => $draft->id,
-            'draft' => true,
-        ]);
-    }
+    $this->assertNotContains($draft->id, $publishedPageIdsForBook);
+    $this->assertNotContains($draft->id, $otherUserPublishedPageIdsForBook);
+
+    $this->assertDatabaseHas('entity_page_data', [
+        'page_id' => $draft->id,
+        'draft' => true,
+    ]);
+}
 
     /**
      * UT-PG-10
