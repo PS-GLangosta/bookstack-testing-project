@@ -4,9 +4,11 @@ namespace Tests\Unit;
 
 use BookStack\Activity\ActivityType;
 use BookStack\Entities\Models\PageRevision;
+use BookStack\Entities\Models\Page;
 use BookStack\Entities\Repos\PageRepo;
 use BookStack\Exports\ExportFormatter;
 use Tests\TestCase;
+use Throwable;
 
 class PageServiceTest extends TestCase
 {
@@ -211,5 +213,255 @@ class PageServiceTest extends TestCase
             'page_id' => $draft->id,
             'draft' => true,
         ]);
+    }
+
+    /**
+     * UT-PG-06
+     * Restaurar revisión inexistente no modifica la página.
+     *
+     * Este caso valida un escenario negativo:
+     * si se intenta restaurar una revisión que no existe,
+     * el contenido actual de la página no debe quedar alterado.
+     */
+    public function test_ut_pg_06_restaurar_revision_inexistente_no_modifica_la_pagina(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página protegida',
+            'html' => '<p>Contenido vigente</p>',
+        ]);
+
+        $page->refresh();
+
+        $originalName = $page->name;
+        $originalText = $page->text;
+        $originalRevisionCount = $page->revision_count;
+
+        $revisionInexistente = 99999999;
+
+        try {
+            $pageRepo->restoreRevision($page, $revisionInexistente);
+
+            $this->fail('Se esperaba una excepción al intentar restaurar una revisión inexistente.');
+        } catch (Throwable $exception) {
+            $page->refresh();
+
+            $this->assertSame($originalName, $page->name);
+            $this->assertSame($originalText, $page->text);
+            $this->assertSame($originalRevisionCount, $page->revision_count);
+
+            $this->assertDatabaseMissing('page_revisions', [
+                'page_id' => $page->id,
+                'revision_number' => $originalRevisionCount + 1,
+            ]);
+        }
+    }
+
+    /**
+     * UT-PG-07
+     * Exportar página con contenido potencialmente inseguro.
+     *
+     * Este caso valida que la exportación a texto plano no incluya
+     * etiquetas HTML ni scripts ejecutables.
+     */
+    public function test_ut_pg_07_exportar_pagina_con_contenido_inseguro_no_expone_script_ejecutable(): void
+    {
+        $this->asEditor();
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con contenido inseguro',
+            'html' => '<p>Texto válido</p><script>alert(1)</script>',
+        ]);
+
+        $plainText = app(ExportFormatter::class)->pageToPlainText($page->refresh());
+
+        $this->assertStringContainsString('Página con contenido inseguro', $plainText);
+        $this->assertStringContainsString('Texto válido', $plainText);
+
+        $this->assertStringNotContainsString('<script>', $plainText);
+        $this->assertStringNotContainsString('</script>', $plainText);
+        $this->assertStringNotContainsString('alert(1)', $plainText);
+    }
+
+    /**
+     * UT-PG-08
+     * Página publicada aparece como contenido publicado.
+     * UT-PG-08 valida el flujo positivo: una página publicada sí aparece.
+     */
+    public function test_ut_pg_08_pagina_publicada_aparece_como_contenido_publicado(): void
+    {
+        $this->asEditor();
+
+        $book = $this->entities->book();
+        $pageRepo = app(PageRepo::class);
+
+        $draft = $pageRepo->getNewDraftPage($book);
+
+        $page = $pageRepo->publishDraft($draft, [
+            'name' => 'Página publicada visible',
+            'html' => '<p>Contenido publicado</p>',
+        ]);
+
+        $page->refresh();
+
+        $publishedPages = $book->pages()
+            ->where('draft', false)
+            ->pluck('id')
+            ->all();
+
+        $this->assertFalse($page->draft);
+        $this->assertSame($book->id, $page->book_id);
+        $this->assertContains($page->id, $publishedPages);
+
+        $this->assertDatabaseHas('entity_page_data', [
+            'page_id' => $page->id,
+            'draft' => false,
+            'text' => 'Contenido publicado',
+        ]);
+    }
+     /**
+     * UT-PG-09
+     * Borrador de un usuario no visible para otro usuario.
+     * Riesgo cubierto:
+     * Un usuario podría visualizar borradores que pertenecen a otro usuario.
+     */
+    public function test_ut_pg_09_borrador_de_un_usuario_no_visible_para_otro_usuario(): void
+    {
+        $book = $this->entities->book();
+        $creator = $this->users->editor();
+        $otherUser = $this->users->editor();
+
+        $this->actingAs($creator);
+
+        $pageRepo = app(PageRepo::class);
+
+        $draft = $pageRepo->getNewDraftPage($book);
+        $draft->name = 'Borrador privado de usuario';
+        $draft->save();
+        $draft->refresh();
+
+        $creatorCanSeeDraft = Page::query()
+            ->visible()
+            ->where('id', $draft->id)
+            ->exists();
+
+        $this->actingAs($otherUser);
+
+        $otherUserCanSeeDraft = Page::query()
+            ->visible()
+            ->where('id', $draft->id)
+            ->exists();
+
+        $this->assertTrue($draft->draft);
+        $this->assertTrue($creatorCanSeeDraft);
+        $this->assertFalse($otherUserCanSeeDraft);
+
+        $this->assertDatabaseHasEntityData('page', [
+            'id' => $draft->id,
+            'draft' => true,
+        ]);
+    }
+
+    /**
+     * UT-PG-10
+     * Actualizar página con contenido HTML vacío válido.
+     * Riesgo cubierto:
+     * El sistema podría fallar o conservar contenido antiguo cuando el usuario limpia
+     * completamente el contenido de una página.
+     */
+    public function test_ut_pg_10_actualizar_pagina_con_html_vacio_valido(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con contenido para limpiar',
+            'html' => '<p>Contenido que será eliminado</p>',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Contenido que será eliminado', $page->text);
+        $this->assertSame(1, $page->revision_count);
+
+        $page = $pageRepo->update($page, [
+            'name' => 'Página con contenido vacío',
+            'html' => '',
+            'summary' => 'Se limpia el contenido de la página',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Página con contenido vacío', $page->name);
+        $this->assertSame('', $page->html);
+        $this->assertSame('', $page->text);
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'name' => 'Página con contenido vacío',
+            'text' => '',
+            'summary' => 'Se limpia el contenido de la página',
+        ]);
+
+        $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
+    }
+
+    /**
+     * UT-PG-11
+     * Actualizar página con caracteres especiales.
+     * Riesgo cubierto:
+     * Pérdida, corrupción o escape incorrecto de caracteres especiales.
+     */
+    public function test_ut_pg_11_actualizar_pagina_con_caracteres_especiales(): void
+    {
+        $this->asEditor();
+
+        $pageRepo = app(PageRepo::class);
+
+        $page = $this->entities->newPage([
+            'name' => 'Página con contenido normal',
+            'html' => '<p>Contenido inicial</p>',
+        ]);
+
+        $htmlEspecial = '<p>Texto con áéíóú ñ Ñ &amp; &lt; &gt; &quot; &#039;</p>';
+
+        $page = $pageRepo->update($page, [
+            'name' => 'Página con caracteres especiales',
+            'html' => $htmlEspecial,
+            'summary' => 'Actualización con caracteres especiales',
+        ]);
+
+        $page->refresh();
+
+        $this->assertSame('Página con caracteres especiales', $page->name);
+
+        $this->assertStringContainsString('Texto con áéíóú ñ Ñ', $page->html);
+        $this->assertStringContainsString('&amp;', $page->html);
+        $this->assertStringContainsString('&lt;', $page->html);
+        $this->assertStringContainsString('&gt;', $page->html);
+
+        $this->assertStringContainsString('Texto con áéíóú ñ Ñ', $page->text);
+        $this->assertStringContainsString('&', $page->text);
+        $this->assertStringContainsString('<', $page->text);
+        $this->assertStringContainsString('>', $page->text);
+
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'name' => 'Página con caracteres especiales',
+            'summary' => 'Actualización con caracteres especiales',
+        ]);
+
+        $this->assertActivityExists(ActivityType::PAGE_UPDATE, $page);
     }
 }
