@@ -65,6 +65,12 @@
     <server name="EXPORT_PDF_COMMAND" value="false"/>
     <server name="APP_DEFAULT_DARK_MODE" value="false"/>
     <server name="IP_ADDRESS_PRECISION" value="4"/>
+    
+    <env name="DB_TESTING_HOST" value="127.0.0.1"/>
+    <env name="DB_TESTING_PORT" value="3306"/>
+    <env name="DB_TESTING_DATABASE" value="bookstack-test"/>
+    <env name="DB_TESTING_USERNAME" value="bookstack-test"/>
+    <env name="DB_TESTING_PASSWORD" value="bookstack-test"/>
   </php>
   <source>
     <include>
