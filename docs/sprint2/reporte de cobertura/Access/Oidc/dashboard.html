@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app\Access\Oidc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/nv.d3.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/style.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../../index.html">C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">Access</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Oidc</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="OidcOAuthProvider.php.html#19">BookStack\Access\Oidc\OidcOAuthProvider</a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="OidcJwtSigningKey.php.html#10">BookStack\Access\Oidc\OidcJwtSigningKey</a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="OidcAccessToken.php.html#8">BookStack\Access\Oidc\OidcAccessToken</a></td><td class="text-right">71%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="OidcJwtSigningKey.php.html#10">BookStack\Access\Oidc\OidcJwtSigningKey</a></td><td class="text-right">25</td></tr>
+       <tr><td><a href="OidcOAuthProvider.php.html#19">BookStack\Access\Oidc\OidcOAuthProvider</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="OidcAccessToken.php.html#8">BookStack\Access\Oidc\OidcAccessToken</a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="OidcJwtSigningKey.php.html#109"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::toPem">toPem</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OidcOAuthProvider.php.html#50"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::getResourceOwnerDetailsUrl">getResourceOwnerDetailsUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OidcOAuthProvider.php.html#103"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::createResourceOwner">createResourceOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OidcOAuthProvider.php.html#88"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::checkResponse">checkResponse</abbr></a></td><td class="text-right">16%</td></tr>
+       <tr><td><a href="OidcAccessToken.php.html#28"><abbr title="BookStack\Access\Oidc\OidcAccessToken::validate">validate</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="OidcJwtSigningKey.php.html#36"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromPath">loadFromPath</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="OidcJwtSigningKey.php.html#56"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromJwkArray">loadFromJwkArray</abbr></a></td><td class="text-right">65%</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#54"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validateInitial">validateInitial</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#174"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::loadKeysFromUri">loadKeysFromUri</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#97"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::discoverFromIssuer">discoverFromIssuer</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="OidcUserDetails.php.html#62"><abbr title="BookStack\Access\Oidc\OidcUserDetails::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#73"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validate">validate</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="OidcJwtSigningKey.php.html#56"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromJwkArray">loadFromJwkArray</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="OidcOAuthProvider.php.html#88"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::checkResponse">checkResponse</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#73"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validate">validate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#54"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validateInitial">validateInitial</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="OidcAccessToken.php.html#28"><abbr title="BookStack\Access\Oidc\OidcAccessToken::validate">validate</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#174"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::loadKeysFromUri">loadKeysFromUri</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="OidcJwtSigningKey.php.html#36"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromPath">loadFromPath</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="OidcUserDetails.php.html#62"><abbr title="BookStack\Access\Oidc\OidcUserDetails::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="OidcProviderSettings.php.html#97"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::discoverFromIssuer">discoverFromIssuer</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.12</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.22</a> and <a href="https://phpunit.de/">PHPUnit 11.5.55</a> at Thu Jun 11 2:38:59 UTC 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../_js/jquery.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../../_js/d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../../_js/nv.d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,1,1,1,0,3,7], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,1,0,0,0,1,3,0,4,2,47], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[71.42857142857143,5,"<a href=\"OidcAccessToken.php.html#8\">BookStack\\Access\\Oidc\\OidcAccessToken<\/a>"],[100,0,"<a href=\"OidcException.php.html#7\">BookStack\\Access\\Oidc\\OidcException<\/a>"],[100,12,"<a href=\"OidcIdToken.php.html#5\">BookStack\\Access\\Oidc\\OidcIdToken<\/a>"],[100,0,"<a href=\"OidcInvalidKeyException.php.html#5\">BookStack\\Access\\Oidc\\OidcInvalidKeyException<\/a>"],[100,0,"<a href=\"OidcInvalidTokenException.php.html#7\">BookStack\\Access\\Oidc\\OidcInvalidTokenException<\/a>"],[100,0,"<a href=\"OidcIssuerDiscoveryException.php.html#7\">BookStack\\Access\\Oidc\\OidcIssuerDiscoveryException<\/a>"],[68.57142857142857,17,"<a href=\"OidcJwtSigningKey.php.html#10\">BookStack\\Access\\Oidc\\OidcJwtSigningKey<\/a>"],[100,26,"<a href=\"OidcJwtWithClaims.php.html#5\">BookStack\\Access\\Oidc\\OidcJwtWithClaims<\/a>"],[56.25,12,"<a href=\"OidcOAuthProvider.php.html#19\">BookStack\\Access\\Oidc\\OidcOAuthProvider<\/a>"],[90.625,34,"<a href=\"OidcProviderSettings.php.html#16\">BookStack\\Access\\Oidc\\OidcProviderSettings<\/a>"],[99.25925925925925,36,"<a href=\"OidcService.php.html#24\">BookStack\\Access\\Oidc\\OidcService<\/a>"],[96.66666666666667,18,"<a href=\"OidcUserDetails.php.html#7\">BookStack\\Access\\Oidc\\OidcUserDetails<\/a>"],[100,10,"<a href=\"OidcUserinfoResponse.php.html#7\">BookStack\\Access\\Oidc\\OidcUserinfoResponse<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"OidcAccessToken.php.html#18\">BookStack\\Access\\Oidc\\OidcAccessToken::__construct<\/a>"],[50,3,"<a href=\"OidcAccessToken.php.html#28\">BookStack\\Access\\Oidc\\OidcAccessToken::validate<\/a>"],[100,1,"<a href=\"OidcAccessToken.php.html#49\">BookStack\\Access\\Oidc\\OidcAccessToken::getIdToken<\/a>"],[100,1,"<a href=\"OidcIdToken.php.html#12\">BookStack\\Access\\Oidc\\OidcIdToken::validate<\/a>"],[100,11,"<a href=\"OidcIdToken.php.html#26\">BookStack\\Access\\Oidc\\OidcIdToken::validateTokenClaims<\/a>"],[100,3,"<a href=\"OidcJwtSigningKey.php.html#22\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::__construct<\/a>"],[62.5,3,"<a href=\"OidcJwtSigningKey.php.html#36\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::loadFromPath<\/a>"],[65,9,"<a href=\"OidcJwtSigningKey.php.html#56\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::loadFromJwkArray<\/a>"],[100,1,"<a href=\"OidcJwtSigningKey.php.html#101\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::verify<\/a>"],[0,1,"<a href=\"OidcJwtSigningKey.php.html#109\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::toPem<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#18\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::__construct<\/a>"],[100,2,"<a href=\"OidcJwtWithClaims.php.html#28\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::parse<\/a>"],[100,3,"<a href=\"OidcJwtWithClaims.php.html#40\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::parseEncodedTokenPart<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#52\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::base64UrlDecode<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#62\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateCommonTokenDetails<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#75\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::getClaim<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#83\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::getAllClaims<\/a>"],[100,1,"<a href=\"OidcJwtWithClaims.php.html#91\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::replaceClaims<\/a>"],[100,4,"<a href=\"OidcJwtWithClaims.php.html#102\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateTokenStructure<\/a>"],[100,5,"<a href=\"OidcJwtWithClaims.php.html#120\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateTokenSignature<\/a>"],[100,6,"<a href=\"OidcJwtWithClaims.php.html#154\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateCommonClaims<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#34\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getBaseAuthorizationUrl<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#42\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getBaseAccessTokenUrl<\/a>"],[0,1,"<a href=\"OidcOAuthProvider.php.html#50\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getResourceOwnerDetailsUrl<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#58\">BookStack\\Access\\Oidc\\OidcOAuthProvider::addScope<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#70\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getDefaultScopes<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#79\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getScopeSeparator<\/a>"],[16.666666666666664,3,"<a href=\"OidcOAuthProvider.php.html#88\">BookStack\\Access\\Oidc\\OidcOAuthProvider::checkResponse<\/a>"],[0,1,"<a href=\"OidcOAuthProvider.php.html#103\">BookStack\\Access\\Oidc\\OidcOAuthProvider::createResourceOwner<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#114\">BookStack\\Access\\Oidc\\OidcOAuthProvider::createAccessToken<\/a>"],[100,1,"<a href=\"OidcOAuthProvider.php.html#123\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getPkceMethod<\/a>"],[100,1,"<a href=\"OidcProviderSettings.php.html#31\">BookStack\\Access\\Oidc\\OidcProviderSettings::__construct<\/a>"],[100,3,"<a href=\"OidcProviderSettings.php.html#40\">BookStack\\Access\\Oidc\\OidcProviderSettings::applySettingsFromArray<\/a>"],[66.66666666666666,4,"<a href=\"OidcProviderSettings.php.html#54\">BookStack\\Access\\Oidc\\OidcProviderSettings::validateInitial<\/a>"],[88.88888888888889,6,"<a href=\"OidcProviderSettings.php.html#73\">BookStack\\Access\\Oidc\\OidcProviderSettings::validate<\/a>"],[85.71428571428571,2,"<a href=\"OidcProviderSettings.php.html#97\">BookStack\\Access\\Oidc\\OidcProviderSettings::discoverFromIssuer<\/a>"],[95.23809523809523,9,"<a href=\"OidcProviderSettings.php.html#114\">BookStack\\Access\\Oidc\\OidcProviderSettings::loadSettingsFromIssuerDiscovery<\/a>"],[100,3,"<a href=\"OidcProviderSettings.php.html#158\">BookStack\\Access\\Oidc\\OidcProviderSettings::filterKeys<\/a>"],[83.33333333333334,4,"<a href=\"OidcProviderSettings.php.html#174\">BookStack\\Access\\Oidc\\OidcProviderSettings::loadKeysFromUri<\/a>"],[100,2,"<a href=\"OidcProviderSettings.php.html#190\">BookStack\\Access\\Oidc\\OidcProviderSettings::arrayForOAuthProvider<\/a>"],[100,1,"<a href=\"OidcService.php.html#26\">BookStack\\Access\\Oidc\\OidcService::__construct<\/a>"],[100,2,"<a href=\"OidcService.php.html#44\">BookStack\\Access\\Oidc\\OidcService::login<\/a>"],[100,1,"<a href=\"OidcService.php.html#73\">BookStack\\Access\\Oidc\\OidcService::processAuthorizeResponse<\/a>"],[100,7,"<a href=\"OidcService.php.html#93\">BookStack\\Access\\Oidc\\OidcService::getProviderSettings<\/a>"],[100,2,"<a href=\"OidcService.php.html#136\">BookStack\\Access\\Oidc\\OidcService::getProvider<\/a>"],[100,2,"<a href=\"OidcService.php.html#158\">BookStack\\Access\\Oidc\\OidcService::getAdditionalScopes<\/a>"],[97.5609756097561,12,"<a href=\"OidcService.php.html#176\">BookStack\\Access\\Oidc\\OidcService::processAccessTokenCallback<\/a>"],[100,4,"<a href=\"OidcService.php.html#247\">BookStack\\Access\\Oidc\\OidcService::getUserDetailsFromToken<\/a>"],[100,1,"<a href=\"OidcService.php.html#286\">BookStack\\Access\\Oidc\\OidcService::config<\/a>"],[100,1,"<a href=\"OidcService.php.html#294\">BookStack\\Access\\Oidc\\OidcService::shouldSyncGroups<\/a>"],[100,3,"<a href=\"OidcService.php.html#305\">BookStack\\Access\\Oidc\\OidcService::logout<\/a>"],[100,1,"<a href=\"OidcUserDetails.php.html#9\">BookStack\\Access\\Oidc\\OidcUserDetails::__construct<\/a>"],[100,5,"<a href=\"OidcUserDetails.php.html#21\">BookStack\\Access\\Oidc\\OidcUserDetails::isFullyPopulated<\/a>"],[100,3,"<a href=\"OidcUserDetails.php.html#34\">BookStack\\Access\\Oidc\\OidcUserDetails::populate<\/a>"],[100,3,"<a href=\"OidcUserDetails.php.html#47\">BookStack\\Access\\Oidc\\OidcUserDetails::getUserDisplayName<\/a>"],[87.5,3,"<a href=\"OidcUserDetails.php.html#62\">BookStack\\Access\\Oidc\\OidcUserDetails::getUserGroups<\/a>"],[100,3,"<a href=\"OidcUserDetails.php.html#78\">BookStack\\Access\\Oidc\\OidcUserDetails::getPicture<\/a>"],[100,3,"<a href=\"OidcUserinfoResponse.php.html#12\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::__construct<\/a>"],[100,5,"<a href=\"OidcUserinfoResponse.php.html#30\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::validate<\/a>"],[100,1,"<a href=\"OidcUserinfoResponse.php.html#60\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::getClaim<\/a>"],[100,1,"<a href=\"OidcUserinfoResponse.php.html#65\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::getAllClaims<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

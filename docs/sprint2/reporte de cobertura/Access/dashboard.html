@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app\Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Access</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#9">BookStack\Access\ExternalBaseUserProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/AsyncExternalBaseSessionGuard.php.html#12">BookStack\Access\Guards\AsyncExternalBaseSessionGuard</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#10">BookStack\Access\Ldap</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#17">BookStack\Access\Guards\LdapSessionGuard</a></td><td class="text-right">10%</td></tr>
+       <tr><td><a href="Notifications/ResetPasswordNotification.php.html#9">BookStack\Access\Notifications\ResetPasswordNotification</a></td><td class="text-right">16%</td></tr>
+       <tr><td><a href="LdapService.php.html#16">BookStack\Access\LdapService</a></td><td class="text-right">26%</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#19">BookStack\Access\Oidc\OidcOAuthProvider</a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="UserInviteService.php.html#8">BookStack\Access\UserInviteService</a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#19">BookStack\Access\Guards\ExternalBaseSessionGuard</a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#10">BookStack\Access\Oidc\OidcJwtSigningKey</a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Oidc/OidcAccessToken.php.html#8">BookStack\Access\Oidc\OidcAccessToken</a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#15">BookStack\Access\Controllers\LoginController</a></td><td class="text-right">81%</td></tr>
+       <tr><td><a href="Controllers/ForgotPasswordController.php.html#11">BookStack\Access\Controllers\ForgotPasswordController</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#16">BookStack\Access\SocialAuthService</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#21">BookStack\Access\Saml2Service</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Controllers/ConfirmEmailController.php.html#15">BookStack\Access\Controllers\ConfirmEmailController</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#17">BookStack\Access\Controllers\SocialController</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="EmailConfirmationService.php.html#10">BookStack\Access\EmailConfirmationService</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/HandlesPartialLogins.php.html#9">BookStack\Access\Controllers\HandlesPartialLogins</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#10">BookStack\Access\Controllers\Saml2Controller</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="LdapService.php.html#16">BookStack\Access\LdapService</a></td><td class="text-right">2161</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#17">BookStack\Access\Guards\LdapSessionGuard</a></td><td class="text-right">155</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#19">BookStack\Access\Guards\ExternalBaseSessionGuard</a></td><td class="text-right">53</td></tr>
+       <tr><td><a href="Saml2Service.php.html#21">BookStack\Access\Saml2Service</a></td><td class="text-right">46</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#15">BookStack\Access\Controllers\LoginController</a></td><td class="text-right">32</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#16">BookStack\Access\SocialAuthService</a></td><td class="text-right">27</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#10">BookStack\Access\Oidc\OidcJwtSigningKey</a></td><td class="text-right">25</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#19">BookStack\Access\Oidc\OidcOAuthProvider</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#17">BookStack\Access\Controllers\SocialController</a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#10">BookStack\Access\Controllers\Saml2Controller</a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Controllers/ConfirmEmailController.php.html#15">BookStack\Access\Controllers\ConfirmEmailController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Oidc/OidcAccessToken.php.html#8">BookStack\Access\Oidc\OidcAccessToken</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Controllers/ForgotPasswordController.php.html#11">BookStack\Access\Controllers\ForgotPasswordController</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="EmailConfirmationService.php.html#10">BookStack\Access\EmailConfirmationService</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/HandlesPartialLogins.php.html#9">BookStack\Access\Controllers\HandlesPartialLogins</a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="UserInviteService.php.html#8">BookStack\Access\UserInviteService</a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/LoginController.php.html#166"><abbr title="BookStack\Access\Controllers\LoginController::sendLoginAttemptExceptionResponse">sendLoginAttemptExceptionResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#14"><abbr title="BookStack\Access\ExternalBaseUserProvider::retrieveById">retrieveById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#24"><abbr title="BookStack\Access\ExternalBaseUserProvider::retrieveByToken">retrieveByToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#37"><abbr title="BookStack\Access\ExternalBaseUserProvider::updateRememberToken">updateRememberToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#45"><abbr title="BookStack\Access\ExternalBaseUserProvider::retrieveByCredentials">retrieveByCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#55"><abbr title="BookStack\Access\ExternalBaseUserProvider::validateCredentials">validateCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ExternalBaseUserProvider.php.html#61"><abbr title="BookStack\Access\ExternalBaseUserProvider::rehashPasswordIfRequired">rehashPasswordIfRequired</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/AsyncExternalBaseSessionGuard.php.html#17"><abbr title="BookStack\Access\Guards\AsyncExternalBaseSessionGuard::validate">validate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/AsyncExternalBaseSessionGuard.php.html#27"><abbr title="BookStack\Access\Guards\AsyncExternalBaseSessionGuard::attempt">attempt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#105"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::once">once</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#119"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::onceUsingId">onceUsingId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#133"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::validate">validate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#142"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::attempt">attempt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#151"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::loginUsingId">loginUsingId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#206"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::getLastAttempted">getLastAttempted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#222"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::viaRemember">viaRemember</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#230"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#40"><abbr title="BookStack\Access\Guards\LdapSessionGuard::validate">validate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#108"><abbr title="BookStack\Access\Guards\LdapSessionGuard::createNewFromLdapAndCreds">createNewFromLdapAndCreds</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#17"><abbr title="BookStack\Access\Ldap::connect">connect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#27"><abbr title="BookStack\Access\Ldap::setOption">setOption</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#35"><abbr title="BookStack\Access\Ldap::startTls">startTls</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#45"><abbr title="BookStack\Access\Ldap::setVersion">setVersion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#57"><abbr title="BookStack\Access\Ldap::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#69"><abbr title="BookStack\Access\Ldap::read">read</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#80"><abbr title="BookStack\Access\Ldap::getEntries">getEntries</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#90"><abbr title="BookStack\Access\Ldap::searchAndGetEntries">searchAndGetEntries</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#102"><abbr title="BookStack\Access\Ldap::bind">bind</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#110"><abbr title="BookStack\Access\Ldap::explodeDn">explodeDn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Ldap.php.html#118"><abbr title="BookStack\Access\Ldap::escape">escape</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#38"><abbr title="BookStack\Access\LdapService::shouldSyncGroups">shouldSyncGroups</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#77"><abbr title="BookStack\Access\LdapService::getUserDisplayName">getUserDisplayName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#144"><abbr title="BookStack\Access\LdapService::getUserResponseProperty">getUserResponseProperty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#169"><abbr title="BookStack\Access\LdapService::validateUserCredentials">validateUserCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#339"><abbr title="BookStack\Access\LdapService::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#364"><abbr title="BookStack\Access\LdapService::extractGroupNamesFromLdapGroupDns">extractGroupNamesFromLdapGroupDns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#384"><abbr title="BookStack\Access\LdapService::getGroupsRecursive">getGroupsRecursive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#409"><abbr title="BookStack\Access\LdapService::getParentsOfGroup">getParentsOfGroup</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#429"><abbr title="BookStack\Access\LdapService::extractGroupsFromSearchResponseEntry">extractGroupsFromSearchResponseEntry</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#455"><abbr title="BookStack\Access\LdapService::syncGroups">syncGroups</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LdapService.php.html#465"><abbr title="BookStack\Access\LdapService::saveAndAttachAvatar">saveAndAttachAvatar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Notifications/ResetPasswordNotification.php.html#16"><abbr title="BookStack\Access\Notifications\ResetPasswordNotification::toMail">toMail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#109"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::toPem">toPem</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#50"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::getResourceOwnerDetailsUrl">getResourceOwnerDetailsUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#103"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::createResourceOwner">createResourceOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#62"><abbr title="BookStack\Access\Guards\LdapSessionGuard::attempt">attempt</abbr></a></td><td class="text-right">10%</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#88"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::checkResponse">checkResponse</abbr></a></td><td class="text-right">16%</td></tr>
+       <tr><td><a href="LdapService.php.html#100"><abbr title="BookStack\Access\LdapService::getUserDetails">getUserDetails</abbr></a></td><td class="text-right">28%</td></tr>
+       <tr><td><a href="LdapService.php.html#319"><abbr title="BookStack\Access\LdapService::buildFilter">buildFilter</abbr></a></td><td class="text-right">37%</td></tr>
+       <tr><td><a href="LdapService.php.html#284"><abbr title="BookStack\Access\LdapService::configureTlsCaCerts">configureTlsCaCerts</abbr></a></td><td class="text-right">44%</td></tr>
+       <tr><td><a href="LdapService.php.html#48"><abbr title="BookStack\Access\LdapService::getUserWithAttributes">getUserWithAttributes</abbr></a></td><td class="text-right">46%</td></tr>
+       <tr><td><a href="Oidc/OidcAccessToken.php.html#28"><abbr title="BookStack\Access\Oidc\OidcAccessToken::validate">validate</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="RegistrationService.php.html#28"><abbr title="BookStack\Access\RegistrationService::ensureRegistrationAllowed">ensureRegistrationAllowed</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#56"><abbr title="BookStack\Access\SocialAuthService::handleRegistrationCallback">handleRegistrationCallback</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="SocialDriverManager.php.html#125"><abbr title="BookStack\Access\SocialDriverManager::ensureDriverActive">ensureDriverActive</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Controllers/ConfirmEmailController.php.html#97"><abbr title="BookStack\Access\Controllers\ConfirmEmailController::resend">resend</abbr></a></td><td class="text-right">53%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#156"><abbr title="BookStack\Access\Saml2Service::metadata">metadata</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="UserInviteService.php.html#18"><abbr title="BookStack\Access\UserInviteService::sendInvitation">sendInvitation</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#36"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromPath">loadFromPath</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#56"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromJwkArray">loadFromJwkArray</abbr></a></td><td class="text-right">65%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#60"><abbr title="BookStack\Access\Controllers\SocialController::callback">callback</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#54"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validateInitial">validateInitial</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#95"><abbr title="BookStack\Access\Saml2Service::processAcsResponse">processAcsResponse</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#127"><abbr title="BookStack\Access\Saml2Service::processSlsResponse">processSlsResponse</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#325"><abbr title="BookStack\Access\Saml2Service::getSamlResponseAttribute">getSamlResponseAttribute</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="LdapService.php.html#219"><abbr title="BookStack\Access\LdapService::getConnection">getConnection</abbr></a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#79"><abbr title="BookStack\Access\Controllers\Saml2Controller::startAcs">startAcs</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="LdapService.php.html#194"><abbr title="BookStack\Access\LdapService::bindSystemUser">bindSystemUser</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="LoginService.php.html#67"><abbr title="BookStack\Access\LoginService::reattemptLoginFor">reattemptLoginFor</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#256"><abbr title="BookStack\Access\Saml2Service::getExternalId">getExternalId</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#307"><abbr title="BookStack\Access\Saml2Service::simplifyValue">simplifyValue</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="UserTokenService.php.html#59"><abbr title="BookStack\Access\UserTokenService::generateToken">generateToken</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#31"><abbr title="BookStack\Access\Controllers\LoginController::getLogin">getLogin</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="LoginService.php.html#95"><abbr title="BookStack\Access\LoginService::getLastLoginAttemptDetails">getLastLoginAttemptDetails</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#90"><abbr title="BookStack\Access\SocialAuthService::handleLoginCallback">handleLoginCallback</abbr></a></td><td class="text-right">79%</td></tr>
+       <tr><td><a href="EmailConfirmationService.php.html#22"><abbr title="BookStack\Access\EmailConfirmationService::sendConfirmation">sendConfirmation</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#91"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::id">id</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Saml2Service.php.html#290"><abbr title="BookStack\Access\Saml2Service::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/HandlesPartialLogins.php.html#14"><abbr title="BookStack\Access\Controllers\HandlesPartialLogins::currentOrLastAttemptedUser">currentOrLastAttemptedUser</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/ForgotPasswordController.php.html#30"><abbr title="BookStack\Access\Controllers\ForgotPasswordController::sendResetLinkEmail">sendResetLinkEmail</abbr></a></td><td class="text-right">81%</td></tr>
+       <tr><td><a href="Controllers/UserInviteController.php.html#87"><abbr title="BookStack\Access\Controllers\UserInviteController::handleTokenException">handleTokenException</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#174"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::loadKeysFromUri">loadKeysFromUri</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#32"><abbr title="BookStack\Access\Controllers\Saml2Controller::logout">logout</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#101"><abbr title="BookStack\Access\Controllers\Saml2Controller::processAcs">processAcs</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#97"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::discoverFromIssuer">discoverFromIssuer</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#62"><abbr title="BookStack\Access\Controllers\LoginController::login">login</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Controllers/MfaTotpController.php.html#59"><abbr title="BookStack\Access\Controllers\MfaTotpController::confirm">confirm</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="RegistrationService.php.html#78"><abbr title="BookStack\Access\RegistrationService::registerUser">registerUser</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#64"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::user">user</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Oidc/OidcUserDetails.php.html#62"><abbr title="BookStack\Access\Oidc\OidcUserDetails::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#73"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validate">validate</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#62"><abbr title="BookStack\Access\Guards\LdapSessionGuard::attempt">attempt</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="LdapService.php.html#144"><abbr title="BookStack\Access\LdapService::getUserResponseProperty">getUserResponseProperty</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#108"><abbr title="BookStack\Access\Guards\LdapSessionGuard::createNewFromLdapAndCreds">createNewFromLdapAndCreds</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#77"><abbr title="BookStack\Access\LdapService::getUserDisplayName">getUserDisplayName</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#364"><abbr title="BookStack\Access\LdapService::extractGroupNamesFromLdapGroupDns">extractGroupNamesFromLdapGroupDns</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#384"><abbr title="BookStack\Access\LdapService::getGroupsRecursive">getGroupsRecursive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#429"><abbr title="BookStack\Access\LdapService::extractGroupsFromSearchResponseEntry">extractGroupsFromSearchResponseEntry</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#465"><abbr title="BookStack\Access\LdapService::saveAndAttachAvatar">saveAndAttachAvatar</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="LdapService.php.html#219"><abbr title="BookStack\Access\LdapService::getConnection">getConnection</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="LdapService.php.html#100"><abbr title="BookStack\Access\LdapService::getUserDetails">getUserDetails</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#90"><abbr title="BookStack\Access\SocialAuthService::handleLoginCallback">handleLoginCallback</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#56"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromJwkArray">loadFromJwkArray</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#166"><abbr title="BookStack\Access\Controllers\LoginController::sendLoginAttemptExceptionResponse">sendLoginAttemptExceptionResponse</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LdapService.php.html#169"><abbr title="BookStack\Access\LdapService::validateUserCredentials">validateUserCredentials</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LdapService.php.html#339"><abbr title="BookStack\Access\LdapService::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LdapService.php.html#409"><abbr title="BookStack\Access\LdapService::getParentsOfGroup">getParentsOfGroup</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#60"><abbr title="BookStack\Access\Controllers\SocialController::callback">callback</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="LdapService.php.html#48"><abbr title="BookStack\Access\LdapService::getUserWithAttributes">getUserWithAttributes</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Oidc/OidcOAuthProvider.php.html#88"><abbr title="BookStack\Access\Oidc\OidcOAuthProvider::checkResponse">checkResponse</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="RegistrationService.php.html#78"><abbr title="BookStack\Access\RegistrationService::registerUser">registerUser</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="LdapService.php.html#284"><abbr title="BookStack\Access\LdapService::configureTlsCaCerts">configureTlsCaCerts</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#73"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validate">validate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#105"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::once">once</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#119"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::onceUsingId">onceUsingId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Guards/LdapSessionGuard.php.html#40"><abbr title="BookStack\Access\Guards\LdapSessionGuard::validate">validate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LdapService.php.html#38"><abbr title="BookStack\Access\LdapService::shouldSyncGroups">shouldSyncGroups</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/ConfirmEmailController.php.html#97"><abbr title="BookStack\Access\Controllers\ConfirmEmailController::resend">resend</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="LdapService.php.html#194"><abbr title="BookStack\Access\LdapService::bindSystemUser">bindSystemUser</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#31"><abbr title="BookStack\Access\Controllers\LoginController::getLogin">getLogin</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#101"><abbr title="BookStack\Access\Controllers\Saml2Controller::processAcs">processAcs</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#54"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::validateInitial">validateInitial</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Saml2Service.php.html#95"><abbr title="BookStack\Access\Saml2Service::processAcsResponse">processAcsResponse</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Oidc/OidcAccessToken.php.html#28"><abbr title="BookStack\Access\Oidc\OidcAccessToken::validate">validate</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="SocialAuthService.php.html#56"><abbr title="BookStack\Access\SocialAuthService::handleRegistrationCallback">handleRegistrationCallback</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="SocialDriverManager.php.html#125"><abbr title="BookStack\Access\SocialDriverManager::ensureDriverActive">ensureDriverActive</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#174"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::loadKeysFromUri">loadKeysFromUri</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/LoginController.php.html#62"><abbr title="BookStack\Access\Controllers\LoginController::login">login</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#64"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::user">user</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Oidc/OidcJwtSigningKey.php.html#36"><abbr title="BookStack\Access\Oidc\OidcJwtSigningKey::loadFromPath">loadFromPath</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Saml2Service.php.html#307"><abbr title="BookStack\Access\Saml2Service::simplifyValue">simplifyValue</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="LoginService.php.html#95"><abbr title="BookStack\Access\LoginService::getLastLoginAttemptDetails">getLastLoginAttemptDetails</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Guards/ExternalBaseSessionGuard.php.html#91"><abbr title="BookStack\Access\Guards\ExternalBaseSessionGuard::id">id</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/ForgotPasswordController.php.html#30"><abbr title="BookStack\Access\Controllers\ForgotPasswordController::sendResetLinkEmail">sendResetLinkEmail</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/UserInviteController.php.html#87"><abbr title="BookStack\Access\Controllers\UserInviteController::handleTokenException">handleTokenException</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#32"><abbr title="BookStack\Access\Controllers\Saml2Controller::logout">logout</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Oidc/OidcUserDetails.php.html#62"><abbr title="BookStack\Access\Oidc\OidcUserDetails::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="LdapService.php.html#319"><abbr title="BookStack\Access\LdapService::buildFilter">buildFilter</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="RegistrationService.php.html#28"><abbr title="BookStack\Access\RegistrationService::ensureRegistrationAllowed">ensureRegistrationAllowed</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Saml2Service.php.html#156"><abbr title="BookStack\Access\Saml2Service::metadata">metadata</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="UserInviteService.php.html#18"><abbr title="BookStack\Access\UserInviteService::sendInvitation">sendInvitation</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Saml2Service.php.html#127"><abbr title="BookStack\Access\Saml2Service::processSlsResponse">processSlsResponse</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Saml2Service.php.html#325"><abbr title="BookStack\Access\Saml2Service::getSamlResponseAttribute">getSamlResponseAttribute</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/Saml2Controller.php.html#79"><abbr title="BookStack\Access\Controllers\Saml2Controller::startAcs">startAcs</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="LoginService.php.html#67"><abbr title="BookStack\Access\LoginService::reattemptLoginFor">reattemptLoginFor</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Saml2Service.php.html#256"><abbr title="BookStack\Access\Saml2Service::getExternalId">getExternalId</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="UserTokenService.php.html#59"><abbr title="BookStack\Access\UserTokenService::generateToken">generateToken</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="EmailConfirmationService.php.html#22"><abbr title="BookStack\Access\EmailConfirmationService::sendConfirmation">sendConfirmation</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Saml2Service.php.html#290"><abbr title="BookStack\Access\Saml2Service::getUserGroups">getUserGroups</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/HandlesPartialLogins.php.html#14"><abbr title="BookStack\Access\Controllers\HandlesPartialLogins::currentOrLastAttemptedUser">currentOrLastAttemptedUser</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/MfaTotpController.php.html#59"><abbr title="BookStack\Access\Controllers\MfaTotpController::confirm">confirm</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Oidc/OidcProviderSettings.php.html#97"><abbr title="BookStack\Access\Oidc\OidcProviderSettings::discoverFromIssuer">discoverFromIssuer</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.12</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.22</a> and <a href="https://phpunit.de/">PHPUnit 11.5.55</a> at Thu Jun 11 2:38:59 UTC 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,2,1,0,0,1,3,1,9,10,23], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([45,0,2,1,1,2,5,10,9,16,10,197], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[85,12,"<a href=\"Controllers\/ConfirmEmailController.php.html#15\">BookStack\\Access\\Controllers\\ConfirmEmailController<\/a>"],[84.21052631578947,5,"<a href=\"Controllers\/ForgotPasswordController.php.html#11\">BookStack\\Access\\Controllers\\ForgotPasswordController<\/a>"],[81.94444444444444,28,"<a href=\"Controllers\/LoginController.php.html#15\">BookStack\\Access\\Controllers\\LoginController<\/a>"],[100,9,"<a href=\"Controllers\/MfaBackupCodesController.php.html#17\">BookStack\\Access\\Controllers\\MfaBackupCodesController<\/a>"],[100,6,"<a href=\"Controllers\/MfaController.php.html#10\">BookStack\\Access\\Controllers\\MfaController<\/a>"],[95.45454545454545,7,"<a href=\"Controllers\/MfaTotpController.php.html#17\">BookStack\\Access\\Controllers\\MfaTotpController<\/a>"],[95.45454545454545,10,"<a href=\"Controllers\/OidcController.php.html#10\">BookStack\\Access\\Controllers\\OidcController<\/a>"],[100,6,"<a href=\"Controllers\/RegisterController.php.html#16\">BookStack\\Access\\Controllers\\RegisterController<\/a>"],[100,7,"<a href=\"Controllers\/ResetPasswordController.php.html#16\">BookStack\\Access\\Controllers\\ResetPasswordController<\/a>"],[87.5,14,"<a href=\"Controllers\/Saml2Controller.php.html#10\">BookStack\\Access\\Controllers\\Saml2Controller<\/a>"],[85.36585365853658,14,"<a href=\"Controllers\/SocialController.php.html#17\">BookStack\\Access\\Controllers\\SocialController<\/a>"],[96.55172413793103,8,"<a href=\"Controllers\/UserInviteController.php.html#17\">BookStack\\Access\\Controllers\\UserInviteController<\/a>"],[85.71428571428571,4,"<a href=\"EmailConfirmationService.php.html#10\">BookStack\\Access\\EmailConfirmationService<\/a>"],[0,6,"<a href=\"ExternalBaseUserProvider.php.html#9\">BookStack\\Access\\ExternalBaseUserProvider<\/a>"],[100,11,"<a href=\"GroupSyncService.php.html#9\">BookStack\\Access\\GroupSyncService<\/a>"],[0,2,"<a href=\"Guards\/AsyncExternalBaseSessionGuard.php.html#12\">BookStack\\Access\\Guards\\AsyncExternalBaseSessionGuard<\/a>"],[62.7906976744186,24,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#19\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard<\/a>"],[10.256410256410255,14,"<a href=\"Guards\/LdapSessionGuard.php.html#17\">BookStack\\Access\\Guards\\LdapSessionGuard<\/a>"],[0,11,"<a href=\"Ldap.php.html#10\">BookStack\\Access\\Ldap<\/a>"],[26.81564245810056,73,"<a href=\"LdapService.php.html#16\">BookStack\\Access\\LdapService<\/a>"],[91.80327868852459,31,"<a href=\"LoginService.php.html#17\">BookStack\\Access\\LoginService<\/a>"],[100,7,"<a href=\"Mfa\/BackupCodeService.php.html#7\">BookStack\\Access\\Mfa\\BackupCodeService<\/a>"],[100,8,"<a href=\"Mfa\/MfaSession.php.html#7\">BookStack\\Access\\Mfa\\MfaSession<\/a>"],[100,5,"<a href=\"Mfa\/MfaValue.php.html#18\">BookStack\\Access\\Mfa\\MfaValue<\/a>"],[100,8,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#16\">BookStack\\Access\\Mfa\\MfaVerificationLimiter<\/a>"],[100,5,"<a href=\"Mfa\/TotpService.php.html#15\">BookStack\\Access\\Mfa\\TotpService<\/a>"],[100,3,"<a href=\"Mfa\/TotpValidationRule.php.html#8\">BookStack\\Access\\Mfa\\TotpValidationRule<\/a>"],[100,2,"<a href=\"Notifications\/ConfirmEmailNotification.php.html#9\">BookStack\\Access\\Notifications\\ConfirmEmailNotification<\/a>"],[16.666666666666664,2,"<a href=\"Notifications\/ResetPasswordNotification.php.html#9\">BookStack\\Access\\Notifications\\ResetPasswordNotification<\/a>"],[100,2,"<a href=\"Notifications\/UserInviteNotification.php.html#9\">BookStack\\Access\\Notifications\\UserInviteNotification<\/a>"],[71.42857142857143,5,"<a href=\"Oidc\/OidcAccessToken.php.html#8\">BookStack\\Access\\Oidc\\OidcAccessToken<\/a>"],[100,0,"<a href=\"Oidc\/OidcException.php.html#7\">BookStack\\Access\\Oidc\\OidcException<\/a>"],[100,12,"<a href=\"Oidc\/OidcIdToken.php.html#5\">BookStack\\Access\\Oidc\\OidcIdToken<\/a>"],[100,0,"<a href=\"Oidc\/OidcInvalidKeyException.php.html#5\">BookStack\\Access\\Oidc\\OidcInvalidKeyException<\/a>"],[100,0,"<a href=\"Oidc\/OidcInvalidTokenException.php.html#7\">BookStack\\Access\\Oidc\\OidcInvalidTokenException<\/a>"],[100,0,"<a href=\"Oidc\/OidcIssuerDiscoveryException.php.html#7\">BookStack\\Access\\Oidc\\OidcIssuerDiscoveryException<\/a>"],[68.57142857142857,17,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#10\">BookStack\\Access\\Oidc\\OidcJwtSigningKey<\/a>"],[100,26,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#5\">BookStack\\Access\\Oidc\\OidcJwtWithClaims<\/a>"],[56.25,12,"<a href=\"Oidc\/OidcOAuthProvider.php.html#19\">BookStack\\Access\\Oidc\\OidcOAuthProvider<\/a>"],[90.625,34,"<a href=\"Oidc\/OidcProviderSettings.php.html#16\">BookStack\\Access\\Oidc\\OidcProviderSettings<\/a>"],[99.25925925925925,36,"<a href=\"Oidc\/OidcService.php.html#24\">BookStack\\Access\\Oidc\\OidcService<\/a>"],[96.66666666666667,18,"<a href=\"Oidc\/OidcUserDetails.php.html#7\">BookStack\\Access\\Oidc\\OidcUserDetails<\/a>"],[100,10,"<a href=\"Oidc\/OidcUserinfoResponse.php.html#7\">BookStack\\Access\\Oidc\\OidcUserinfoResponse<\/a>"],[91.83673469387756,19,"<a href=\"RegistrationService.php.html#15\">BookStack\\Access\\RegistrationService<\/a>"],[84.93150684931507,41,"<a href=\"Saml2Service.php.html#21\">BookStack\\Access\\Saml2Service<\/a>"],[100,2,"<a href=\"SocialAccount.php.html#15\">BookStack\\Access\\SocialAccount<\/a>"],[84.61538461538461,25,"<a href=\"SocialAuthService.php.html#16\">BookStack\\Access\\SocialAuthService<\/a>"],[92,15,"<a href=\"SocialDriverManager.php.html#10\">BookStack\\Access\\SocialDriverManager<\/a>"],[100,0,"<a href=\"UserInviteException.php.html#7\">BookStack\\Access\\UserInviteException<\/a>"],[60,2,"<a href=\"UserInviteService.php.html#8\">BookStack\\Access\\UserInviteService<\/a>"],[96.42857142857143,10,"<a href=\"UserTokenService.php.html#13\">BookStack\\Access\\UserTokenService<\/a>"],[85.71428571428571,3,"<a href=\"Controllers\/HandlesPartialLogins.php.html#9\">BookStack\\Access\\Controllers\\HandlesPartialLogins<\/a>"],[100,8,"<a href=\"Controllers\/ThrottlesLogins.php.html#11\">BookStack\\Access\\Controllers\\ThrottlesLogins<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Controllers\/ConfirmEmailController.php.html#17\">BookStack\\Access\\Controllers\\ConfirmEmailController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/ConfirmEmailController.php.html#28\">BookStack\\Access\\Controllers\\ConfirmEmailController::show<\/a>"],[100,2,"<a href=\"Controllers\/ConfirmEmailController.php.html#37\">BookStack\\Access\\Controllers\\ConfirmEmailController::showAwaiting<\/a>"],[100,1,"<a href=\"Controllers\/ConfirmEmailController.php.html#51\">BookStack\\Access\\Controllers\\ConfirmEmailController::showAcceptForm<\/a>"],[100,3,"<a href=\"Controllers\/ConfirmEmailController.php.html#62\">BookStack\\Access\\Controllers\\ConfirmEmailController::confirm<\/a>"],[53.84615384615385,4,"<a href=\"Controllers\/ConfirmEmailController.php.html#97\">BookStack\\Access\\Controllers\\ConfirmEmailController::resend<\/a>"],[100,1,"<a href=\"Controllers\/ForgotPasswordController.php.html#13\">BookStack\\Access\\Controllers\\ForgotPasswordController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/ForgotPasswordController.php.html#22\">BookStack\\Access\\Controllers\\ForgotPasswordController::showLinkRequestForm<\/a>"],[81.25,3,"<a href=\"Controllers\/ForgotPasswordController.php.html#30\">BookStack\\Access\\Controllers\\ForgotPasswordController::sendResetLinkEmail<\/a>"],[100,1,"<a href=\"Controllers\/LoginController.php.html#19\">BookStack\\Access\\Controllers\\LoginController::__construct<\/a>"],[76.47058823529412,5,"<a href=\"Controllers\/LoginController.php.html#31\">BookStack\\Access\\Controllers\\LoginController::getLogin<\/a>"],[86.66666666666667,4,"<a href=\"Controllers\/LoginController.php.html#62\">BookStack\\Access\\Controllers\\LoginController::login<\/a>"],[100,1,"<a href=\"Controllers\/LoginController.php.html#96\">BookStack\\Access\\Controllers\\LoginController::logout<\/a>"],[100,2,"<a href=\"Controllers\/LoginController.php.html#104\">BookStack\\Access\\Controllers\\LoginController::username<\/a>"],[100,1,"<a href=\"Controllers\/LoginController.php.html#112\">BookStack\\Access\\Controllers\\LoginController::credentials<\/a>"],[100,1,"<a href=\"Controllers\/LoginController.php.html#121\">BookStack\\Access\\Controllers\\LoginController::sendLoginResponse<\/a>"],[100,1,"<a href=\"Controllers\/LoginController.php.html#132\">BookStack\\Access\\Controllers\\LoginController::attemptLogin<\/a>"],[100,3,"<a href=\"Controllers\/LoginController.php.html#146\">BookStack\\Access\\Controllers\\LoginController::validateLogin<\/a>"],[0,3,"<a href=\"Controllers\/LoginController.php.html#166\">BookStack\\Access\\Controllers\\LoginController::sendLoginAttemptExceptionResponse<\/a>"],[91.66666666666666,6,"<a href=\"Controllers\/LoginController.php.html#185\">BookStack\\Access\\Controllers\\LoginController::updateIntendedFromPrevious<\/a>"],[100,1,"<a href=\"Controllers\/MfaBackupCodesController.php.html#23\">BookStack\\Access\\Controllers\\MfaBackupCodesController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/MfaBackupCodesController.php.html#31\">BookStack\\Access\\Controllers\\MfaBackupCodesController::generate<\/a>"],[100,3,"<a href=\"Controllers\/MfaBackupCodesController.php.html#51\">BookStack\\Access\\Controllers\\MfaBackupCodesController::confirm<\/a>"],[100,4,"<a href=\"Controllers\/MfaBackupCodesController.php.html#77\">BookStack\\Access\\Controllers\\MfaBackupCodesController::verify<\/a>"],[100,1,"<a href=\"Controllers\/MfaController.php.html#17\">BookStack\\Access\\Controllers\\MfaController::setup<\/a>"],[100,3,"<a href=\"Controllers\/MfaController.php.html#36\">BookStack\\Access\\Controllers\\MfaController::remove<\/a>"],[100,2,"<a href=\"Controllers\/MfaController.php.html#52\">BookStack\\Access\\Controllers\\MfaController::verify<\/a>"],[100,1,"<a href=\"Controllers\/MfaTotpController.php.html#23\">BookStack\\Access\\Controllers\\MfaTotpController::__construct<\/a>"],[100,2,"<a href=\"Controllers\/MfaTotpController.php.html#32\">BookStack\\Access\\Controllers\\MfaTotpController::generate<\/a>"],[86.66666666666667,2,"<a href=\"Controllers\/MfaTotpController.php.html#59\">BookStack\\Access\\Controllers\\MfaTotpController::confirm<\/a>"],[100,2,"<a href=\"Controllers\/MfaTotpController.php.html#88\">BookStack\\Access\\Controllers\\MfaTotpController::verify<\/a>"],[100,1,"<a href=\"Controllers\/OidcController.php.html#12\">BookStack\\Access\\Controllers\\OidcController::__construct<\/a>"],[100,2,"<a href=\"Controllers\/OidcController.php.html#21\">BookStack\\Access\\Controllers\\OidcController::login<\/a>"],[92.85714285714286,6,"<a href=\"Controllers\/OidcController.php.html#40\">BookStack\\Access\\Controllers\\OidcController::callback<\/a>"],[100,1,"<a href=\"Controllers\/OidcController.php.html#71\">BookStack\\Access\\Controllers\\OidcController::logout<\/a>"],[100,1,"<a href=\"Controllers\/RegisterController.php.html#18\">BookStack\\Access\\Controllers\\RegisterController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/RegisterController.php.html#32\">BookStack\\Access\\Controllers\\RegisterController::getRegister<\/a>"],[100,3,"<a href=\"Controllers\/RegisterController.php.html#48\">BookStack\\Access\\Controllers\\RegisterController::postRegister<\/a>"],[100,1,"<a href=\"Controllers\/RegisterController.php.html#72\">BookStack\\Access\\Controllers\\RegisterController::validator<\/a>"],[100,1,"<a href=\"Controllers\/ResetPasswordController.php.html#18\">BookStack\\Access\\Controllers\\ResetPasswordController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/ResetPasswordController.php.html#29\">BookStack\\Access\\Controllers\\ResetPasswordController::showResetForm<\/a>"],[100,2,"<a href=\"Controllers\/ResetPasswordController.php.html#41\">BookStack\\Access\\Controllers\\ResetPasswordController::reset<\/a>"],[100,1,"<a href=\"Controllers\/ResetPasswordController.php.html#72\">BookStack\\Access\\Controllers\\ResetPasswordController::sendResetResponse<\/a>"],[100,2,"<a href=\"Controllers\/ResetPasswordController.php.html#83\">BookStack\\Access\\Controllers\\ResetPasswordController::sendResetFailedResponse<\/a>"],[100,1,"<a href=\"Controllers\/Saml2Controller.php.html#12\">BookStack\\Access\\Controllers\\Saml2Controller::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Saml2Controller.php.html#21\">BookStack\\Access\\Controllers\\Saml2Controller::login<\/a>"],[85.71428571428571,3,"<a href=\"Controllers\/Saml2Controller.php.html#32\">BookStack\\Access\\Controllers\\Saml2Controller::logout<\/a>"],[100,1,"<a href=\"Controllers\/Saml2Controller.php.html#51\">BookStack\\Access\\Controllers\\Saml2Controller::metadata<\/a>"],[100,1,"<a href=\"Controllers\/Saml2Controller.php.html#64\">BookStack\\Access\\Controllers\\Saml2Controller::sls<\/a>"],[75,2,"<a href=\"Controllers\/Saml2Controller.php.html#79\">BookStack\\Access\\Controllers\\Saml2Controller::startAcs<\/a>"],[85.71428571428571,5,"<a href=\"Controllers\/Saml2Controller.php.html#101\">BookStack\\Access\\Controllers\\Saml2Controller::processAcs<\/a>"],[100,1,"<a href=\"Controllers\/SocialController.php.html#19\">BookStack\\Access\\Controllers\\SocialController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/SocialController.php.html#32\">BookStack\\Access\\Controllers\\SocialController::login<\/a>"],[100,1,"<a href=\"Controllers\/SocialController.php.html#45\">BookStack\\Access\\Controllers\\SocialController::register<\/a>"],[66.66666666666666,8,"<a href=\"Controllers\/SocialController.php.html#60\">BookStack\\Access\\Controllers\\SocialController::callback<\/a>"],[100,1,"<a href=\"Controllers\/SocialController.php.html#100\">BookStack\\Access\\Controllers\\SocialController::detach<\/a>"],[100,2,"<a href=\"Controllers\/SocialController.php.html#113\">BookStack\\Access\\Controllers\\SocialController::socialRegisterCallback<\/a>"],[100,1,"<a href=\"Controllers\/UserInviteController.php.html#25\">BookStack\\Access\\Controllers\\UserInviteController::__construct<\/a>"],[100,2,"<a href=\"Controllers\/UserInviteController.php.html#39\">BookStack\\Access\\Controllers\\UserInviteController::showSetPassword<\/a>"],[100,2,"<a href=\"Controllers\/UserInviteController.php.html#57\">BookStack\\Access\\Controllers\\UserInviteController::setPassword<\/a>"],[83.33333333333334,3,"<a href=\"Controllers\/UserInviteController.php.html#87\">BookStack\\Access\\Controllers\\UserInviteController::handleTokenException<\/a>"],[80,2,"<a href=\"EmailConfirmationService.php.html#22\">BookStack\\Access\\EmailConfirmationService::sendConfirmation<\/a>"],[100,2,"<a href=\"EmailConfirmationService.php.html#37\">BookStack\\Access\\EmailConfirmationService::confirmationRequired<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#14\">BookStack\\Access\\ExternalBaseUserProvider::retrieveById<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#24\">BookStack\\Access\\ExternalBaseUserProvider::retrieveByToken<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#37\">BookStack\\Access\\ExternalBaseUserProvider::updateRememberToken<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#45\">BookStack\\Access\\ExternalBaseUserProvider::retrieveByCredentials<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#55\">BookStack\\Access\\ExternalBaseUserProvider::validateCredentials<\/a>"],[0,1,"<a href=\"ExternalBaseUserProvider.php.html#61\">BookStack\\Access\\ExternalBaseUserProvider::rehashPasswordIfRequired<\/a>"],[100,2,"<a href=\"GroupSyncService.php.html#15\">BookStack\\Access\\GroupSyncService::roleMatchesGroupNames<\/a>"],[100,3,"<a href=\"GroupSyncService.php.html#29\">BookStack\\Access\\GroupSyncService::externalIdMatchesGroupNames<\/a>"],[100,2,"<a href=\"GroupSyncService.php.html#40\">BookStack\\Access\\GroupSyncService::parseRoleExternalAuthId<\/a>"],[100,2,"<a href=\"GroupSyncService.php.html#56\">BookStack\\Access\\GroupSyncService::matchGroupsToSystemsRoles<\/a>"],[100,2,"<a href=\"GroupSyncService.php.html#73\">BookStack\\Access\\GroupSyncService::syncUserWithFoundGroups<\/a>"],[0,1,"<a href=\"Guards\/AsyncExternalBaseSessionGuard.php.html#17\">BookStack\\Access\\Guards\\AsyncExternalBaseSessionGuard::validate<\/a>"],[0,1,"<a href=\"Guards\/AsyncExternalBaseSessionGuard.php.html#27\">BookStack\\Access\\Guards\\AsyncExternalBaseSessionGuard::attempt<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#53\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::__construct<\/a>"],[87.5,4,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#64\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::user<\/a>"],[80,3,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#91\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::id<\/a>"],[0,2,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#105\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::once<\/a>"],[0,2,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#119\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::onceUsingId<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#133\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::validate<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#142\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::attempt<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#151\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::loginUsingId<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#163\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::login<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#173\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::updateSession<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#183\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::logout<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#198\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::clearUserDataFromStorage<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#206\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::getLastAttempted<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#214\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::getName<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#222\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::viaRemember<\/a>"],[0,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#230\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::getUser<\/a>"],[100,1,"<a href=\"Guards\/ExternalBaseSessionGuard.php.html#238\">BookStack\\Access\\Guards\\ExternalBaseSessionGuard::setUser<\/a>"],[100,1,"<a href=\"Guards\/LdapSessionGuard.php.html#24\">BookStack\\Access\\Guards\\LdapSessionGuard::__construct<\/a>"],[0,2,"<a href=\"Guards\/LdapSessionGuard.php.html#40\">BookStack\\Access\\Guards\\LdapSessionGuard::validate<\/a>"],[10.526315789473683,7,"<a href=\"Guards\/LdapSessionGuard.php.html#62\">BookStack\\Access\\Guards\\LdapSessionGuard::attempt<\/a>"],[0,4,"<a href=\"Guards\/LdapSessionGuard.php.html#108\">BookStack\\Access\\Guards\\LdapSessionGuard::createNewFromLdapAndCreds<\/a>"],[0,1,"<a href=\"Ldap.php.html#17\">BookStack\\Access\\Ldap::connect<\/a>"],[0,1,"<a href=\"Ldap.php.html#27\">BookStack\\Access\\Ldap::setOption<\/a>"],[0,1,"<a href=\"Ldap.php.html#35\">BookStack\\Access\\Ldap::startTls<\/a>"],[0,1,"<a href=\"Ldap.php.html#45\">BookStack\\Access\\Ldap::setVersion<\/a>"],[0,1,"<a href=\"Ldap.php.html#57\">BookStack\\Access\\Ldap::search<\/a>"],[0,1,"<a href=\"Ldap.php.html#69\">BookStack\\Access\\Ldap::read<\/a>"],[0,1,"<a href=\"Ldap.php.html#80\">BookStack\\Access\\Ldap::getEntries<\/a>"],[0,1,"<a href=\"Ldap.php.html#90\">BookStack\\Access\\Ldap::searchAndGetEntries<\/a>"],[0,1,"<a href=\"Ldap.php.html#102\">BookStack\\Access\\Ldap::bind<\/a>"],[0,1,"<a href=\"Ldap.php.html#110\">BookStack\\Access\\Ldap::explodeDn<\/a>"],[0,1,"<a href=\"Ldap.php.html#118\">BookStack\\Access\\Ldap::escape<\/a>"],[100,1,"<a href=\"LdapService.php.html#26\">BookStack\\Access\\LdapService::__construct<\/a>"],[0,2,"<a href=\"LdapService.php.html#38\">BookStack\\Access\\LdapService::shouldSyncGroups<\/a>"],[46.15384615384615,5,"<a href=\"LdapService.php.html#48\">BookStack\\Access\\LdapService::getUserWithAttributes<\/a>"],[0,4,"<a href=\"LdapService.php.html#77\">BookStack\\Access\\LdapService::getUserDisplayName<\/a>"],[28.000000000000004,5,"<a href=\"LdapService.php.html#100\">BookStack\\Access\\LdapService::getUserDetails<\/a>"],[0,5,"<a href=\"LdapService.php.html#144\">BookStack\\Access\\LdapService::getUserResponseProperty<\/a>"],[0,3,"<a href=\"LdapService.php.html#169\">BookStack\\Access\\LdapService::validateUserCredentials<\/a>"],[75,5,"<a href=\"LdapService.php.html#194\">BookStack\\Access\\LdapService::bindSystemUser<\/a>"],[68,11,"<a href=\"LdapService.php.html#219\">BookStack\\Access\\LdapService::getConnection<\/a>"],[44.44444444444444,4,"<a href=\"LdapService.php.html#284\">BookStack\\Access\\LdapService::configureTlsCaCerts<\/a>"],[100,3,"<a href=\"LdapService.php.html#305\">BookStack\\Access\\LdapService::parseServerString<\/a>"],[37.5,2,"<a href=\"LdapService.php.html#319\">BookStack\\Access\\LdapService::buildFilter<\/a>"],[0,3,"<a href=\"LdapService.php.html#339\">BookStack\\Access\\LdapService::getUserGroups<\/a>"],[0,4,"<a href=\"LdapService.php.html#364\">BookStack\\Access\\LdapService::extractGroupNamesFromLdapGroupDns<\/a>"],[0,4,"<a href=\"LdapService.php.html#384\">BookStack\\Access\\LdapService::getGroupsRecursive<\/a>"],[0,3,"<a href=\"LdapService.php.html#409\">BookStack\\Access\\LdapService::getParentsOfGroup<\/a>"],[0,4,"<a href=\"LdapService.php.html#429\">BookStack\\Access\\LdapService::extractGroupsFromSearchResponseEntry<\/a>"],[0,1,"<a href=\"LdapService.php.html#455\">BookStack\\Access\\LdapService::syncGroups<\/a>"],[0,4,"<a href=\"LdapService.php.html#465\">BookStack\\Access\\LdapService::saveAndAttachAvatar<\/a>"],[100,1,"<a href=\"LoginService.php.html#21\">BookStack\\Access\\LoginService::__construct<\/a>"],[92.3076923076923,7,"<a href=\"LoginService.php.html#36\">BookStack\\Access\\LoginService::login<\/a>"],[75,2,"<a href=\"LoginService.php.html#67\">BookStack\\Access\\LoginService::reattemptLoginFor<\/a>"],[100,1,"<a href=\"LoginService.php.html#82\">BookStack\\Access\\LoginService::getLastLoginAttemptUser<\/a>"],[77.77777777777779,3,"<a href=\"LoginService.php.html#95\">BookStack\\Access\\LoginService::getLastLoginAttemptDetails<\/a>"],[100,1,"<a href=\"LoginService.php.html#118\">BookStack\\Access\\LoginService::setLastLoginAttemptedForUser<\/a>"],[100,1,"<a href=\"LoginService.php.html#129\">BookStack\\Access\\LoginService::clearLastLoginAttempted<\/a>"],[100,2,"<a href=\"LoginService.php.html#137\">BookStack\\Access\\LoginService::needsMfaVerification<\/a>"],[100,2,"<a href=\"LoginService.php.html#145\">BookStack\\Access\\LoginService::awaitingEmailConfirmation<\/a>"],[90,4,"<a href=\"LoginService.php.html#159\">BookStack\\Access\\LoginService::attempt<\/a>"],[100,2,"<a href=\"LoginService.php.html#184\">BookStack\\Access\\LoginService::areCredentialsForGuest<\/a>"],[100,2,"<a href=\"LoginService.php.html#199\">BookStack\\Access\\LoginService::logout<\/a>"],[100,3,"<a href=\"LoginService.php.html#211\">BookStack\\Access\\LoginService::shouldAutoInitiate<\/a>"],[100,3,"<a href=\"Mfa\/BackupCodeService.php.html#12\">BookStack\\Access\\Mfa\\BackupCodeService::generateNewSet<\/a>"],[100,1,"<a href=\"Mfa\/BackupCodeService.php.html#28\">BookStack\\Access\\Mfa\\BackupCodeService::inputCodeExistsInSet<\/a>"],[100,1,"<a href=\"Mfa\/BackupCodeService.php.html#40\">BookStack\\Access\\Mfa\\BackupCodeService::removeInputCodeFromSet<\/a>"],[100,1,"<a href=\"Mfa\/BackupCodeService.php.html#53\">BookStack\\Access\\Mfa\\BackupCodeService::countCodesInSet<\/a>"],[100,1,"<a href=\"Mfa\/BackupCodeService.php.html#58\">BookStack\\Access\\Mfa\\BackupCodeService::cleanInputCode<\/a>"],[100,2,"<a href=\"Mfa\/MfaSession.php.html#12\">BookStack\\Access\\Mfa\\MfaSession::isRequiredForUser<\/a>"],[100,2,"<a href=\"Mfa\/MfaSession.php.html#21\">BookStack\\Access\\Mfa\\MfaSession::isPendingMfaSetup<\/a>"],[100,1,"<a href=\"Mfa\/MfaSession.php.html#29\">BookStack\\Access\\Mfa\\MfaSession::userRoleEnforcesMfa<\/a>"],[100,1,"<a href=\"Mfa\/MfaSession.php.html#39\">BookStack\\Access\\Mfa\\MfaSession::isVerifiedForUser<\/a>"],[100,1,"<a href=\"Mfa\/MfaSession.php.html#47\">BookStack\\Access\\Mfa\\MfaSession::markVerifiedForUser<\/a>"],[100,1,"<a href=\"Mfa\/MfaSession.php.html#55\">BookStack\\Access\\Mfa\\MfaSession::getMfaVerifiedSessionKey<\/a>"],[100,1,"<a href=\"Mfa\/MfaValue.php.html#30\">BookStack\\Access\\Mfa\\MfaValue::allMethods<\/a>"],[100,1,"<a href=\"Mfa\/MfaValue.php.html#39\">BookStack\\Access\\Mfa\\MfaValue::upsertWithValue<\/a>"],[100,1,"<a href=\"Mfa\/MfaValue.php.html#53\">BookStack\\Access\\Mfa\\MfaValue::getValueForUser<\/a>"],[100,1,"<a href=\"Mfa\/MfaValue.php.html#66\">BookStack\\Access\\Mfa\\MfaValue::getValue<\/a>"],[100,1,"<a href=\"Mfa\/MfaValue.php.html#74\">BookStack\\Access\\Mfa\\MfaValue::setValue<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#21\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::__construct<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#26\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::throwException<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#35\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::incrementAttempts<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#41\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::decrementAttempts<\/a>"],[100,2,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#47\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::hasHitLimit<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#53\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::getUserKey<\/a>"],[100,1,"<a href=\"Mfa\/MfaVerificationLimiter.php.html#58\">BookStack\\Access\\Mfa\\MfaVerificationLimiter::getRequestKey<\/a>"],[100,1,"<a href=\"Mfa\/TotpService.php.html#17\">BookStack\\Access\\Mfa\\TotpService::__construct<\/a>"],[100,1,"<a href=\"Mfa\/TotpService.php.html#30\">BookStack\\Access\\Mfa\\TotpService::generateSecret<\/a>"],[100,1,"<a href=\"Mfa\/TotpService.php.html#39\">BookStack\\Access\\Mfa\\TotpService::generateUrl<\/a>"],[100,1,"<a href=\"Mfa\/TotpService.php.html#51\">BookStack\\Access\\Mfa\\TotpService::generateQrCodeSvg<\/a>"],[100,1,"<a href=\"Mfa\/TotpService.php.html#67\">BookStack\\Access\\Mfa\\TotpService::verifyCode<\/a>"],[100,1,"<a href=\"Mfa\/TotpValidationRule.php.html#14\">BookStack\\Access\\Mfa\\TotpValidationRule::__construct<\/a>"],[100,2,"<a href=\"Mfa\/TotpValidationRule.php.html#20\">BookStack\\Access\\Mfa\\TotpValidationRule::validate<\/a>"],[100,1,"<a href=\"Notifications\/ConfirmEmailNotification.php.html#11\">BookStack\\Access\\Notifications\\ConfirmEmailNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/ConfirmEmailNotification.php.html#16\">BookStack\\Access\\Notifications\\ConfirmEmailNotification::toMail<\/a>"],[100,1,"<a href=\"Notifications\/ResetPasswordNotification.php.html#11\">BookStack\\Access\\Notifications\\ResetPasswordNotification::__construct<\/a>"],[0,1,"<a href=\"Notifications\/ResetPasswordNotification.php.html#16\">BookStack\\Access\\Notifications\\ResetPasswordNotification::toMail<\/a>"],[100,1,"<a href=\"Notifications\/UserInviteNotification.php.html#11\">BookStack\\Access\\Notifications\\UserInviteNotification::__construct<\/a>"],[100,1,"<a href=\"Notifications\/UserInviteNotification.php.html#16\">BookStack\\Access\\Notifications\\UserInviteNotification::toMail<\/a>"],[100,1,"<a href=\"Oidc\/OidcAccessToken.php.html#18\">BookStack\\Access\\Oidc\\OidcAccessToken::__construct<\/a>"],[50,3,"<a href=\"Oidc\/OidcAccessToken.php.html#28\">BookStack\\Access\\Oidc\\OidcAccessToken::validate<\/a>"],[100,1,"<a href=\"Oidc\/OidcAccessToken.php.html#49\">BookStack\\Access\\Oidc\\OidcAccessToken::getIdToken<\/a>"],[100,1,"<a href=\"Oidc\/OidcIdToken.php.html#12\">BookStack\\Access\\Oidc\\OidcIdToken::validate<\/a>"],[100,11,"<a href=\"Oidc\/OidcIdToken.php.html#26\">BookStack\\Access\\Oidc\\OidcIdToken::validateTokenClaims<\/a>"],[100,3,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#22\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::__construct<\/a>"],[62.5,3,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#36\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::loadFromPath<\/a>"],[65,9,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#56\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::loadFromJwkArray<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#101\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::verify<\/a>"],[0,1,"<a href=\"Oidc\/OidcJwtSigningKey.php.html#109\">BookStack\\Access\\Oidc\\OidcJwtSigningKey::toPem<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#18\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::__construct<\/a>"],[100,2,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#28\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::parse<\/a>"],[100,3,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#40\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::parseEncodedTokenPart<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#52\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::base64UrlDecode<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#62\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateCommonTokenDetails<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#75\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::getClaim<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#83\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::getAllClaims<\/a>"],[100,1,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#91\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::replaceClaims<\/a>"],[100,4,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#102\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateTokenStructure<\/a>"],[100,5,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#120\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateTokenSignature<\/a>"],[100,6,"<a href=\"Oidc\/OidcJwtWithClaims.php.html#154\">BookStack\\Access\\Oidc\\OidcJwtWithClaims::validateCommonClaims<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#34\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getBaseAuthorizationUrl<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#42\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getBaseAccessTokenUrl<\/a>"],[0,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#50\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getResourceOwnerDetailsUrl<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#58\">BookStack\\Access\\Oidc\\OidcOAuthProvider::addScope<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#70\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getDefaultScopes<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#79\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getScopeSeparator<\/a>"],[16.666666666666664,3,"<a href=\"Oidc\/OidcOAuthProvider.php.html#88\">BookStack\\Access\\Oidc\\OidcOAuthProvider::checkResponse<\/a>"],[0,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#103\">BookStack\\Access\\Oidc\\OidcOAuthProvider::createResourceOwner<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#114\">BookStack\\Access\\Oidc\\OidcOAuthProvider::createAccessToken<\/a>"],[100,1,"<a href=\"Oidc\/OidcOAuthProvider.php.html#123\">BookStack\\Access\\Oidc\\OidcOAuthProvider::getPkceMethod<\/a>"],[100,1,"<a href=\"Oidc\/OidcProviderSettings.php.html#31\">BookStack\\Access\\Oidc\\OidcProviderSettings::__construct<\/a>"],[100,3,"<a href=\"Oidc\/OidcProviderSettings.php.html#40\">BookStack\\Access\\Oidc\\OidcProviderSettings::applySettingsFromArray<\/a>"],[66.66666666666666,4,"<a href=\"Oidc\/OidcProviderSettings.php.html#54\">BookStack\\Access\\Oidc\\OidcProviderSettings::validateInitial<\/a>"],[88.88888888888889,6,"<a href=\"Oidc\/OidcProviderSettings.php.html#73\">BookStack\\Access\\Oidc\\OidcProviderSettings::validate<\/a>"],[85.71428571428571,2,"<a href=\"Oidc\/OidcProviderSettings.php.html#97\">BookStack\\Access\\Oidc\\OidcProviderSettings::discoverFromIssuer<\/a>"],[95.23809523809523,9,"<a href=\"Oidc\/OidcProviderSettings.php.html#114\">BookStack\\Access\\Oidc\\OidcProviderSettings::loadSettingsFromIssuerDiscovery<\/a>"],[100,3,"<a href=\"Oidc\/OidcProviderSettings.php.html#158\">BookStack\\Access\\Oidc\\OidcProviderSettings::filterKeys<\/a>"],[83.33333333333334,4,"<a href=\"Oidc\/OidcProviderSettings.php.html#174\">BookStack\\Access\\Oidc\\OidcProviderSettings::loadKeysFromUri<\/a>"],[100,2,"<a href=\"Oidc\/OidcProviderSettings.php.html#190\">BookStack\\Access\\Oidc\\OidcProviderSettings::arrayForOAuthProvider<\/a>"],[100,1,"<a href=\"Oidc\/OidcService.php.html#26\">BookStack\\Access\\Oidc\\OidcService::__construct<\/a>"],[100,2,"<a href=\"Oidc\/OidcService.php.html#44\">BookStack\\Access\\Oidc\\OidcService::login<\/a>"],[100,1,"<a href=\"Oidc\/OidcService.php.html#73\">BookStack\\Access\\Oidc\\OidcService::processAuthorizeResponse<\/a>"],[100,7,"<a href=\"Oidc\/OidcService.php.html#93\">BookStack\\Access\\Oidc\\OidcService::getProviderSettings<\/a>"],[100,2,"<a href=\"Oidc\/OidcService.php.html#136\">BookStack\\Access\\Oidc\\OidcService::getProvider<\/a>"],[100,2,"<a href=\"Oidc\/OidcService.php.html#158\">BookStack\\Access\\Oidc\\OidcService::getAdditionalScopes<\/a>"],[97.5609756097561,12,"<a href=\"Oidc\/OidcService.php.html#176\">BookStack\\Access\\Oidc\\OidcService::processAccessTokenCallback<\/a>"],[100,4,"<a href=\"Oidc\/OidcService.php.html#247\">BookStack\\Access\\Oidc\\OidcService::getUserDetailsFromToken<\/a>"],[100,1,"<a href=\"Oidc\/OidcService.php.html#286\">BookStack\\Access\\Oidc\\OidcService::config<\/a>"],[100,1,"<a href=\"Oidc\/OidcService.php.html#294\">BookStack\\Access\\Oidc\\OidcService::shouldSyncGroups<\/a>"],[100,3,"<a href=\"Oidc\/OidcService.php.html#305\">BookStack\\Access\\Oidc\\OidcService::logout<\/a>"],[100,1,"<a href=\"Oidc\/OidcUserDetails.php.html#9\">BookStack\\Access\\Oidc\\OidcUserDetails::__construct<\/a>"],[100,5,"<a href=\"Oidc\/OidcUserDetails.php.html#21\">BookStack\\Access\\Oidc\\OidcUserDetails::isFullyPopulated<\/a>"],[100,3,"<a href=\"Oidc\/OidcUserDetails.php.html#34\">BookStack\\Access\\Oidc\\OidcUserDetails::populate<\/a>"],[100,3,"<a href=\"Oidc\/OidcUserDetails.php.html#47\">BookStack\\Access\\Oidc\\OidcUserDetails::getUserDisplayName<\/a>"],[87.5,3,"<a href=\"Oidc\/OidcUserDetails.php.html#62\">BookStack\\Access\\Oidc\\OidcUserDetails::getUserGroups<\/a>"],[100,3,"<a href=\"Oidc\/OidcUserDetails.php.html#78\">BookStack\\Access\\Oidc\\OidcUserDetails::getPicture<\/a>"],[100,3,"<a href=\"Oidc\/OidcUserinfoResponse.php.html#12\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::__construct<\/a>"],[100,5,"<a href=\"Oidc\/OidcUserinfoResponse.php.html#30\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::validate<\/a>"],[100,1,"<a href=\"Oidc\/OidcUserinfoResponse.php.html#60\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::getClaim<\/a>"],[100,1,"<a href=\"Oidc\/OidcUserinfoResponse.php.html#65\">BookStack\\Access\\Oidc\\OidcUserinfoResponse::getAllClaims<\/a>"],[100,1,"<a href=\"RegistrationService.php.html#17\">BookStack\\Access\\RegistrationService::__construct<\/a>"],[50,2,"<a href=\"RegistrationService.php.html#28\">BookStack\\Access\\RegistrationService::ensureRegistrationAllowed<\/a>"],[100,2,"<a href=\"RegistrationService.php.html#39\">BookStack\\Access\\RegistrationService::registrationAllowed<\/a>"],[100,2,"<a href=\"RegistrationService.php.html#53\">BookStack\\Access\\RegistrationService::findOrRegister<\/a>"],[86.95652173913044,8,"<a href=\"RegistrationService.php.html#78\">BookStack\\Access\\RegistrationService::registerUser<\/a>"],[100,4,"<a href=\"RegistrationService.php.html#133\">BookStack\\Access\\RegistrationService::ensureEmailDomainAllowed<\/a>"],[100,1,"<a href=\"Saml2Service.php.html#25\">BookStack\\Access\\Saml2Service::__construct<\/a>"],[100,1,"<a href=\"Saml2Service.php.html#38\">BookStack\\Access\\Saml2Service::login<\/a>"],[94.44444444444444,3,"<a href=\"Saml2Service.php.html#56\">BookStack\\Access\\Saml2Service::logout<\/a>"],[66.66666666666666,4,"<a href=\"Saml2Service.php.html#95\">BookStack\\Access\\Saml2Service::processAcsResponse<\/a>"],[66.66666666666666,2,"<a href=\"Saml2Service.php.html#127\">BookStack\\Access\\Saml2Service::processSlsResponse<\/a>"],[60,2,"<a href=\"Saml2Service.php.html#156\">BookStack\\Access\\Saml2Service::metadata<\/a>"],[90,5,"<a href=\"Saml2Service.php.html#179\">BookStack\\Access\\Saml2Service::getToolkit<\/a>"],[100,1,"<a href=\"Saml2Service.php.html#202\">BookStack\\Access\\Saml2Service::loadOneloginServiceProviderDetails<\/a>"],[100,1,"<a href=\"Saml2Service.php.html#223\">BookStack\\Access\\Saml2Service::shouldSyncGroups<\/a>"],[90,4,"<a href=\"Saml2Service.php.html#231\">BookStack\\Access\\Saml2Service::getUserDisplayName<\/a>"],[75,2,"<a href=\"Saml2Service.php.html#256\">BookStack\\Access\\Saml2Service::getExternalId<\/a>"],[100,2,"<a href=\"Saml2Service.php.html#271\">BookStack\\Access\\Saml2Service::getUserDetails<\/a>"],[80,2,"<a href=\"Saml2Service.php.html#290\">BookStack\\Access\\Saml2Service::getUserGroups<\/a>"],[75,3,"<a href=\"Saml2Service.php.html#307\">BookStack\\Access\\Saml2Service::simplifyValue<\/a>"],[66.66666666666666,2,"<a href=\"Saml2Service.php.html#325\">BookStack\\Access\\Saml2Service::getSamlResponseAttribute<\/a>"],[91.30434782608695,6,"<a href=\"Saml2Service.php.html#343\">BookStack\\Access\\Saml2Service::processLoginCallback<\/a>"],[100,1,"<a href=\"SocialAccount.php.html#24\">BookStack\\Access\\SocialAccount::user<\/a>"],[100,1,"<a href=\"SocialAccount.php.html#32\">BookStack\\Access\\SocialAccount::logDescriptor<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#18\">BookStack\\Access\\SocialAuthService::__construct<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#30\">BookStack\\Access\\SocialAuthService::startLogIn<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#43\">BookStack\\Access\\SocialAuthService::startRegister<\/a>"],[50,3,"<a href=\"SocialAuthService.php.html#56\">BookStack\\Access\\SocialAuthService::handleRegistrationCallback<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#77\">BookStack\\Access\\SocialAuthService::getSocialUser<\/a>"],[79.16666666666666,12,"<a href=\"SocialAuthService.php.html#90\">BookStack\\Access\\SocialAuthService::handleLoginCallback<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#145\">BookStack\\Access\\SocialAuthService::drivers<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#153\">BookStack\\Access\\SocialAuthService::newSocialAccount<\/a>"],[100,1,"<a href=\"SocialAuthService.php.html#165\">BookStack\\Access\\SocialAuthService::detachSocialAccount<\/a>"],[100,3,"<a href=\"SocialAuthService.php.html#173\">BookStack\\Access\\SocialAuthService::getDriverForRedirect<\/a>"],[100,1,"<a href=\"SocialDriverManager.php.html#43\">BookStack\\Access\\SocialDriverManager::isAutoRegisterEnabled<\/a>"],[100,1,"<a href=\"SocialDriverManager.php.html#51\">BookStack\\Access\\SocialDriverManager::isAutoConfirmEmailEnabled<\/a>"],[100,3,"<a href=\"SocialDriverManager.php.html#60\">BookStack\\Access\\SocialDriverManager::getActive<\/a>"],[100,1,"<a href=\"SocialDriverManager.php.html#79\">BookStack\\Access\\SocialDriverManager::getConfigureForRedirectCallback<\/a>"],[100,2,"<a href=\"SocialDriverManager.php.html#91\">BookStack\\Access\\SocialDriverManager::addSocialDriver<\/a>"],[100,1,"<a href=\"SocialDriverManager.php.html#110\">BookStack\\Access\\SocialDriverManager::getName<\/a>"],[100,1,"<a href=\"SocialDriverManager.php.html#115\">BookStack\\Access\\SocialDriverManager::getDriverConfigProperty<\/a>"],[50,3,"<a href=\"SocialDriverManager.php.html#125\">BookStack\\Access\\SocialDriverManager::ensureDriverActive<\/a>"],[100,2,"<a href=\"SocialDriverManager.php.html#139\">BookStack\\Access\\SocialDriverManager::checkDriverConfigured<\/a>"],[60,2,"<a href=\"UserInviteService.php.html#18\">BookStack\\Access\\UserInviteService::sendInvitation<\/a>"],[100,1,"<a href=\"UserTokenService.php.html#28\">BookStack\\Access\\UserTokenService::deleteByUser<\/a>"],[100,3,"<a href=\"UserTokenService.php.html#41\">BookStack\\Access\\UserTokenService::checkTokenAndGetUserId<\/a>"],[75,2,"<a href=\"UserTokenService.php.html#59\">BookStack\\Access\\UserTokenService::generateToken<\/a>"],[100,1,"<a href=\"UserTokenService.php.html#72\">BookStack\\Access\\UserTokenService::createTokenForUser<\/a>"],[100,1,"<a href=\"UserTokenService.php.html#88\">BookStack\\Access\\UserTokenService::tokenExists<\/a>"],[100,1,"<a href=\"UserTokenService.php.html#97\">BookStack\\Access\\UserTokenService::getEntryByToken<\/a>"],[100,1,"<a href=\"UserTokenService.php.html#107\">BookStack\\Access\\UserTokenService::entryExpired<\/a>"],[80,2,"<a href=\"Controllers\/HandlesPartialLogins.php.html#14\">BookStack\\Access\\Controllers\\HandlesPartialLogins::currentOrLastAttemptedUser<\/a>"],[100,1,"<a href=\"Controllers\/HandlesPartialLogins.php.html#26\">BookStack\\Access\\Controllers\\HandlesPartialLogins::clearLastAttemptedUser<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#16\">BookStack\\Access\\Controllers\\ThrottlesLogins::hasTooManyLoginAttempts<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#27\">BookStack\\Access\\Controllers\\ThrottlesLogins::incrementLoginAttempts<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#39\">BookStack\\Access\\Controllers\\ThrottlesLogins::sendLockoutResponse<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#56\">BookStack\\Access\\Controllers\\ThrottlesLogins::clearLoginAttempts<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#64\">BookStack\\Access\\Controllers\\ThrottlesLogins::throttleKey<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#72\">BookStack\\Access\\Controllers\\ThrottlesLogins::limiter<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#80\">BookStack\\Access\\Controllers\\ThrottlesLogins::maxAttempts<\/a>"],[100,1,"<a href=\"Controllers\/ThrottlesLogins.php.html#88\">BookStack\\Access\\Controllers\\ThrottlesLogins::decayMinutes<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Code Coverage for C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app\Theming\ThemeEvents.php</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/octicons.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Theming</a></li>
+         <li class="breadcrumb-item active">ThemeEvents.php</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="table-responsive">
+    <table class="table table-bordered">
+     <thead>
+      <tr>
+       <td>&nbsp;</td>
+       <td colspan="10"><div align="center"><strong>Code Coverage</strong></div></td>
+      </tr>
+      <tr>
+       <td>&nbsp;</td>
+       <td colspan="3"><div align="center"><strong>Lines</strong></div></td>
+       <td colspan="4"><div align="center"><strong>Functions and Methods</strong></div></td>
+       <td colspan="3"><div align="center"><strong>Classes and Traits</strong></div></td>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="">Total</td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+      </tr>
+
+      <tr>
+       <td class=""><abbr title="BookStack\Theming\ThemeEvents">ThemeEvents</abbr></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+       <td class=" small">0</td>
+       <td class=" big"></td>
+       <td class=" small"><div align="right">n/a</div></td>
+       <td class=" small"><div align="right">0&nbsp;/&nbsp;0</div></td>
+      </tr>
+
+
+     </tbody>
+    </table>
+   </div>
+<table id="code" class="table table-borderless table-condensed">
+<tbody>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="1" href="#1">1</a></td><td class="col-11 codeLine"><span class="default">&lt;?php</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="2" href="#2">2</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">BookStack\Theming</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;The&nbsp;ThemeEvents&nbsp;used&nbsp;within&nbsp;BookStack.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="8" href="#8">8</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;This&nbsp;file&nbsp;details&nbsp;the&nbsp;events&nbsp;that&nbsp;BookStack&nbsp;may&nbsp;fire&nbsp;via&nbsp;the&nbsp;custom</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="9" href="#9">9</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;theme&nbsp;system,&nbsp;including&nbsp;event&nbsp;names,&nbsp;parameters&nbsp;and&nbsp;expected&nbsp;return&nbsp;types.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="10" href="#10">10</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="11" href="#11">11</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;This&nbsp;system&nbsp;is&nbsp;regarded&nbsp;as&nbsp;semi-stable.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="12" href="#12">12</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;We'll&nbsp;look&nbsp;to&nbsp;fix&nbsp;issues&nbsp;with&nbsp;it&nbsp;or&nbsp;migrate&nbsp;old&nbsp;event&nbsp;types&nbsp;but</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="13" href="#13">13</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;events&nbsp;and&nbsp;their&nbsp;signatures&nbsp;may&nbsp;change&nbsp;in&nbsp;new&nbsp;versions&nbsp;of&nbsp;BookStack.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="14" href="#14">14</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;We'd&nbsp;advise&nbsp;testing&nbsp;any&nbsp;usage&nbsp;of&nbsp;these&nbsp;events&nbsp;upon&nbsp;upgrade.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="15" href="#15">15</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="16" href="#16">16</a></td><td class="col-11 codeLine"><span class="keyword">class</span><span class="default">&nbsp;</span><span class="default">ThemeEvents</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="17" href="#17">17</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="18" href="#18">18</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="19" href="#19">19</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Activity&nbsp;logged&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="20" href="#20">20</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;right&nbsp;after&nbsp;an&nbsp;activity&nbsp;is&nbsp;logged&nbsp;by&nbsp;bookstack.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="21" href="#21">21</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;These&nbsp;are&nbsp;the&nbsp;activities&nbsp;that&nbsp;can&nbsp;be&nbsp;seen&nbsp;in&nbsp;the&nbsp;audit&nbsp;log&nbsp;area&nbsp;of&nbsp;BookStack.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="22" href="#22">22</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Activity&nbsp;types&nbsp;can&nbsp;be&nbsp;seen&nbsp;listed&nbsp;in&nbsp;the&nbsp;\BookStack\Actions\ActivityType&nbsp;class.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="23" href="#23">23</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;provided&nbsp;$detail&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;or&nbsp;a&nbsp;loggable&nbsp;type&nbsp;of&nbsp;model.&nbsp;You&nbsp;should&nbsp;check</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="24" href="#24">24</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;the&nbsp;type&nbsp;before&nbsp;making&nbsp;use&nbsp;of&nbsp;this&nbsp;parameter.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="25" href="#25">25</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="26" href="#26">26</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$type</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="27" href="#27">27</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string|\BookStack\Activity\Models\Loggable&nbsp;$detail</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="28" href="#28">28</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="29" href="#29">29</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">ACTIVITY_LOGGED</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'activity_logged'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="30" href="#30">30</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="32" href="#32">32</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Application&nbsp;boot-up.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;After&nbsp;main&nbsp;services&nbsp;are&nbsp;registered.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="34" href="#34">34</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="35" href="#35">35</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\App\Application&nbsp;$app</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="36" href="#36">36</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="37" href="#37">37</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">APP_BOOT</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'app_boot'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="38" href="#38">38</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="39" href="#39">39</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="40" href="#40">40</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Auth&nbsp;login&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="41" href="#41">41</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;right&nbsp;after&nbsp;a&nbsp;user&nbsp;is&nbsp;logged-in&nbsp;to&nbsp;the&nbsp;application&nbsp;by&nbsp;any&nbsp;authentication</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="42" href="#42">42</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;system&nbsp;as&nbsp;a&nbsp;standard&nbsp;app&nbsp;user.&nbsp;This&nbsp;includes&nbsp;a&nbsp;user&nbsp;becoming&nbsp;logged&nbsp;in</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="43" href="#43">43</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;after&nbsp;registration.&nbsp;This&nbsp;is&nbsp;not&nbsp;emitted&nbsp;upon&nbsp;API&nbsp;usage.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="44" href="#44">44</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="45" href="#45">45</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$authSystem</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="46" href="#46">46</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Users\Models\User&nbsp;$user</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="47" href="#47">47</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="48" href="#48">48</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">AUTH_LOGIN</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'auth_login'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="49" href="#49">49</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="50" href="#50">50</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="51" href="#51">51</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Auth&nbsp;pre-register&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="52" href="#52">52</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;right&nbsp;before&nbsp;a&nbsp;new&nbsp;user&nbsp;account&nbsp;is&nbsp;registered&nbsp;in&nbsp;the&nbsp;system&nbsp;by&nbsp;any&nbsp;authentication</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="53" href="#53">53</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;system&nbsp;as&nbsp;a&nbsp;standard&nbsp;app&nbsp;user&nbsp;including&nbsp;auto-registration&nbsp;systems&nbsp;used&nbsp;by&nbsp;LDAP,</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="54" href="#54">54</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;SAML,&nbsp;OIDC&nbsp;and&nbsp;social&nbsp;systems.&nbsp;It&nbsp;only&nbsp;includes&nbsp;self-registrations,</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="55" href="#55">55</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;not&nbsp;accounts&nbsp;created&nbsp;by&nbsp;others&nbsp;in&nbsp;the&nbsp;UI&nbsp;or&nbsp;via&nbsp;the&nbsp;REST&nbsp;API.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="56" href="#56">56</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;It&nbsp;runs&nbsp;after&nbsp;any&nbsp;other&nbsp;normal&nbsp;validation&nbsp;steps.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="57" href="#57">57</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Any&nbsp;account/email&nbsp;confirmation&nbsp;occurs&nbsp;post-registration.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="58" href="#58">58</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;provided&nbsp;$userData&nbsp;contains&nbsp;the&nbsp;main&nbsp;details&nbsp;that&nbsp;would&nbsp;be&nbsp;used&nbsp;to&nbsp;create</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="59" href="#59">59</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;the&nbsp;account,&nbsp;and&nbsp;may&nbsp;depend&nbsp;on&nbsp;authentication&nbsp;method.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="60" href="#60">60</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;false&nbsp;is&nbsp;returned&nbsp;from&nbsp;the&nbsp;event,&nbsp;registration&nbsp;will&nbsp;be&nbsp;prevented&nbsp;and&nbsp;the&nbsp;user</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="61" href="#61">61</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;will&nbsp;be&nbsp;returned&nbsp;to&nbsp;the&nbsp;login&nbsp;page.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="62" href="#62">62</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="63" href="#63">63</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$authSystem</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="64" href="#64">64</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$userData</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="65" href="#65">65</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;bool|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="66" href="#66">66</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="67" href="#67">67</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">AUTH_PRE_REGISTER</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'auth_pre_register'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="68" href="#68">68</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="69" href="#69">69</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="70" href="#70">70</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Auth&nbsp;register&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="71" href="#71">71</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;right&nbsp;after&nbsp;a&nbsp;user&nbsp;is&nbsp;newly&nbsp;registered&nbsp;to&nbsp;the&nbsp;application&nbsp;by&nbsp;any&nbsp;authentication</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="72" href="#72">72</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;system&nbsp;as&nbsp;a&nbsp;standard&nbsp;app&nbsp;user.&nbsp;This&nbsp;includes&nbsp;auto-registration&nbsp;systems&nbsp;used</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="73" href="#73">73</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;by&nbsp;LDAP,&nbsp;SAML,&nbsp;OIDC&nbsp;and&nbsp;social&nbsp;systems.&nbsp;It&nbsp;only&nbsp;includes&nbsp;self-registrations.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="74" href="#74">74</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="75" href="#75">75</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$authSystem</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="76" href="#76">76</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Users\Models\User&nbsp;$user</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="77" href="#77">77</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="78" href="#78">78</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">AUTH_REGISTER</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'auth_register'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="79" href="#79">79</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="80" href="#80">80</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="81" href="#81">81</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Commonmark&nbsp;environment&nbsp;configure.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="82" href="#82">82</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;commonmark&nbsp;library&nbsp;environment&nbsp;for&nbsp;customization&nbsp;before&nbsp;it's&nbsp;used&nbsp;to&nbsp;render&nbsp;markdown&nbsp;content.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="83" href="#83">83</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;non-null&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;an&nbsp;environment&nbsp;instead.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="84" href="#84">84</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="85" href="#85">85</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\League\CommonMark\Environment\Environment&nbsp;$environment</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="86" href="#86">86</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;\League\CommonMark\Environment\Environment|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="87" href="#87">87</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="88" href="#88">88</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">COMMONMARK_ENVIRONMENT_CONFIGURE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'commonmark_environment_configure'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="89" href="#89">89</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="90" href="#90">90</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="91" href="#91">91</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;OIDC&nbsp;auth&nbsp;pre-redirect&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="92" href="#92">92</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;just&nbsp;before&nbsp;BookStack&nbsp;redirects&nbsp;the&nbsp;user&nbsp;to&nbsp;the&nbsp;identity&nbsp;provider&nbsp;for&nbsp;authentication.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="93" href="#93">93</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;redirect&nbsp;URL&nbsp;that&nbsp;will&nbsp;be&nbsp;used.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="94" href="#94">94</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;string&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;redirect&nbsp;URL&nbsp;instead.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="95" href="#95">95</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="96" href="#96">96</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$redirectUrl</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="97" href="#97">97</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;string|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="98" href="#98">98</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="99" href="#99">99</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">OIDC_AUTH_PRE_REDIRECT</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'oidc_auth_pre_redirect'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="100" href="#100">100</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="101" href="#101">101</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="102" href="#102">102</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;OIDC&nbsp;ID&nbsp;token&nbsp;pre-validate&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="103" href="#103">103</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;just&nbsp;before&nbsp;BookStack&nbsp;validates&nbsp;the&nbsp;user&nbsp;ID&nbsp;token&nbsp;data&nbsp;upon&nbsp;login.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="104" href="#104">104</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;existing&nbsp;found&nbsp;set&nbsp;of&nbsp;claims&nbsp;for&nbsp;the&nbsp;user&nbsp;as&nbsp;a&nbsp;key-value&nbsp;array,</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="105" href="#105">105</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;along&nbsp;with&nbsp;an&nbsp;array&nbsp;of&nbsp;the&nbsp;proceeding&nbsp;access&nbsp;token&nbsp;data&nbsp;provided&nbsp;by&nbsp;the&nbsp;identity&nbsp;platform.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="106" href="#106">106</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;non-null&nbsp;value,&nbsp;that&nbsp;will&nbsp;replace&nbsp;the&nbsp;existing&nbsp;ID&nbsp;token&nbsp;claim&nbsp;data.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="107" href="#107">107</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="108" href="#108">108</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$idTokenData</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="109" href="#109">109</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array&nbsp;$accessTokenData</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="110" href="#110">110</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;array|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="111" href="#111">111</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="112" href="#112">112</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">OIDC_ID_TOKEN_PRE_VALIDATE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'oidc_id_token_pre_validate'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="113" href="#113">113</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="114" href="#114">114</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="115" href="#115">115</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Page&nbsp;content&nbsp;post-render&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="116" href="#116">116</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;after&nbsp;any&nbsp;display&nbsp;rendering&nbsp;of&nbsp;page&nbsp;content,&nbsp;typically&nbsp;when&nbsp;page&nbsp;content&nbsp;is&nbsp;being&nbsp;processed&nbsp;for&nbsp;viewing.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="117" href="#117">117</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Rendering&nbsp;typically&nbsp;includes&nbsp;parsing&nbsp;of&nbsp;page&nbsp;includes,&nbsp;and&nbsp;content&nbsp;filtering.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="118" href="#118">118</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;HTML&nbsp;content&nbsp;about&nbsp;to&nbsp;be&nbsp;shown,&nbsp;along&nbsp;with&nbsp;the&nbsp;related&nbsp;page&nbsp;instance.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="119" href="#119">119</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;string&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;HTML&nbsp;content&nbsp;instead.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="120" href="#120">120</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="121" href="#121">121</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$html</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="122" href="#122">122</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Entities\Models\Page&nbsp;$page</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="123" href="#123">123</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;string|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="124" href="#124">124</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="125" href="#125">125</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">PAGE_CONTENT_POST_RENDER</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'page_content_post_render'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="126" href="#126">126</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="127" href="#127">127</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="128" href="#128">128</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Page&nbsp;content&nbsp;pre-store&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="129" href="#129">129</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;just&nbsp;before&nbsp;page&nbsp;HTML&nbsp;is&nbsp;stored&nbsp;in&nbsp;the&nbsp;database,&nbsp;after&nbsp;BookStack's&nbsp;own&nbsp;processing.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="130" href="#130">130</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;HTML&nbsp;content&nbsp;about&nbsp;to&nbsp;be&nbsp;stored,&nbsp;along&nbsp;with&nbsp;the&nbsp;related&nbsp;page&nbsp;instance.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="131" href="#131">131</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;string&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;HTML&nbsp;content&nbsp;instead.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="132" href="#132">132</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="133" href="#133">133</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$html</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="134" href="#134">134</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Entities\Models\Page&nbsp;$page</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="135" href="#135">135</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;string|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="136" href="#136">136</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="137" href="#137">137</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">PAGE_CONTENT_PRE_STORE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'page_content_pre_store'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="138" href="#138">138</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="139" href="#139">139</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="140" href="#140">140</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Page&nbsp;include&nbsp;parse&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="141" href="#141">141</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;when&nbsp;a&nbsp;page&nbsp;include&nbsp;tag&nbsp;is&nbsp;being&nbsp;parsed,&nbsp;typically&nbsp;when&nbsp;page&nbsp;content&nbsp;is&nbsp;being&nbsp;processed&nbsp;for&nbsp;viewing.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="142" href="#142">142</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;&quot;include&nbsp;tag&quot;&nbsp;reference&nbsp;string,&nbsp;the&nbsp;default&nbsp;BookStack&nbsp;replacement&nbsp;content&nbsp;for&nbsp;the&nbsp;tag,</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="143" href="#143">143</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;the&nbsp;current&nbsp;page&nbsp;being&nbsp;processed,&nbsp;and&nbsp;the&nbsp;page&nbsp;that's&nbsp;being&nbsp;referenced&nbsp;by&nbsp;the&nbsp;include&nbsp;tag.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="144" href="#144">144</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;referenced&nbsp;page&nbsp;may&nbsp;be&nbsp;null&nbsp;where&nbsp;the&nbsp;page&nbsp;does&nbsp;not&nbsp;exist&nbsp;or&nbsp;where&nbsp;permissions&nbsp;prevent&nbsp;visibility.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="145" href="#145">145</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;non-null&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;replacement&nbsp;HTML&nbsp;content&nbsp;instead.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="146" href="#146">146</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="147" href="#147">147</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$tagReference</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="148" href="#148">148</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$replacementHTML</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="149" href="#149">149</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Entities\Models\Page&nbsp;$currentPage</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="150" href="#150">150</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;?\BookStack\Entities\Models\Page&nbsp;$referencedPage</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="151" href="#151">151</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="152" href="#152">152</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">PAGE_INCLUDE_PARSE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'page_include_parse'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="153" href="#153">153</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="154" href="#154">154</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="155" href="#155">155</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Routes&nbsp;register&nbsp;web&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="156" href="#156">156</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Called&nbsp;when&nbsp;standard&nbsp;web&nbsp;(browser/non-api)&nbsp;app&nbsp;routes&nbsp;are&nbsp;registered.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="157" href="#157">157</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;an&nbsp;app&nbsp;router,&nbsp;so&nbsp;you&nbsp;can&nbsp;register&nbsp;your&nbsp;own&nbsp;web&nbsp;routes.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="158" href="#158">158</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="159" href="#159">159</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\Illuminate\Routing\Router&nbsp;$router</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="160" href="#160">160</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="161" href="#161">161</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">ROUTES_REGISTER_WEB</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'routes_register_web'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="162" href="#162">162</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="163" href="#163">163</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="164" href="#164">164</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Routes&nbsp;register&nbsp;web&nbsp;auth&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="165" href="#165">165</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Called&nbsp;when&nbsp;auth-required&nbsp;web&nbsp;(browser/non-api)&nbsp;app&nbsp;routes&nbsp;can&nbsp;be&nbsp;registered.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="166" href="#166">166</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;These&nbsp;are&nbsp;routes&nbsp;that&nbsp;typically&nbsp;require&nbsp;login&nbsp;to&nbsp;access&nbsp;(unless&nbsp;the&nbsp;instance&nbsp;is&nbsp;made&nbsp;public).</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="167" href="#167">167</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;an&nbsp;app&nbsp;router,&nbsp;so&nbsp;you&nbsp;can&nbsp;register&nbsp;your&nbsp;own&nbsp;web&nbsp;routes.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="168" href="#168">168</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="169" href="#169">169</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\Illuminate\Routing\Router&nbsp;$router</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="170" href="#170">170</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="171" href="#171">171</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">ROUTES_REGISTER_WEB_AUTH</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'routes_register_web_auth'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="172" href="#172">172</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="173" href="#173">173</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="174" href="#174">174</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="175" href="#175">175</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Theme&nbsp;register&nbsp;views&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="176" href="#176">176</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Called&nbsp;by&nbsp;the&nbsp;theme&nbsp;system&nbsp;when&nbsp;a&nbsp;theme&nbsp;is&nbsp;active,&nbsp;so&nbsp;that&nbsp;custom&nbsp;view&nbsp;templates&nbsp;can&nbsp;be&nbsp;registered</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="177" href="#177">177</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;to&nbsp;be&nbsp;rendered&nbsp;in&nbsp;addition&nbsp;to&nbsp;existing&nbsp;app&nbsp;views.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="178" href="#178">178</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="179" href="#179">179</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Theming\ThemeViews&nbsp;$themeViews</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="180" href="#180">180</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="181" href="#181">181</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">THEME_REGISTER_VIEWS</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'theme_register_views'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="182" href="#182">182</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="183" href="#183">183</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="184" href="#184">184</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Web&nbsp;before&nbsp;middleware&nbsp;action.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="185" href="#185">185</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;before&nbsp;the&nbsp;request&nbsp;is&nbsp;handled&nbsp;but&nbsp;after&nbsp;all&nbsp;other&nbsp;middleware&nbsp;apart&nbsp;from&nbsp;those</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="186" href="#186">186</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;that&nbsp;depend&nbsp;on&nbsp;the&nbsp;current&nbsp;session&nbsp;user&nbsp;(Localization&nbsp;for&nbsp;example).</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="187" href="#187">187</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;original&nbsp;request&nbsp;to&nbsp;use.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="188" href="#188">188</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Return&nbsp;values,&nbsp;if&nbsp;provided,&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;new&nbsp;response&nbsp;to&nbsp;use.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="189" href="#189">189</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="190" href="#190">190</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\Illuminate\Http\Request&nbsp;$request</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="191" href="#191">191</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;\Illuminate\Http\Response|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="192" href="#192">192</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="193" href="#193">193</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">WEB_MIDDLEWARE_BEFORE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'web_middleware_before'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="194" href="#194">194</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="195" href="#195">195</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="196" href="#196">196</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Web&nbsp;after&nbsp;middleware&nbsp;action.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="197" href="#197">197</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;after&nbsp;the&nbsp;request&nbsp;is&nbsp;handled&nbsp;but&nbsp;before&nbsp;the&nbsp;response&nbsp;is&nbsp;sent.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="198" href="#198">198</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;both&nbsp;the&nbsp;original&nbsp;request&nbsp;and&nbsp;the&nbsp;currently&nbsp;resolved&nbsp;response.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="199" href="#199">199</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Return&nbsp;values,&nbsp;if&nbsp;provided,&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;new&nbsp;response&nbsp;to&nbsp;use.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="200" href="#200">200</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="201" href="#201">201</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\Illuminate\Http\Request&nbsp;$request</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="202" href="#202">202</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse&nbsp;$response</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="203" href="#203">203</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;\Illuminate\Http\Response|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="204" href="#204">204</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="205" href="#205">205</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">WEB_MIDDLEWARE_AFTER</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'web_middleware_after'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="206" href="#206">206</a></td><td class="col-11 codeLine"></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="207" href="#207">207</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">/**</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="208" href="#208">208</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Webhook&nbsp;call&nbsp;before&nbsp;event.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="209" href="#209">209</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Runs&nbsp;before&nbsp;a&nbsp;webhook&nbsp;endpoint&nbsp;is&nbsp;called.&nbsp;Allows&nbsp;for&nbsp;customization</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="210" href="#210">210</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;of&nbsp;the&nbsp;data&nbsp;format&nbsp;&amp;&nbsp;content&nbsp;within&nbsp;the&nbsp;webhook&nbsp;POST&nbsp;request.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="211" href="#211">211</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Provides&nbsp;the&nbsp;original&nbsp;event&nbsp;name&nbsp;as&nbsp;a&nbsp;string&nbsp;(see&nbsp;\BookStack\Actions\ActivityType)</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="212" href="#212">212</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;along&nbsp;with&nbsp;the&nbsp;webhook&nbsp;instance&nbsp;along&nbsp;with&nbsp;the&nbsp;event&nbsp;detail&nbsp;which&nbsp;may&nbsp;be&nbsp;a</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="213" href="#213">213</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&quot;Loggable&quot;&nbsp;model&nbsp;type&nbsp;or&nbsp;a&nbsp;string.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="214" href="#214">214</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;the&nbsp;listener&nbsp;returns&nbsp;a&nbsp;non-null&nbsp;value,&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;POST&nbsp;data&nbsp;instead</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="215" href="#215">215</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;of&nbsp;the&nbsp;system&nbsp;default.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="216" href="#216">216</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="217" href="#217">217</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$event</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="218" href="#218">218</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Activity\Models\Webhook&nbsp;$webhook</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="219" href="#219">219</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string|\BookStack\Activity\Models\Loggable&nbsp;$detail</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="220" href="#220">220</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;\BookStack\Users\Models\User&nbsp;$initiator</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="221" href="#221">221</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;int&nbsp;$initiatedTime</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="222" href="#222">222</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;array|null</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="223" href="#223">223</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="224" href="#224">224</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span class="default">&nbsp;</span><span class="default">WEBHOOK_CALL_BEFORE</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'webhook_call_before'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="225" href="#225">225</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
+
+</tbody>
+</table>
+
+
+   <footer>
+    <hr/>
+    <h4>Legend</h4>
+    <p><span class="legend covered-by-small-tests">Covered by small (and larger) tests</span><span class="legend covered-by-medium-tests">Covered by medium (and large) tests</span><span class="legend covered-by-large-tests">Covered by large tests (and tests of unknown size)</span><span class="legend not-covered">Not covered</span><span class="legend not-coverable">Not coverable</span></p>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.12</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.22</a> and <a href="https://phpunit.de/">PHPUnit 11.5.55</a> at Thu Jun 11 2:38:59 UTC 2026.</small>
+    </p>
+    <a title="Back to the top" id="toplink" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"><path fill-rule="evenodd" d="M12 11L6 5l-6 6h12z"/></svg>
+    </a>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/bootstrap.bundle.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/file.js?v=11.0.12" type="text/javascript"></script>
+ </body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app\Uploads</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.12" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\Users\Usuario\Documents\1. PROYECTO FINAL\bookstack-testing-project\app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Uploads</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#15">BookStack\Uploads\Controllers\DrawioImageController</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#20">BookStack\Uploads\Controllers\AttachmentController</a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="ImageResizer.php.html#19">BookStack\Uploads\ImageResizer</a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="FileStorage.php.html#14">BookStack\Uploads\FileStorage</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="ImageRepo.php.html#12">BookStack\Uploads\ImageRepo</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Attachment.php.html#31">BookStack\Uploads\Attachment</a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Controllers/GalleryImageController.php.html#15">BookStack\Uploads\Controllers\GalleryImageController</a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="ImageService.php.html#14">BookStack\Uploads\ImageService</a></td><td class="text-right">88%</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#7">BookStack\Uploads\FaviconHandler</a></td><td class="text-right">89%</td></tr>
+       <tr><td><a href="ImageStorage.php.html#8">BookStack\Uploads\ImageStorage</a></td><td class="text-right">89%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ImageResizer.php.html#19">BookStack\Uploads\ImageResizer</a></td><td class="text-right">91</td></tr>
+       <tr><td><a href="ImageService.php.html#14">BookStack\Uploads\ImageService</a></td><td class="text-right">65</td></tr>
+       <tr><td><a href="ImageRepo.php.html#12">BookStack\Uploads\ImageRepo</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#20">BookStack\Uploads\Controllers\AttachmentController</a></td><td class="text-right">27</td></tr>
+       <tr><td><a href="FileStorage.php.html#14">BookStack\Uploads\FileStorage</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="ImageStorage.php.html#8">BookStack\Uploads\ImageStorage</a></td><td class="text-right">23</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#15">BookStack\Uploads\Controllers\DrawioImageController</a></td><td class="text-right">19</td></tr>
+       <tr><td><a href="Attachment.php.html#31">BookStack\Uploads\Attachment</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#7">BookStack\Uploads\FaviconHandler</a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="Controllers/GalleryImageController.php.html#15">BookStack\Uploads\Controllers\GalleryImageController</a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="AttachmentService.php.html#105"><abbr title="BookStack\Uploads\AttachmentService::updateFileOrderWithinPage">updateFileOrderWithinPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#64"><abbr title="BookStack\Uploads\Controllers\AttachmentController::uploadUpdate">uploadUpdate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#90"><abbr title="BookStack\Uploads\Controllers\AttachmentController::getUpdateForm">getUpdateForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#178"><abbr title="BookStack\Uploads\Controllers\AttachmentController::listForPage">listForPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#193"><abbr title="BookStack\Uploads\Controllers\AttachmentController::sortForPage">sortForPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#27"><abbr title="BookStack\Uploads\Controllers\DrawioImageController::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ImageResizer.php.html#195"><abbr title="BookStack\Uploads\ImageResizer::orientImageToOriginalExif">orientImageToOriginalExif</abbr></a></td><td class="text-right">7%</td></tr>
+       <tr><td><a href="ImageRepo.php.html#79"><abbr title="BookStack\Uploads\ImageRepo::getEntityFiltered">getEntityFiltered</abbr></a></td><td class="text-right">30%</td></tr>
+       <tr><td><a href="ImageRepo.php.html#220"><abbr title="BookStack\Uploads\ImageRepo::getImageData">getImageData</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="ImageService.php.html#339"><abbr title="BookStack\Uploads\ImageService::checkUserHasAccessToRelationOfImage">checkUserHasAccessToRelationOfImage</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="ImageStorage.php.html#135"><abbr title="BookStack\Uploads\ImageStorage::getPublicBaseUrl">getPublicBaseUrl</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Attachment.php.html#84"><abbr title="BookStack\Uploads\Attachment::editorContent">editorContent</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Attachment.php.html#71"><abbr title="BookStack\Uploads\Attachment::getUrl">getUrl</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#51"><abbr title="BookStack\Uploads\FaviconHandler::restoreOriginalIfNotExists">restoreOriginalIfNotExists</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="FileStorage.php.html#49"><abbr title="BookStack\Uploads\FileStorage::uploadFile">uploadFile</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="FileStorage.php.html#84"><abbr title="BookStack\Uploads\FileStorage::getSystemPath">getSystemPath</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="ImageStorageDisk.php.html#75"><abbr title="BookStack\Uploads\ImageStorageDisk::put">put</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="UserAvatars.php.html#45"><abbr title="BookStack\Uploads\UserAvatars::assignToUserFromExistingData">assignToUserFromExistingData</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#81"><abbr title="BookStack\Uploads\Controllers\DrawioImageController::getAsBase64">getAsBase64</abbr></a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#37"><abbr title="BookStack\Uploads\FaviconHandler::restoreOriginal">restoreOriginal</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="ImageRepo.php.html#48"><abbr title="BookStack\Uploads\ImageRepo::getPaginatedByType">getPaginatedByType</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="Controllers/AttachmentApiController.php.html#129"><abbr title="BookStack\Uploads\Controllers\AttachmentApiController::update">update</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#159"><abbr title="BookStack\Uploads\Controllers\ImageController::checkImagePermission">checkImagePermission</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="FileStorage.php.html#121"><abbr title="BookStack\Uploads\FileStorage::adjustPathForStorageDisk">adjustPathForStorageDisk</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="ImageResizer.php.html#260"><abbr title="BookStack\Uploads\ImageResizer::isAnimatedAvifData">isAnimatedAvifData</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="ImageService.php.html#54"><abbr title="BookStack\Uploads\ImageService::saveNewFromBase64Uri">saveNewFromBase64Uri</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="ImageService.php.html#261"><abbr title="BookStack\Uploads\ImageService::pathAccessible">pathAccessible</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="ImageService.php.html#277"><abbr title="BookStack\Uploads\ImageService::imageAccessible">imageAccessible</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#20"><abbr title="BookStack\Uploads\FaviconHandler::saveForUploadedImage">saveForUploadedImage</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="FileStorage.php.html#34"><abbr title="BookStack\Uploads\FileStorage::delete">delete</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#35"><abbr title="BookStack\Uploads\Controllers\AttachmentController::upload">upload</abbr></a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#56"><abbr title="BookStack\Uploads\Controllers\DrawioImageController::create">create</abbr></a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Controllers/GalleryImageController.php.html#56"><abbr title="BookStack\Uploads\Controllers\GalleryImageController::create">create</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="ImageService.php.html#70"><abbr title="BookStack\Uploads\ImageService::saveNew">saveNew</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#96"><abbr title="BookStack\Uploads\Controllers\ImageController::edit">edit</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Controllers/GalleryImageController.php.html#27"><abbr title="BookStack\Uploads\Controllers\GalleryImageController::list">list</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#140"><abbr title="BookStack\Uploads\Controllers\ImageController::rebuildThumbnails">rebuildThumbnails</abbr></a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ImageResizer.php.html#195"><abbr title="BookStack\Uploads\ImageResizer::orientImageToOriginalExif">orientImageToOriginalExif</abbr></a></td><td class="text-right">88</td></tr>
+       <tr><td><a href="ImageService.php.html#339"><abbr title="BookStack\Uploads\ImageService::checkUserHasAccessToRelationOfImage">checkUserHasAccessToRelationOfImage</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="ImageRepo.php.html#79"><abbr title="BookStack\Uploads\ImageRepo::getEntityFiltered">getEntityFiltered</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="ImageStorage.php.html#135"><abbr title="BookStack\Uploads\ImageStorage::getPublicBaseUrl">getPublicBaseUrl</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="AttachmentService.php.html#105"><abbr title="BookStack\Uploads\AttachmentService::updateFileOrderWithinPage">updateFileOrderWithinPage</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#64"><abbr title="BookStack\Uploads\Controllers\AttachmentController::uploadUpdate">uploadUpdate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="FileStorage.php.html#49"><abbr title="BookStack\Uploads\FileStorage::uploadFile">uploadFile</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#81"><abbr title="BookStack\Uploads\Controllers\DrawioImageController::getAsBase64">getAsBase64</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="ImageService.php.html#70"><abbr title="BookStack\Uploads\ImageService::saveNew">saveNew</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Attachment.php.html#71"><abbr title="BookStack\Uploads\Attachment::getUrl">getUrl</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="ImageStorageDisk.php.html#75"><abbr title="BookStack\Uploads\ImageStorageDisk::put">put</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="ImageRepo.php.html#48"><abbr title="BookStack\Uploads\ImageRepo::getPaginatedByType">getPaginatedByType</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#159"><abbr title="BookStack\Uploads\Controllers\ImageController::checkImagePermission">checkImagePermission</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="ImageService.php.html#261"><abbr title="BookStack\Uploads\ImageService::pathAccessible">pathAccessible</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="ImageService.php.html#277"><abbr title="BookStack\Uploads\ImageService::imageAccessible">imageAccessible</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="ImageRepo.php.html#220"><abbr title="BookStack\Uploads\ImageRepo::getImageData">getImageData</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#37"><abbr title="BookStack\Uploads\FaviconHandler::restoreOriginal">restoreOriginal</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/AttachmentApiController.php.html#129"><abbr title="BookStack\Uploads\Controllers\AttachmentApiController::update">update</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="ImageResizer.php.html#260"><abbr title="BookStack\Uploads\ImageResizer::isAnimatedAvifData">isAnimatedAvifData</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="FileStorage.php.html#34"><abbr title="BookStack\Uploads\FileStorage::delete">delete</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/GalleryImageController.php.html#56"><abbr title="BookStack\Uploads\Controllers\GalleryImageController::create">create</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Attachment.php.html#84"><abbr title="BookStack\Uploads\Attachment::editorContent">editorContent</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#51"><abbr title="BookStack\Uploads\FaviconHandler::restoreOriginalIfNotExists">restoreOriginalIfNotExists</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="FileStorage.php.html#84"><abbr title="BookStack\Uploads\FileStorage::getSystemPath">getSystemPath</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="UserAvatars.php.html#45"><abbr title="BookStack\Uploads\UserAvatars::assignToUserFromExistingData">assignToUserFromExistingData</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="FileStorage.php.html#121"><abbr title="BookStack\Uploads\FileStorage::adjustPathForStorageDisk">adjustPathForStorageDisk</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="ImageService.php.html#54"><abbr title="BookStack\Uploads\ImageService::saveNewFromBase64Uri">saveNewFromBase64Uri</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="FaviconHandler.php.html#20"><abbr title="BookStack\Uploads\FaviconHandler::saveForUploadedImage">saveForUploadedImage</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/AttachmentController.php.html#35"><abbr title="BookStack\Uploads\Controllers\AttachmentController::upload">upload</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/DrawioImageController.php.html#56"><abbr title="BookStack\Uploads\Controllers\DrawioImageController::create">create</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#96"><abbr title="BookStack\Uploads\Controllers\ImageController::edit">edit</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.12</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.22</a> and <a href="https://phpunit.de/">PHPUnit 11.5.55</a> at Thu Jun 11 2:38:59 UTC 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=11.0.12" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([0,0,0,0,0,1,0,1,1,7,5,2], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([6,1,0,0,2,0,2,7,3,16,7,116], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[86.36363636363636,13,"<a href=\"Attachment.php.html#31\">BookStack\\Uploads\\Attachment<\/a>"],[92.1875,18,"<a href=\"AttachmentService.php.html#9\">BookStack\\Uploads\\AttachmentService<\/a>"],[95.94594594594594,11,"<a href=\"Controllers\/AttachmentApiController.php.html#17\">BookStack\\Uploads\\Controllers\\AttachmentApiController<\/a>"],[68.93203883495146,18,"<a href=\"Controllers\/AttachmentController.php.html#20\">BookStack\\Uploads\\Controllers\\AttachmentController<\/a>"],[48.78048780487805,9,"<a href=\"Controllers\/DrawioImageController.php.html#15\">BookStack\\Uploads\\Controllers\\DrawioImageController<\/a>"],[86.48648648648648,5,"<a href=\"Controllers\/GalleryImageController.php.html#15\">BookStack\\Uploads\\Controllers\\GalleryImageController<\/a>"],[92.1875,14,"<a href=\"Controllers\/ImageController.php.html#18\">BookStack\\Uploads\\Controllers\\ImageController<\/a>"],[100,14,"<a href=\"Controllers\/ImageGalleryApiController.php.html#15\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController<\/a>"],[89.28571428571429,11,"<a href=\"FaviconHandler.php.html#7\">BookStack\\Uploads\\FaviconHandler<\/a>"],[80,21,"<a href=\"FileStorage.php.html#14\">BookStack\\Uploads\\FileStorage<\/a>"],[100,4,"<a href=\"Image.php.html#25\">BookStack\\Uploads\\Image<\/a>"],[80.88235294117648,26,"<a href=\"ImageRepo.php.html#12\">BookStack\\Uploads\\ImageRepo<\/a>"],[72.11538461538461,46,"<a href=\"ImageResizer.php.html#19\">BookStack\\Uploads\\ImageResizer<\/a>"],[88.70967741935483,60,"<a href=\"ImageService.php.html#14\">BookStack\\Uploads\\ImageService<\/a>"],[89.36170212765957,23,"<a href=\"ImageStorage.php.html#8\">BookStack\\Uploads\\ImageStorage<\/a>"],[94.44444444444444,21,"<a href=\"ImageStorageDisk.php.html#13\">BookStack\\Uploads\\ImageStorageDisk<\/a>"],[97.2972972972973,26,"<a href=\"UserAvatars.php.html#15\">BookStack\\Uploads\\UserAvatars<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,2,"<a href=\"Attachment.php.html#45\">BookStack\\Uploads\\Attachment::getFileName<\/a>"],[100,1,"<a href=\"Attachment.php.html#57\">BookStack\\Uploads\\Attachment::page<\/a>"],[100,1,"<a href=\"Attachment.php.html#62\">BookStack\\Uploads\\Attachment::jointPermissions<\/a>"],[66.66666666666666,4,"<a href=\"Attachment.php.html#71\">BookStack\\Uploads\\Attachment::getUrl<\/a>"],[60,2,"<a href=\"Attachment.php.html#84\">BookStack\\Uploads\\Attachment::editorContent<\/a>"],[100,1,"<a href=\"Attachment.php.html#98\">BookStack\\Uploads\\Attachment::htmlLink<\/a>"],[100,1,"<a href=\"Attachment.php.html#106\">BookStack\\Uploads\\Attachment::markdownLink<\/a>"],[100,1,"<a href=\"Attachment.php.html#114\">BookStack\\Uploads\\Attachment::scopeVisible<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#11\">BookStack\\Uploads\\AttachmentService::__construct<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#21\">BookStack\\Uploads\\AttachmentService::streamAttachmentFromStorage<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#29\">BookStack\\Uploads\\AttachmentService::getAttachmentFileSize<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#39\">BookStack\\Uploads\\AttachmentService::saveNewUpload<\/a>"],[90,2,"<a href=\"AttachmentService.php.html#65\">BookStack\\Uploads\\AttachmentService::saveUpdatedUpload<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#86\">BookStack\\Uploads\\AttachmentService::saveNewFromLink<\/a>"],[0,2,"<a href=\"AttachmentService.php.html#105\">BookStack\\Uploads\\AttachmentService::updateFileOrderWithinPage<\/a>"],[100,4,"<a href=\"AttachmentService.php.html#117\">BookStack\\Uploads\\AttachmentService::updateFile<\/a>"],[100,2,"<a href=\"AttachmentService.php.html#143\">BookStack\\Uploads\\AttachmentService::deleteFile<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#156\">BookStack\\Uploads\\AttachmentService::deleteFileInStorage<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#166\">BookStack\\Uploads\\AttachmentService::putFileInStorage<\/a>"],[100,1,"<a href=\"AttachmentService.php.html#181\">BookStack\\Uploads\\AttachmentService::getFileValidationRules<\/a>"],[100,1,"<a href=\"Controllers\/AttachmentApiController.php.html#19\">BookStack\\Uploads\\Controllers\\AttachmentApiController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/AttachmentApiController.php.html#30\">BookStack\\Uploads\\Controllers\\AttachmentApiController::list<\/a>"],[100,2,"<a href=\"Controllers\/AttachmentApiController.php.html#48\">BookStack\\Uploads\\Controllers\\AttachmentApiController::create<\/a>"],[100,2,"<a href=\"Controllers\/AttachmentApiController.php.html#80\">BookStack\\Uploads\\Controllers\\AttachmentApiController::read<\/a>"],[80,3,"<a href=\"Controllers\/AttachmentApiController.php.html#129\">BookStack\\Uploads\\Controllers\\AttachmentApiController::update<\/a>"],[100,1,"<a href=\"Controllers\/AttachmentApiController.php.html#161\">BookStack\\Uploads\\Controllers\\AttachmentApiController::delete<\/a>"],[100,1,"<a href=\"Controllers\/AttachmentApiController.php.html#172\">BookStack\\Uploads\\Controllers\\AttachmentApiController::rules<\/a>"],[100,1,"<a href=\"Controllers\/AttachmentController.php.html#22\">BookStack\\Uploads\\Controllers\\AttachmentController::__construct<\/a>"],[84.61538461538461,2,"<a href=\"Controllers\/AttachmentController.php.html#35\">BookStack\\Uploads\\Controllers\\AttachmentController::upload<\/a>"],[0,2,"<a href=\"Controllers\/AttachmentController.php.html#64\">BookStack\\Uploads\\Controllers\\AttachmentController::uploadUpdate<\/a>"],[0,1,"<a href=\"Controllers\/AttachmentController.php.html#90\">BookStack\\Uploads\\Controllers\\AttachmentController::getUpdateForm<\/a>"],[100,2,"<a href=\"Controllers\/AttachmentController.php.html#106\">BookStack\\Uploads\\Controllers\\AttachmentController::update<\/a>"],[100,2,"<a href=\"Controllers\/AttachmentController.php.html#142\">BookStack\\Uploads\\Controllers\\AttachmentController::attachLink<\/a>"],[0,1,"<a href=\"Controllers\/AttachmentController.php.html#178\">BookStack\\Uploads\\Controllers\\AttachmentController::listForPage<\/a>"],[0,1,"<a href=\"Controllers\/AttachmentController.php.html#193\">BookStack\\Uploads\\Controllers\\AttachmentController::sortForPage<\/a>"],[100,4,"<a href=\"Controllers\/AttachmentController.php.html#214\">BookStack\\Uploads\\Controllers\\AttachmentController::get<\/a>"],[100,2,"<a href=\"Controllers\/AttachmentController.php.html#245\">BookStack\\Uploads\\Controllers\\AttachmentController::delete<\/a>"],[100,1,"<a href=\"Controllers\/DrawioImageController.php.html#17\">BookStack\\Uploads\\Controllers\\DrawioImageController::__construct<\/a>"],[0,1,"<a href=\"Controllers\/DrawioImageController.php.html#27\">BookStack\\Uploads\\Controllers\\DrawioImageController::list<\/a>"],[84.61538461538461,2,"<a href=\"Controllers\/DrawioImageController.php.html#56\">BookStack\\Uploads\\Controllers\\DrawioImageController::create<\/a>"],[72.72727272727273,5,"<a href=\"Controllers\/DrawioImageController.php.html#81\">BookStack\\Uploads\\Controllers\\DrawioImageController::getAsBase64<\/a>"],[100,1,"<a href=\"Controllers\/GalleryImageController.php.html#17\">BookStack\\Uploads\\Controllers\\GalleryImageController::__construct<\/a>"],[87.5,1,"<a href=\"Controllers\/GalleryImageController.php.html#27\">BookStack\\Uploads\\Controllers\\GalleryImageController::list<\/a>"],[85,3,"<a href=\"Controllers\/GalleryImageController.php.html#56\">BookStack\\Uploads\\Controllers\\GalleryImageController::create<\/a>"],[100,1,"<a href=\"Controllers\/ImageController.php.html#20\">BookStack\\Uploads\\Controllers\\ImageController::__construct<\/a>"],[100,2,"<a href=\"Controllers\/ImageController.php.html#32\">BookStack\\Uploads\\Controllers\\ImageController::showImage<\/a>"],[100,1,"<a href=\"Controllers\/ImageController.php.html#46\">BookStack\\Uploads\\Controllers\\ImageController::update<\/a>"],[92.85714285714286,2,"<a href=\"Controllers\/ImageController.php.html#67\">BookStack\\Uploads\\Controllers\\ImageController::updateFile<\/a>"],[86.66666666666667,2,"<a href=\"Controllers\/ImageController.php.html#96\">BookStack\\Uploads\\Controllers\\ImageController::edit<\/a>"],[100,1,"<a href=\"Controllers\/ImageController.php.html#126\">BookStack\\Uploads\\Controllers\\ImageController::destroy<\/a>"],[87.5,1,"<a href=\"Controllers\/ImageController.php.html#140\">BookStack\\Uploads\\Controllers\\ImageController::rebuildThumbnails<\/a>"],[80,4,"<a href=\"Controllers\/ImageController.php.html#159\">BookStack\\Uploads\\Controllers\\ImageController::checkImagePermission<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#21\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#29\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::rules<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#52\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::list<\/a>"],[100,2,"<a href=\"Controllers\/ImageGalleryApiController.php.html#73\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::create<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#98\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::read<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#109\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::readData<\/a>"],[100,2,"<a href=\"Controllers\/ImageGalleryApiController.php.html#121\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::readDataForUrl<\/a>"],[100,2,"<a href=\"Controllers\/ImageGalleryApiController.php.html#141\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::update<\/a>"],[100,1,"<a href=\"Controllers\/ImageGalleryApiController.php.html#161\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::delete<\/a>"],[100,2,"<a href=\"Controllers\/ImageGalleryApiController.php.html#174\">BookStack\\Uploads\\Controllers\\ImageGalleryApiController::formatForSingleResponse<\/a>"],[100,1,"<a href=\"FaviconHandler.php.html#11\">BookStack\\Uploads\\FaviconHandler::__construct<\/a>"],[83.33333333333334,2,"<a href=\"FaviconHandler.php.html#20\">BookStack\\Uploads\\FaviconHandler::saveForUploadedImage<\/a>"],[75,3,"<a href=\"FaviconHandler.php.html#37\">BookStack\\Uploads\\FaviconHandler::restoreOriginal<\/a>"],[66.66666666666666,2,"<a href=\"FaviconHandler.php.html#51\">BookStack\\Uploads\\FaviconHandler::restoreOriginalIfNotExists<\/a>"],[100,1,"<a href=\"FaviconHandler.php.html#63\">BookStack\\Uploads\\FaviconHandler::getPath<\/a>"],[100,1,"<a href=\"FaviconHandler.php.html#71\">BookStack\\Uploads\\FaviconHandler::getOriginalPath<\/a>"],[100,1,"<a href=\"FaviconHandler.php.html#81\">BookStack\\Uploads\\FaviconHandler::pngToIco<\/a>"],[100,1,"<a href=\"FileStorage.php.html#16\">BookStack\\Uploads\\FileStorage::__construct<\/a>"],[100,1,"<a href=\"FileStorage.php.html#24\">BookStack\\Uploads\\FileStorage::getReadStream<\/a>"],[100,1,"<a href=\"FileStorage.php.html#29\">BookStack\\Uploads\\FileStorage::getSize<\/a>"],[83.33333333333334,3,"<a href=\"FileStorage.php.html#34\">BookStack\\Uploads\\FileStorage::delete<\/a>"],[66.66666666666666,5,"<a href=\"FileStorage.php.html#49\">BookStack\\Uploads\\FileStorage::uploadFile<\/a>"],[100,1,"<a href=\"FileStorage.php.html#76\">BookStack\\Uploads\\FileStorage::isRemote<\/a>"],[66.66666666666666,2,"<a href=\"FileStorage.php.html#84\">BookStack\\Uploads\\FileStorage::getSystemPath<\/a>"],[100,1,"<a href=\"FileStorage.php.html#96\">BookStack\\Uploads\\FileStorage::getStorageDisk<\/a>"],[100,4,"<a href=\"FileStorage.php.html#104\">BookStack\\Uploads\\FileStorage::getStorageDiskName<\/a>"],[80,2,"<a href=\"FileStorage.php.html#121\">BookStack\\Uploads\\FileStorage::adjustPathForStorageDisk<\/a>"],[100,1,"<a href=\"Image.php.html#33\">BookStack\\Uploads\\Image::jointPermissions<\/a>"],[100,1,"<a href=\"Image.php.html#43\">BookStack\\Uploads\\Image::scopeVisible<\/a>"],[100,1,"<a href=\"Image.php.html#56\">BookStack\\Uploads\\Image::getThumb<\/a>"],[100,1,"<a href=\"Image.php.html#65\">BookStack\\Uploads\\Image::getPage<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#14\">BookStack\\Uploads\\ImageRepo::__construct<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#25\">BookStack\\Uploads\\ImageRepo::getById<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#34\">BookStack\\Uploads\\ImageRepo::returnPaginated<\/a>"],[77.77777777777779,4,"<a href=\"ImageRepo.php.html#48\">BookStack\\Uploads\\ImageRepo::getPaginatedByType<\/a>"],[30.76923076923077,4,"<a href=\"ImageRepo.php.html#79\">BookStack\\Uploads\\ImageRepo::getEntityFiltered<\/a>"],[100,2,"<a href=\"ImageRepo.php.html#112\">BookStack\\Uploads\\ImageRepo::saveNew<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#134\">BookStack\\Uploads\\ImageRepo::saveNewFromData<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#147\">BookStack\\Uploads\\ImageRepo::saveDrawing<\/a>"],[100,1,"<a href=\"ImageRepo.php.html#159\">BookStack\\Uploads\\ImageRepo::updateImageDetails<\/a>"],[100,2,"<a href=\"ImageRepo.php.html#173\">BookStack\\Uploads\\ImageRepo::updateImageFile<\/a>"],[100,2,"<a href=\"ImageRepo.php.html#193\">BookStack\\Uploads\\ImageRepo::destroyImage<\/a>"],[100,2,"<a href=\"ImageRepo.php.html#205\">BookStack\\Uploads\\ImageRepo::destroyByUrlAndType<\/a>"],[33.33333333333333,2,"<a href=\"ImageRepo.php.html#220\">BookStack\\Uploads\\ImageRepo::getImageData<\/a>"],[100,2,"<a href=\"ImageRepo.php.html#232\">BookStack\\Uploads\\ImageRepo::getPagesUsingImage<\/a>"],[100,1,"<a href=\"ImageResizer.php.html#23\">BookStack\\Uploads\\ImageResizer::__construct<\/a>"],[100,2,"<a href=\"ImageResizer.php.html#32\">BookStack\\Uploads\\ImageResizer::loadGalleryThumbnailsForMany<\/a>"],[100,2,"<a href=\"ImageResizer.php.html#42\">BookStack\\Uploads\\ImageResizer::loadGalleryThumbnailsForImage<\/a>"],[90.47619047619048,10,"<a href=\"ImageResizer.php.html#63\">BookStack\\Uploads\\ImageResizer::resizeToThumbnailUrl<\/a>"],[100,7,"<a href=\"ImageResizer.php.html#118\">BookStack\\Uploads\\ImageResizer::resizeImageData<\/a>"],[92.3076923076923,5,"<a href=\"ImageResizer.php.html#161\">BookStack\\Uploads\\ImageResizer::interventionFromImageData<\/a>"],[7.6923076923076925,10,"<a href=\"ImageResizer.php.html#195\">BookStack\\Uploads\\ImageResizer::orientImageToOriginalExif<\/a>"],[100,1,"<a href=\"ImageResizer.php.html#233\">BookStack\\Uploads\\ImageResizer::isGif<\/a>"],[100,1,"<a href=\"ImageResizer.php.html#241\">BookStack\\Uploads\\ImageResizer::getExtension<\/a>"],[100,1,"<a href=\"ImageResizer.php.html#249\">BookStack\\Uploads\\ImageResizer::isApngData<\/a>"],[80,3,"<a href=\"ImageResizer.php.html#260\">BookStack\\Uploads\\ImageResizer::isAnimatedAvifData<\/a>"],[100,3,"<a href=\"ImageResizer.php.html#282\">BookStack\\Uploads\\ImageResizer::isAnimated<\/a>"],[100,1,"<a href=\"ImageService.php.html#18\">BookStack\\Uploads\\ImageService::__construct<\/a>"],[100,4,"<a href=\"ImageService.php.html#30\">BookStack\\Uploads\\ImageService::saveNewFromUpload<\/a>"],[80,2,"<a href=\"ImageService.php.html#54\">BookStack\\Uploads\\ImageService::saveNewFromBase64Uri<\/a>"],[85.18518518518519,5,"<a href=\"ImageService.php.html#70\">BookStack\\Uploads\\ImageService::saveNew<\/a>"],[100,1,"<a href=\"ImageService.php.html#118\">BookStack\\Uploads\\ImageService::replaceExistingFromUpload<\/a>"],[100,1,"<a href=\"ImageService.php.html#130\">BookStack\\Uploads\\ImageService::getImageData<\/a>"],[100,1,"<a href=\"ImageService.php.html#143\">BookStack\\Uploads\\ImageService::getImageStream<\/a>"],[100,1,"<a href=\"ImageService.php.html#155\">BookStack\\Uploads\\ImageService::destroy<\/a>"],[100,1,"<a href=\"ImageService.php.html#164\">BookStack\\Uploads\\ImageService::destroyFileAtPath<\/a>"],[100,6,"<a href=\"ImageService.php.html#177\">BookStack\\Uploads\\ImageService::deleteUnusedImages<\/a>"],[93.75,8,"<a href=\"ImageService.php.html#214\">BookStack\\Uploads\\ImageService::imageUrlToBase64<\/a>"],[100,2,"<a href=\"ImageService.php.html#251\">BookStack\\Uploads\\ImageService::pathAccessibleInLocalSecure<\/a>"],[80,4,"<a href=\"ImageService.php.html#261\">BookStack\\Uploads\\ImageService::pathAccessible<\/a>"],[80,4,"<a href=\"ImageService.php.html#277\">BookStack\\Uploads\\ImageService::imageAccessible<\/a>"],[100,3,"<a href=\"ImageService.php.html#294\">BookStack\\Uploads\\ImageService::blockedBySecureImages<\/a>"],[100,2,"<a href=\"ImageService.php.html#304\">BookStack\\Uploads\\ImageService::imageFileExists<\/a>"],[91.66666666666666,5,"<a href=\"ImageService.php.html#314\">BookStack\\Uploads\\ImageService::checkUserHasAccessToRelationOfImageAtPath<\/a>"],[50,7,"<a href=\"ImageService.php.html#339\">BookStack\\Uploads\\ImageService::checkUserHasAccessToRelationOfImage<\/a>"],[100,1,"<a href=\"ImageService.php.html#367\">BookStack\\Uploads\\ImageService::streamImageFromStorageResponse<\/a>"],[100,1,"<a href=\"ImageService.php.html#379\">BookStack\\Uploads\\ImageService::isExtensionSupported<\/a>"],[100,1,"<a href=\"ImageStorage.php.html#10\">BookStack\\Uploads\\ImageStorage::__construct<\/a>"],[100,1,"<a href=\"ImageStorage.php.html#18\">BookStack\\Uploads\\ImageStorage::getDisk<\/a>"],[100,1,"<a href=\"ImageStorage.php.html#32\">BookStack\\Uploads\\ImageStorage::usingSecureRestrictedImages<\/a>"],[100,2,"<a href=\"ImageStorage.php.html#41\">BookStack\\Uploads\\ImageStorage::usingSecureImages<\/a>"],[100,2,"<a href=\"ImageStorage.php.html#49\">BookStack\\Uploads\\ImageStorage::cleanImageFileName<\/a>"],[100,5,"<a href=\"ImageStorage.php.html#67\">BookStack\\Uploads\\ImageStorage::getDiskName<\/a>"],[93.33333333333333,5,"<a href=\"ImageStorage.php.html#91\">BookStack\\Uploads\\ImageStorage::urlToPath<\/a>"],[100,1,"<a href=\"ImageStorage.php.html#124\">BookStack\\Uploads\\ImageStorage::getPublicUrl<\/a>"],[50,5,"<a href=\"ImageStorage.php.html#135\">BookStack\\Uploads\\ImageStorage::getPublicBaseUrl<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#15\">BookStack\\Uploads\\ImageStorageDisk::__construct<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#25\">BookStack\\Uploads\\ImageStorageDisk::usingSecureImages<\/a>"],[100,2,"<a href=\"ImageStorageDisk.php.html#34\">BookStack\\Uploads\\ImageStorageDisk::adjustPathForDisk<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#49\">BookStack\\Uploads\\ImageStorageDisk::exists<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#57\">BookStack\\Uploads\\ImageStorageDisk::get<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#66\">BookStack\\Uploads\\ImageStorageDisk::stream<\/a>"],[66.66666666666666,4,"<a href=\"ImageStorageDisk.php.html#75\">BookStack\\Uploads\\ImageStorageDisk::put<\/a>"],[100,3,"<a href=\"ImageStorageDisk.php.html#100\">BookStack\\Uploads\\ImageStorageDisk::destroyAllMatchingNameFromPath<\/a>"],[100,2,"<a href=\"ImageStorageDisk.php.html#127\">BookStack\\Uploads\\ImageStorageDisk::mimeType<\/a>"],[100,1,"<a href=\"ImageStorageDisk.php.html#136\">BookStack\\Uploads\\ImageStorageDisk::response<\/a>"],[100,2,"<a href=\"ImageStorageDisk.php.html#144\">BookStack\\Uploads\\ImageStorageDisk::isS3Like<\/a>"],[100,2,"<a href=\"ImageStorageDisk.php.html#153\">BookStack\\Uploads\\ImageStorageDisk::isFolderEmpty<\/a>"],[100,1,"<a href=\"UserAvatars.php.html#17\">BookStack\\Uploads\\UserAvatars::__construct<\/a>"],[100,3,"<a href=\"UserAvatars.php.html#26\">BookStack\\Uploads\\UserAvatars::fetchAndAssignToUser<\/a>"],[66.66666666666666,2,"<a href=\"UserAvatars.php.html#45\">BookStack\\Uploads\\UserAvatars::assignToUserFromExistingData<\/a>"],[100,4,"<a href=\"UserAvatars.php.html#60\">BookStack\\Uploads\\UserAvatars::assignToUserFromUrl<\/a>"],[100,2,"<a href=\"UserAvatars.php.html#87\">BookStack\\Uploads\\UserAvatars::destroyAllForUser<\/a>"],[100,1,"<a href=\"UserAvatars.php.html#103\">BookStack\\Uploads\\UserAvatars::saveAvatarImage<\/a>"],[100,1,"<a href=\"UserAvatars.php.html#123\">BookStack\\Uploads\\UserAvatars::createAvatarImageFromData<\/a>"],[100,7,"<a href=\"UserAvatars.php.html#140\">BookStack\\Uploads\\UserAvatars::getAvatarImageData<\/a>"],[100,1,"<a href=\"UserAvatars.php.html#170\">BookStack\\Uploads\\UserAvatars::avatarFetchEnabled<\/a>"],[100,4,"<a href=\"UserAvatars.php.html#180\">BookStack\\Uploads\\UserAvatars::getAvatarUrl<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
