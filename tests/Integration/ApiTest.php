@@ -221,4 +221,111 @@ class ApiTest extends TestCase
 
         $this->assertActivityExists(ActivityType::BOOK_DELETE, $book);
     }
+    /**
+     * IT-API-07
+     * GET /api/books con token con formato inválido retorna 401.
+     */
+    public function test_it_api_07_get_books_con_token_con_formato_invalido_retorna_401(): void
+    {
+        $response = $this->getJson($this->baseEndpoint, [
+            'Authorization' => 'Token token-sin-secret',
+        ]);
+
+        $response->assertStatus(401);
+        $response->assertJson([
+            'error' => [
+                'message' => 'An authorization token was found on the request but the format appeared incorrect',
+                'code' => 401,
+            ],
+        ]);
+    }
+
+    /**
+     * IT-API-08
+     * GET /api/books con secret incorrecto retorna 401.
+     */
+    public function test_it_api_08_get_books_con_secret_incorrecto_retorna_401(): void
+    {
+        $admin = $this->users->admin();
+
+        $token = ApiToken::factory()->create([
+            'user_id' => $admin->id,
+            'token_id' => 'decisiontoken',
+            'secret' => Hash::make('secret-correcto'),
+        ]);
+
+        $response = $this->getJson($this->baseEndpoint, [
+            'Authorization' => "Token {$token->token_id}:secret-incorrecto",
+        ]);
+
+        $response->assertStatus(401);
+        $response->assertJson([
+            'error' => [
+                'message' => 'The secret provided for the given used API token is incorrect',
+                'code' => 401,
+            ],
+        ]);
+    }
+
+        /**
+     * IT-API-09
+     * POST /api/books sin campo name retorna error de validación 422.
+     */
+    public function test_it_api_09_post_books_sin_name_retorna_error_de_validacion_422(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+
+        $booksBefore = Book::query()->count();
+
+        $payload = [
+            'description' => 'Libro enviado sin nombre para validar rama de error.',
+        ];
+
+        $response = $this->postJson($this->baseEndpoint, $payload, $headers);
+
+        $response->assertStatus(422);
+        $response->assertJson([
+            'error' => [
+                'message' => 'The given data was invalid.',
+                'validation' => [
+                    'name' => ['The name field is required.'],
+                ],
+                'code' => 422,
+            ],
+        ]);
+
+        $this->assertSame($booksBefore, Book::query()->count());
+    }
+
+    /**
+     * IT-API-10
+     * GET /api/books/{id} de libro existente retorna datos correctos.
+     */
+    public function test_it_api_10_get_book_existente_retorna_datos_correctos(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+        $book = $this->entities->book();
+
+        $response = $this->getJson($this->baseEndpoint . '/' . $book->id, $headers);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'id' => $book->id,
+            'name' => $book->name,
+            'slug' => $book->slug,
+        ]);
+        $response->assertJsonStructure([
+            'id',
+            'name',
+            'slug',
+            'description',
+            'created_at',
+            'updated_at',
+            'created_by',
+            'updated_by',
+            'owned_by',
+        ]);
+    }
 }
