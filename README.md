@@ -23,12 +23,12 @@ Proyecto académico orientado al análisis, diseño, implementación y documenta
 
 | Integrante | Porcentaje de esfuerzo (Hito 2\) |
 | :---- | :---- |
-| Joe Daniel Flores Choquehuenca | 20% |
-| Mauricio Eduardo Zegarra Puma | 18% |
-| Cielo Cristal Meza Vizcarra | 17% |
-| Rommel Abraham Chambi Velasquez | 15% |
-| Jeremy Joshua Perez Huamani | 15% |
-| Ower Frank Lopez Arela | 15% |
+| Joe Daniel Flores Choquehuenca | 83% |
+| Mauricio Eduardo Zegarra Puma | 82% |
+| Cielo Cristal Meza Vizcarra | 80% |
+| Rommel Abraham Chambi Velasquez | 80% |
+| Jeremy Joshua Perez Huamani | 74% |
+| Ower Frank Lopez Arela | 81% |
 
 ## **Recursos del Proyecto**
 
