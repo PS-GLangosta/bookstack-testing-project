@@ -6,6 +6,7 @@ use BookStack\Activity\ActivityType;
 use BookStack\Api\ApiToken;
 use BookStack\Entities\Models\Book;
 use BookStack\Users\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -421,5 +422,168 @@ class ApiTest extends TestCase
             'type' => 'book',
             'name' => $payload['name'],
         ]);
+    }
+    /**
+     * IT-API-14
+     * GET /api/books con token_id inexistente retorna 401.
+     */
+    public function test_it_api_14_get_books_con_token_id_inexistente_retorna_401(): void
+    {
+        $response = $this->getJson($this->baseEndpoint, [
+            'Authorization' => 'Token token-inexistente:secret-inexistente',
+        ]);
+
+        $response->assertStatus(401);
+        $response->assertJson([
+            'error' => [
+                'message' => 'No matching API token was found for the provided authorization token',
+                'code' => 401,
+            ],
+        ]);
+    }
+
+    /**
+     * IT-API-15
+     * GET /api/books con token expirado retorna 403.
+     */
+    public function test_it_api_15_get_books_con_token_expirado_retorna_403(): void
+    {
+        $admin = $this->users->admin();
+        $secret = 'secret-expirado';
+
+        $token = ApiToken::factory()->create([
+            'user_id' => $admin->id,
+            'token_id' => 'expiredtoken',
+            'secret' => Hash::make($secret),
+            'expires_at' => Carbon::now()->subDay(),
+        ]);
+
+        $response = $this->getJson($this->baseEndpoint, [
+            'Authorization' => "Token {$token->token_id}:{$secret}",
+        ]);
+
+        $response->assertStatus(403);
+        $response->assertJson([
+            'error' => [
+                'message' => 'The authorization token used has expired',
+                'code' => 403,
+            ],
+        ]);
+    }
+
+    /**
+     * IT-API-16
+     * POST /api/books con description_html crea libro y genera texto plano.
+     */
+    public function test_it_api_16_post_books_con_description_html_crea_libro_y_genera_texto_plano(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+
+        $payload = [
+            'name' => 'Libro API con HTML',
+            'description_html' => '<p>Libro <strong>creado</strong> con descripción HTML</p>',
+        ];
+
+        $response = $this->postJson($this->baseEndpoint, $payload, $headers);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'name' => $payload['name'],
+            'description_html' => $payload['description_html'],
+            'description' => 'Libro creado con descripción HTML',
+        ]);
+
+        $bookId = $response->json('id');
+
+        $this->assertDatabaseHasEntityData('book', [
+            'id' => $bookId,
+            'name' => $payload['name'],
+            'description_html' => $payload['description_html'],
+            'description' => 'Libro creado con descripción HTML',
+        ]);
+
+        $this->assertActivityExists(ActivityType::BOOK_CREATE, Book::query()->findOrFail($bookId));
+    }
+
+    /**
+     * IT-API-17
+     * POST /api/books con tags crea libro y persiste etiquetas.
+     */
+    public function test_it_api_17_post_books_con_tags_crea_libro_y_persiste_etiquetas(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+
+        $payload = [
+            'name' => 'Libro API con tags',
+            'description' => 'Libro creado para validar etiquetas desde API.',
+            'tags' => [
+                [
+                    'name' => 'Categoria',
+                    'value' => 'Integracion',
+                ],
+            ],
+        ];
+
+        $response = $this->postJson($this->baseEndpoint, $payload, $headers);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'name' => $payload['name'],
+            'description' => $payload['description'],
+            'description_html' => '<p>Libro creado para validar etiquetas desde API.</p>',
+        ]);
+
+        $book = Book::query()
+            ->where('name', $payload['name'])
+            ->orderByDesc('id')
+            ->firstOrFail();
+
+        $this->assertDatabaseHas('tags', [
+            'entity_id' => $book->id,
+            'entity_type' => $book->getMorphClass(),
+            'name' => 'Categoria',
+            'value' => 'Integracion',
+        ]);
+
+        $this->assertActivityExists(ActivityType::BOOK_CREATE, $book);
+    }
+
+    /**
+     * IT-API-18
+     * GET /api/books/{id} de libro con capítulos y páginas retorna contents.
+     */
+    public function test_it_api_18_get_book_con_capitulos_y_paginas_retorna_contents(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+
+        $book = $this->entities->bookHasChaptersAndPages();
+
+        $response = $this->getJson($this->baseEndpoint . '/' . $book->id, $headers);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'id' => $book->id,
+            'name' => $book->name,
+            'slug' => $book->slug,
+        ]);
+
+        $response->assertJsonStructure([
+            'id',
+            'name',
+            'slug',
+            'contents' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'slug',
+                    'type',
+                ],
+            ],
+        ]);
+
+        $this->assertNotEmpty($response->json('contents'));
     }
 }
