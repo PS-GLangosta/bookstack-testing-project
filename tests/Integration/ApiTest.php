@@ -328,4 +328,98 @@ class ApiTest extends TestCase
             'owned_by',
         ]);
     }
+    /**
+     * IT-API-11
+     * PUT /api/books/{id} con name mayor a 255 caracteres retorna error de validación 422.
+     */
+    public function test_it_api_11_put_book_con_name_mayor_a_255_retorna_error_de_validacion_422(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+        $book = $this->entities->book();
+
+        $originalName = $book->name;
+        $originalDescription = $book->description;
+
+        $payload = [
+            'name' => str_repeat('A', 256),
+            'description' => 'Intento de actualización con nombre inválido.',
+        ];
+
+        $response = $this->putJson($this->baseEndpoint . '/' . $book->id, $payload, $headers);
+
+        $response->assertStatus(422);
+        $response->assertJsonStructure([
+            'error' => [
+                'message',
+                'validation' => [
+                    'name',
+                ],
+                'code',
+            ],
+        ]);
+        $response->assertJsonPath('error.code', 422);
+
+        $book->refresh();
+
+        $this->assertSame($originalName, $book->name);
+        $this->assertSame($originalDescription, $book->description);
+    }
+
+    /**
+     * IT-API-12
+     * DELETE /api/books/{id} de libro inexistente retorna 404.
+     */
+    public function test_it_api_12_delete_book_inexistente_retorna_404(): void
+    {
+        $admin = $this->users->admin();
+        $headers = $this->apiTokenHeaderFor($admin);
+        $missingBookId = 99999999;
+
+        $response = $this->deleteJson($this->baseEndpoint . '/' . $missingBookId, [], $headers);
+
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'error' => [
+                'message',
+                'code',
+            ],
+        ]);
+        $response->assertJsonPath('error.code', 404);
+    }
+
+    /**
+     * IT-API-13
+     * POST /api/books con usuario sin permisos retorna 403 Forbidden.
+     */
+    public function test_it_api_13_post_books_con_usuario_sin_permisos_retorna_403(): void
+    {
+        $viewer = $this->users->viewer();
+        $headers = $this->apiTokenHeaderFor($viewer);
+
+        $booksBefore = Book::query()->count();
+
+        $payload = [
+            'name' => 'Libro creado por usuario sin permisos',
+            'description' => 'Este libro no debería crearse.',
+        ];
+
+        $response = $this->postJson($this->baseEndpoint, $payload, $headers);
+
+        $response->assertStatus(403);
+        $response->assertJsonStructure([
+            'error' => [
+                'message',
+                'code',
+            ],
+        ]);
+        $response->assertJsonPath('error.code', 403);
+
+        $this->assertSame($booksBefore, Book::query()->count());
+
+        $this->assertDatabaseMissing('entities', [
+            'type' => 'book',
+            'name' => $payload['name'],
+        ]);
+    }
 }
