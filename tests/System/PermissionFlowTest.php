@@ -50,6 +50,20 @@ class PermissionFlowTest extends TestCase
 
         $response->assertOk();
         $this->assertNotPermissionError($response);
+
+        $this->actingAs($this->admin);
+
+        $this->setPermissionsForUser(
+            $book,
+            $this->editor,
+            ['view']
+        );
+
+        $this->assertStoredPermissions(
+            $book,
+            $this->editor,
+            ['view']
+        );
     }
 
     protected function setPermissionsForUser(
