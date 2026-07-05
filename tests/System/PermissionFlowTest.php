@@ -385,6 +385,10 @@ class PermissionFlowTest extends TestCase
             ->assertOk()
             ->assertSeeText($publicPage->name)
             ->assertSeeText('Contenido que debe permanecer visible');
+
+        $this->followingRedirects()
+            ->get($book->getUrl())
+            ->assertSeeText('Book not found');
     }
 
     protected function createPageForParent(
