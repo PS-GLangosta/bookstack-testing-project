@@ -542,5 +542,17 @@ class PermissionIntegrationTest extends TestCase
             'role_id' => $temporaryRoleId,
             'view' => true,
         ]);
+
+        // eloquent tampoco debe poder recuperar la cuenta eliminada
+        $this->assertNull(
+            User::query()->find($temporaryUserId)
+        );
+
+        // la relacion del rol ya no debe devolver al usuario
+        $this->assertFalse(
+            $temporaryRole->users()
+                ->whereKey($temporaryUserId)
+                ->exists()
+        );
     }
 }
