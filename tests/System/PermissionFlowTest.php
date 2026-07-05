@@ -3,6 +3,7 @@
 namespace Tests\System;
 
 use BookStack\Entities\Models\Entity;
+use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
 use Tests\TestCase;
 
@@ -16,9 +17,20 @@ class PermissionFlowTest extends TestCase
     {
         parent::setUp();
 
-        $this->admin = $this->users->admin();
-        $this->editor = $this->users->editor();
-        $this->viewer = $this->users->viewer();
+        $this->admin = $this->users->newUser([
+            'name' => 'ST-02 Admin',
+        ]);
+        $this->admin->attachRole(Role::getSystemRole('admin'));
+
+        $this->editor = $this->users->newUser([
+            'name' => 'ST-02 Editor',
+        ]);
+        $this->editor->attachRole(Role::getRole('editor'));
+
+        $this->viewer = $this->users->newUser([
+            'name' => 'ST-02 Viewer',
+        ]);
+        $this->viewer->attachRole(Role::getRole('viewer'));
     }
 
     protected function setPermissionsForUser(
@@ -34,6 +46,7 @@ class PermissionFlowTest extends TestCase
             [$role]
         );
     }
+
     protected function assertStoredPermissions(
         Entity $entity,
         User $user,
