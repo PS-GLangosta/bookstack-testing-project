@@ -33,6 +33,19 @@ class PermissionFlowTest extends TestCase
         $this->viewer->attachRole(Role::getRole('viewer'));
     }
 
+    public function test_st_02_01_admin_restringe_edicion_de_un_libro_para_editor(): void
+    {
+        $this->actingAs($this->admin);
+
+        $book = $this->entities->newBook([
+            'name' => 'Libro restringido ST-02-01',
+            'description' => 'Libro usado para comprobar permisos explicitos',
+        ]);
+
+        static::assertTrue($book->exists);
+        static::assertSame('Libro restringido ST-02-01', $book->name);
+    }
+
     protected function setPermissionsForUser(
         Entity $entity,
         User $user,
