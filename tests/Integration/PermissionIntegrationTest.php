@@ -45,6 +45,36 @@ class PermissionIntegrationTest extends TestCase
                 'page-view-all',
             ]
         );
+
+        // comprobamos que los actores quedaron listos
+        $this->assertRoleAssignment(
+            $this->editor,
+            $this->editorRole
+        );
+
+        $this->assertRoleAssignment(
+            $this->viewer,
+            $this->viewerRole
+        );
+    }
+
+    protected function assertRoleAssignment(
+        User $user,
+        Role $role,
+        bool $assigned = true
+    ): void {
+        // preparamos la relacion que esperamos encontrar
+        $relation = [
+            'user_id' => $user->id,
+            'role_id' => $role->id,
+        ];
+
+        // elegimos la asercion segun el estado esperado
+        if ($assigned) {
+            $this->assertDatabaseHas('role_user', $relation);
+        } else {
+            $this->assertDatabaseMissing('role_user', $relation);
+        }
     }
 
     protected function setEntityPermissions(
@@ -482,10 +512,10 @@ class PermissionIntegrationTest extends TestCase
         );
 
         // primero verificamos que el rol si quedo conectado al usuario
-        $this->assertDatabaseHas('role_user', [
-            'user_id' => $temporaryUserId,
-            'role_id' => $temporaryRoleId,
-        ]);
+        $this->assertRoleAssignment(
+            $temporaryUser,
+            $temporaryRole
+        );
 
         // el permiso calculado debe existir antes de borrar la cuenta
         $this->assertJointPermission(
@@ -525,10 +555,11 @@ class PermissionIntegrationTest extends TestCase
             'id' => $temporaryUserId,
         ]);
 
-        $this->assertDatabaseMissing('role_user', [
-            'user_id' => $temporaryUserId,
-            'role_id' => $temporaryRoleId,
-        ]);
+        $this->assertRoleAssignment(
+            $temporaryUser,
+            $temporaryRole,
+            false
+        );
 
         // el rol puede seguir existiendo aunque el usuario ya no lo tenga
         $this->assertDatabaseHas('roles', [
