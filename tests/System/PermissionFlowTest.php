@@ -586,6 +586,44 @@ class PermissionFlowTest extends TestCase
                 )
                 ->exists()
         );
+
+        $repeatedPermissionsResponse = $this->get(
+            $book->getUrl('/permissions')
+        );
+
+        $this->assertPermissionError(
+            $repeatedPermissionsResponse
+        );
+
+        $repeatedEditResponse = $this->get(
+            $book->getUrl('/edit')
+        );
+
+        $this->assertPermissionError(
+            $repeatedEditResponse
+        );
+
+        $finalSessionUser = auth('standard')->user();
+
+        static::assertNotNull($finalSessionUser);
+        static::assertSame(
+            $roleUser->id,
+            $finalSessionUser->id
+        );
+
+        static::assertFalse(
+            $finalSessionUser->roles()
+                ->whereKey($adminRole->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $finalSessionUser->roles()
+                ->whereKey($viewerRole->id)
+                ->exists()
+        );
+
+        static::assertTrue(auth('standard')->check());
     }
 
     protected function replaceUserRoles(
