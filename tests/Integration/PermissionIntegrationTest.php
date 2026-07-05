@@ -408,6 +408,9 @@ class PermissionIntegrationTest extends TestCase
         $this->assertEntityVisible($chapter, $chapter->name);
         $this->assertEntityVisible($page, $page->name);
 
+        // guardamos el nombre original antes de probar la edicion
+        $originalPageName = $page->name;
+
         // la excepcion solo entrega lectura y no edicion
         $updateResponse = $this->put($page->getUrl(), [
             'name' => 'Pagina modificada por viewer',
@@ -415,6 +418,18 @@ class PermissionIntegrationTest extends TestCase
         ]);
 
         $this->assertPermissionError($updateResponse);
+
+        // el rechazo tambien debe conservar los datos originales
+        $this->assertDatabaseHas('entities', [
+            'id' => $page->id,
+            'type' => 'page',
+            'name' => $originalPageName,
+        ]);
+
+        $this->assertDatabaseMissing('entities', [
+            'id' => $page->id,
+            'name' => 'Pagina modificada por viewer',
+        ]);
 
         // el libro conserva su bloqueo calculado
         $this->assertJointPermission(
