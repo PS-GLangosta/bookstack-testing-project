@@ -156,6 +156,46 @@ class PermissionFlowTest extends TestCase
         $this->assertNotPermissionError($response);
     }
 
+    public function test_st_02_03_viewer_no_accede_a_contenido_privado_en_ningun_nivel(): void
+    {
+        $this->actingAs($this->admin);
+
+        $book = $this->entities->newBook([
+            'name' => 'Libro privado ST-02-03',
+            'description' => 'Libro usado para comprobar contenido privado',
+        ]);
+
+        $chapter = $this->entities->newChapter([
+            'name' => 'Capitulo privado ST-02-03',
+            'description' => 'Capitulo dentro del libro privado',
+        ], $book);
+
+        $page = $this->createPageForParent($chapter, [
+            'name' => 'Pagina privada ST-02-03',
+            'html' => '<p>Contenido privado del escenario ST-02-03</p>',
+        ]);
+
+        static::assertSame($book->id, $chapter->book_id);
+        static::assertSame($book->id, $page->book_id);
+        static::assertSame($chapter->id, $page->chapter_id);
+
+        $this->permissions->grantUserRolePermissions(
+            $this->viewer,
+            ['access-api']
+        );
+
+        $this->actingAs($this->viewer, 'api');
+
+        $this->getJson("/api/books/{$book->id}")
+            ->assertOk();
+
+        $this->getJson("/api/chapters/{$chapter->id}")
+            ->assertOk();
+
+        $this->getJson("/api/pages/{$page->id}")
+            ->assertOk();
+    }
+
     protected function createPageForParent(
         Entity $parent,
         array $input
