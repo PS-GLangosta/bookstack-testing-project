@@ -117,6 +117,16 @@ class PermissionIntegrationTest extends TestCase
             ->assertSee($expectedMessage);
     }
 
+    protected function assertEntityVisible(
+        Entity $entity,
+        string $expectedName
+    ): void {
+        // comprobamos que la entidad abre y muestra su nombre
+        $this->get($entity->getUrl())
+            ->assertOk()
+            ->assertSee($expectedName);
+    }
+
     public function test_it_pm_01_admin_puede_gestionar_libro_restringido(): void
     {
         // iniciamos sesion como administrador
@@ -395,13 +405,8 @@ class PermissionIntegrationTest extends TestCase
         $this->assertEntityHidden($book, 'Book not found');
 
         // el capitulo y su pagina deben quedar disponibles
-        $this->get($chapter->getUrl())
-            ->assertOk()
-            ->assertSee($chapter->name);
-
-        $this->get($page->getUrl())
-            ->assertOk()
-            ->assertSee($page->name);
+        $this->assertEntityVisible($chapter, $chapter->name);
+        $this->assertEntityVisible($page, $page->name);
 
         // la excepcion solo entrega lectura y no edicion
         $updateResponse = $this->put($page->getUrl(), [
