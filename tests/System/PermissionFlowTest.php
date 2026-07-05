@@ -7,6 +7,7 @@ use BookStack\Entities\Models\Page;
 use BookStack\Entities\Repos\PageRepo;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
+use BookStack\Users\UserRepo;
 use Tests\TestCase;
 
 class PermissionFlowTest extends TestCase
@@ -501,6 +502,26 @@ class PermissionFlowTest extends TestCase
 
         $this->get($book->getUrl('/permissions'))
             ->assertOk();
+    }
+
+    protected function replaceUserRoles(
+        User $user,
+        array $roles
+    ): void {
+        $roleIds = array_map(
+            static fn (Role $role): int => $role->id,
+            $roles
+        );
+
+        app(UserRepo::class)->updateWithoutActivity(
+            $user,
+            ['roles' => $roleIds],
+            true
+        );
+
+        $user->unsetRelation('roles');
+        $user->load('roles');
+        $user->clearPermissionCache();
     }
 
     protected function createPageForParent(
