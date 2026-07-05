@@ -452,4 +452,55 @@ class PermissionIntegrationTest extends TestCase
             PermissionStatus::EXPLICIT_ALLOW
         );
     }
+
+    public function test_it_pm_06_eliminar_usuario_revoca_su_acceso(): void
+    {
+        // creamos un usuario temporal con un rol propio
+        [$temporaryUser, $temporaryRole] = $this->users->newUserWithRole(
+            ['name' => 'Usuario temporal IT-PM-06'],
+            [
+                'book-view-all',
+                'chapter-view-all',
+                'page-view-all',
+            ]
+        );
+
+        $temporaryUserId = $temporaryUser->id;
+        $temporaryRoleId = $temporaryRole->id;
+
+        // preparamos contenido que solo puede leer su rol
+        $content = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        $book = $content['book'];
+        $page = $content['page'];
+
+        $this->setEntityPermissions(
+            $book,
+            ['view'],
+            [$temporaryRole]
+        );
+
+        // comprobamos que el acceso existe antes de eliminarlo
+        $this->actingAs($temporaryUser)
+            ->get($page->getUrl())
+            ->assertOk()
+            ->assertSee($page->name);
+
+        // eliminamos la cuenta usando el flujo real de administracion
+        $deleteResponse = $this->actingAs($this->admin)
+            ->delete("/settings/users/{$temporaryUserId}");
+
+        $deleteResponse->assertRedirect('/settings/users');
+
+        // el usuario y su relacion con el rol deben desaparecer
+        $this->assertDatabaseMissing('users', [
+            'id' => $temporaryUserId,
+        ]);
+
+        $this->assertDatabaseMissing('role_user', [
+            'user_id' => $temporaryUserId,
+            'role_id' => $temporaryRoleId,
+        ]);
+    }
 }
