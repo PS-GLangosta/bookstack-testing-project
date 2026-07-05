@@ -96,6 +96,28 @@ class PermissionFlowTest extends TestCase
         );
     }
 
+    public function test_st_02_02_revocar_permiso_restaura_acceso_por_defecto(): void
+    {
+        $this->actingAs($this->admin);
+
+        $book = $this->entities->newBook([
+            'name' => 'Libro con permiso revocable ST-02-02',
+            'description' => 'Libro usado para probar la restauracion de permisos',
+        ]);
+
+        static::assertTrue($book->exists);
+        static::assertSame(
+            'Libro con permiso revocable ST-02-02',
+            $book->name
+        );
+
+        $response = $this->actingAs($this->editor)
+            ->get($book->getUrl('/edit'));
+
+        $response->assertOk();
+        $this->assertNotPermissionError($response);
+    }
+
     protected function setPermissionsForUser(
         Entity $entity,
         User $user,
