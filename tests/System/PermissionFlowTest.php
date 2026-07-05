@@ -116,6 +116,26 @@ class PermissionFlowTest extends TestCase
 
         $response->assertOk();
         $this->assertNotPermissionError($response);
+
+        $this->actingAs($this->admin);
+
+        $this->setPermissionsForUser(
+            $book,
+            $this->editor,
+            ['view']
+        );
+
+        $this->assertStoredPermissions(
+            $book,
+            $this->editor,
+            ['view']
+        );
+
+        $response = $this->actingAs($this->editor)
+            ->get($book->getUrl('/edit'));
+
+        $response->assertRedirect('/');
+        $this->assertPermissionError($response);
     }
 
     protected function setPermissionsForUser(
