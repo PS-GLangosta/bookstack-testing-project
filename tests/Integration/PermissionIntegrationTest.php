@@ -158,4 +158,40 @@ class PermissionIntegrationTest extends TestCase
             'type' => 'book',
         ]);
     }
+
+    public function test_it_pm_02_editor_solo_edita_paginas_autorizadas(): void
+    {
+        $allowed = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        $this->setEntityPermissions(
+            $allowed['book'],
+            ['view', 'update'],
+            [$this->editorRole]
+        );
+
+        $allowedPage = $allowed['page'];
+
+        $this->actingAs($this->editor);
+
+        $allowedResponse = $this->put($allowedPage->getUrl(), [
+            'name' => 'Página autorizada actualizada IT-PM-02',
+            'html' => '<p>Actualización permitida.</p>',
+        ]);
+
+        $allowedResponse->assertRedirect();
+
+        $this->assertDatabaseHas('entities', [
+            'id' => $allowedPage->id,
+            'type' => 'page',
+            'name' => 'Página autorizada actualizada IT-PM-02',
+        ]);
+
+        $this->assertJointPermission(
+            $allowedPage,
+            $this->editorRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
+    }
+    
 }
