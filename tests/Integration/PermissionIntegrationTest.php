@@ -298,6 +298,7 @@ class PermissionIntegrationTest extends TestCase
 
     public function test_it_pm_04_libro_privado_oculta_descendientes(): void
     {
+        // armamos una cadena completa para probar la herencia
         $content = $this->entities
             ->createChainBelongingToUser($this->admin);
 
@@ -305,10 +306,13 @@ class PermissionIntegrationTest extends TestCase
         $chapter = $content['chapter'];
         $page = $content['page'];
 
+        // dejamos el libro privado para usuarios normales
         $this->setEntityPermissions($book, []);
 
+        // entramos como viewer para comprobar el bloqueo
         $this->actingAs($this->viewer);
 
+        // el libro y sus hijos deben quedar ocultos
         $this->followingRedirects()
             ->get($book->getUrl())
             ->assertSee('Book not found');
@@ -321,6 +325,7 @@ class PermissionIntegrationTest extends TestCase
             ->get($page->getUrl())
             ->assertSee('Page not found');
 
+        // confirmamos que la regla privada llego a la base
         $this->assertDatabaseHas('entity_permissions', [
             'entity_id' => $book->id,
             'entity_type' => 'book',
@@ -328,6 +333,7 @@ class PermissionIntegrationTest extends TestCase
             'view' => false,
         ]);
 
+        // revisamos el permiso calculado en cada nivel
         $this->assertJointPermission(
             $book,
             $this->viewerRole,
