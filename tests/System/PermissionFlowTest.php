@@ -64,6 +64,12 @@ class PermissionFlowTest extends TestCase
             $this->editor,
             ['view']
         );
+
+        $response = $this->actingAs($this->editor)
+            ->get($book->getUrl('/edit'));
+
+        $response->assertRedirect('/');
+        $this->assertPermissionError($response);
     }
 
     protected function setPermissionsForUser(
