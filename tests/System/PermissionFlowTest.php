@@ -397,6 +397,14 @@ class PermissionFlowTest extends TestCase
         $this->followingRedirects()
             ->get($privatePage->getUrl())
             ->assertSeeText('Page not found');
+
+        $publicChapterResponse
+            ->assertDontSeeText($privateChapter->name)
+            ->assertDontSeeText($privatePage->name);
+
+        $publicPageResponse
+            ->assertDontSeeText($privateChapter->name)
+            ->assertDontSeeText($privatePage->name);
     }
 
     protected function createPageForParent(
