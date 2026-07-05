@@ -53,7 +53,7 @@ class PermissionIntegrationTest extends TestCase
         array $roles = [],
         bool $inherit = false
     ): void {
-        // configuramos los permisos de la entidad
+        // usamos el helper real para guardar y recalcular permisos
         $this->permissions->setEntityPermissions(
             $entity,
             $actions,
@@ -61,27 +61,36 @@ class PermissionIntegrationTest extends TestCase
             $inherit
         );
 
-        // verificamos la restriccion general cuando no se heredan permisos
+        // cuando no heredamos debe existir la regla general
         if (!$inherit) {
-            $this->assertDatabaseHas('entity_permissions', [
-                'entity_id' => $entity->id,
-                'entity_type' => $entity->getMorphClass(),
-                'role_id' => 0,
-            ]);
+            $this->assertEntityPermissionRow($entity, 0, []);
         }
 
-        // revisamos los permisos guardados para cada rol
+        // cada rol debe guardar exactamente las acciones entregadas
         foreach ($roles as $role) {
-            $this->assertDatabaseHas('entity_permissions', [
-                'entity_id' => $entity->id,
-                'entity_type' => $entity->getMorphClass(),
-                'role_id' => $role->id,
-                'view' => in_array('view', $actions, true),
-                'create' => in_array('create', $actions, true),
-                'update' => in_array('update', $actions, true),
-                'delete' => in_array('delete', $actions, true),
-            ]);
+            $this->assertEntityPermissionRow(
+                $entity,
+                $role->id,
+                $actions
+            );
         }
+    }
+
+    protected function assertEntityPermissionRow(
+        Entity $entity,
+        int $roleId,
+        array $actions
+    ): void {
+        // convertimos las acciones en valores faciles de comparar
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id' => $entity->id,
+            'entity_type' => $entity->getMorphClass(),
+            'role_id' => $roleId,
+            'view' => in_array('view', $actions, true),
+            'create' => in_array('create', $actions, true),
+            'update' => in_array('update', $actions, true),
+            'delete' => in_array('delete', $actions, true),
+        ]);
     }
 
     protected function assertJointPermission(
@@ -325,14 +334,6 @@ class PermissionIntegrationTest extends TestCase
             ->get($page->getUrl())
             ->assertSee('Page not found');
 
-        // confirmamos que la regla privada llego a la base
-        $this->assertDatabaseHas('entity_permissions', [
-            'entity_id' => $book->id,
-            'entity_type' => 'book',
-            'role_id' => 0,
-            'view' => false,
-        ]);
-
         // revisamos el permiso calculado en cada nivel
         $this->assertJointPermission(
             $book,
@@ -352,5 +353,4 @@ class PermissionIntegrationTest extends TestCase
             PermissionStatus::IMPLICIT_DENY
         );
     }
-
 }
