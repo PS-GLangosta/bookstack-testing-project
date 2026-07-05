@@ -312,6 +312,28 @@ class PermissionFlowTest extends TestCase
             'update' => false,
             'delete' => false,
         ]);
+
+        auth('standard')->logout();
+
+        $this->followingRedirects()
+            ->get($book->getUrl())
+            ->assertSeeText('Book not found');
+
+        $this->followingRedirects()
+            ->get($publicChapter->getUrl())
+            ->assertSeeText('Chapter not found');
+
+        $this->followingRedirects()
+            ->get($publicPage->getUrl())
+            ->assertSeeText('Page not found');
+
+        $this->followingRedirects()
+            ->get($privateChapter->getUrl())
+            ->assertSeeText('Chapter not found');
+
+        $this->followingRedirects()
+            ->get($privatePage->getUrl())
+            ->assertSeeText('Page not found');
     }
 
     protected function createPageForParent(
