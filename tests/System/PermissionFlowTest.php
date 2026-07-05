@@ -247,6 +247,60 @@ class PermissionFlowTest extends TestCase
         );
     }
 
+    public function test_st_02_04_capitulo_publico_sobrescribe_libro_privado(): void
+    {
+        $this->actingAs($this->admin);
+
+        $book = $this->entities->newBook([
+            'name' => 'Libro privado con override ST-02-04',
+            'description' => 'Libro usado para comprobar acceso selectivo',
+        ]);
+
+        $publicChapter = $this->entities->newChapter([
+            'name' => 'Capitulo publico ST-02-04',
+            'description' => 'Capitulo que recibira un permiso publico propio',
+        ], $book);
+
+        $publicPage = $this->createPageForParent($publicChapter, [
+            'name' => 'Pagina publica ST-02-04',
+            'html' => '<p>Contenido que debe permanecer visible</p>',
+        ]);
+
+        $privateChapter = $this->entities->newChapter([
+            'name' => 'Capitulo privado ST-02-04',
+            'description' => 'Capitulo que conservara la restriccion del libro',
+        ], $book);
+
+        $privatePage = $this->createPageForParent($privateChapter, [
+            'name' => 'Pagina privada ST-02-04',
+            'html' => '<p>Contenido que debe permanecer oculto</p>',
+        ]);
+
+        static::assertSame($book->id, $publicChapter->book_id);
+        static::assertSame($publicChapter->id, $publicPage->chapter_id);
+        static::assertSame($book->id, $privateChapter->book_id);
+        static::assertSame($privateChapter->id, $privatePage->chapter_id);
+
+        $this->permissions->makeAppPublic();
+
+        auth('standard')->logout();
+
+        $this->get($book->getUrl())
+            ->assertOk();
+
+        $this->get($publicChapter->getUrl())
+            ->assertOk();
+
+        $this->get($publicPage->getUrl())
+            ->assertOk();
+
+        $this->get($privateChapter->getUrl())
+            ->assertOk();
+
+        $this->get($privatePage->getUrl())
+            ->assertOk();
+    }
+
     protected function createPageForParent(
         Entity $parent,
         array $input
