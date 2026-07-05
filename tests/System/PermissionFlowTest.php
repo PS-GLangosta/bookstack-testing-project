@@ -194,6 +194,19 @@ class PermissionFlowTest extends TestCase
 
         $this->getJson("/api/pages/{$page->id}")
             ->assertOk();
+
+        $this->actingAs($this->admin);
+        $this->makeEntityPrivate($book);
+
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id' => $book->id,
+            'entity_type' => $book->getMorphClass(),
+            'role_id' => 0,
+            'view' => false,
+            'create' => false,
+            'update' => false,
+            'delete' => false,
+        ]);
     }
 
     protected function createPageForParent(
