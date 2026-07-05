@@ -103,25 +103,59 @@ class PermissionIntegrationTest extends TestCase
         // iniciamos sesion como administrador
         $this->actingAs($this->admin);
 
-        // enviamos la solicitud para crear el libro
+        // creamos el libro desde la ruta principal
         $createResponse = $this->post('/books', [
             'name' => 'Libro administrativo IT-PM-01',
             'description_html' => '<p>Libro creado por el administrador.</p>',
         ]);
 
-        // buscamos el libro que acabamos de crear
+        // buscamos el libro creado para continuar con la prueba
         $book = Book::query()
             ->where('name', 'Libro administrativo IT-PM-01')
             ->firstOrFail();
 
-        // comprobamos que redirija al libro creado
+        // comprobamos que redirija al libro recien creado
         $createResponse->assertRedirect($book->getUrl());
 
-        // confirmamos que el libro se guardo en la base de datos
+        // verificamos que el libro exista en la base de datos
         $this->assertDatabaseHas('entities', [
             'id' => $book->id,
             'type' => 'book',
             'name' => 'Libro administrativo IT-PM-01',
+        ]);
+
+        // restringimos el libro sin dar permisos a ningun rol
+        $this->setEntityPermissions($book, []);
+
+        // intentamos actualizar el libro como administrador
+        $updateResponse = $this->put($book->getUrl(), [
+            'name' => 'Libro administrativo actualizado IT-PM-01',
+            'description_html' => '<p>Contenido actualizado por el administrador.</p>',
+        ]);
+
+        // actualizamos los datos del modelo desde la base de datos
+        $book->refresh();
+
+        // comprobamos que redirija al libro actualizado
+        $updateResponse->assertRedirect($book->getUrl());
+
+        // verificamos que los nuevos datos se hayan guardado
+        $this->assertDatabaseHas('entities', [
+            'id' => $book->id,
+            'type' => 'book',
+            'name' => 'Libro administrativo actualizado IT-PM-01',
+        ]);
+
+        // eliminamos el libro como administrador
+        $deleteResponse = $this->delete($book->getUrl());
+
+        // despues de eliminar debe volver al listado de libros
+        $deleteResponse->assertRedirect('/books');
+
+        // comprobamos que el libro haya quedado eliminado logicamente
+        $this->assertSoftDeleted('entities', [
+            'id' => $book->id,
+            'type' => 'book',
         ]);
     }
 }
