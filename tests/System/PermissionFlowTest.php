@@ -535,6 +535,12 @@ class PermissionFlowTest extends TestCase
         static::assertSame($roleUser->id, $sessionUser->id);
         static::assertSame($currentUser->id, $sessionUser->id);
         static::assertTrue(auth('standard')->check());
+
+        $permissionsResponse = $this->get(
+            $book->getUrl('/permissions')
+        );
+
+        $this->assertPermissionError($permissionsResponse);
     }
 
     protected function replaceUserRoles(
