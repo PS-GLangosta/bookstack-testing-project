@@ -344,6 +344,27 @@ class PermissionFlowTest extends TestCase
             $publicRole,
             ['view']
         );
+
+        $this->assertStoredPermissionsForRole(
+            $publicChapter,
+            $publicRole,
+            ['view']
+        );
+
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id' => $publicChapter->id,
+            'entity_type' => $publicChapter->getMorphClass(),
+            'role_id' => 0,
+            'view' => false,
+            'create' => false,
+            'update' => false,
+            'delete' => false,
+        ]);
+
+        static::assertCount(
+            2,
+            $publicChapter->permissions()->get()
+        );
     }
 
     protected function createPageForParent(
