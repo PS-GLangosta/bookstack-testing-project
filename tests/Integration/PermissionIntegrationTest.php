@@ -7,6 +7,8 @@ use BookStack\Entities\Models\Entity;
 use BookStack\Permissions\PermissionStatus;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -18,6 +20,8 @@ use Tests\TestCase;
 #[Group('permissions')]
 class PermissionIntegrationTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected User $admin;
     protected User $editor;
     protected User $viewer;
@@ -148,9 +152,9 @@ class PermissionIntegrationTest extends TestCase
         Entity $entity,
         string $expectedMessage
     ): void {
-        // seguimos la redireccion para revisar el mensaje final
-        $this->followingRedirects()
-            ->get($entity->getUrl())
+        // comprobamos que la entidad oculta responda como no encontrada
+        $this->get($entity->getUrl())
+            ->assertNotFound()
             ->assertSee($expectedMessage);
     }
 
@@ -171,18 +175,21 @@ class PermissionIntegrationTest extends TestCase
         $this->actingAs($this->admin);
 
         // creamos el libro desde la ruta principal
-        $createResponse = $this->post('/books', [
-            'name' => 'Libro administrativo IT-PM-01',
-            'description_html' => '<p>Libro creado por el administrador.</p>',
-        ]);
+        $createResponse = $this->followingRedirects()
+            ->post('/books', [
+                'name' => 'Libro administrativo IT-PM-01',
+                'description_html' => '<p>Libro creado por el administrador.</p>',
+            ]);
 
         // buscamos el libro creado para continuar con la prueba
         $book = Book::query()
             ->where('name', 'Libro administrativo IT-PM-01')
             ->firstOrFail();
 
-        // comprobamos que redirija al libro recien creado
-        $createResponse->assertRedirect($book->getUrl());
+        // comprobamos el codigo http final de la creacion
+        $createResponse
+            ->assertOk()
+            ->assertSee($book->name);
 
         // verificamos que el libro exista en la base de datos
         $this->assertDatabaseHas('entities', [
@@ -195,16 +202,19 @@ class PermissionIntegrationTest extends TestCase
         $this->setEntityPermissions($book, []);
 
         // intentamos actualizar el libro como administrador
-        $updateResponse = $this->put($book->getUrl(), [
-            'name' => 'Libro administrativo actualizado IT-PM-01',
-            'description_html' => '<p>Contenido actualizado por el administrador.</p>',
-        ]);
+        $updateResponse = $this->followingRedirects()
+            ->put($book->getUrl(), [
+                'name' => 'Libro administrativo actualizado IT-PM-01',
+                'description_html' => '<p>Contenido actualizado por el administrador.</p>',
+            ]);
 
         // recargamos los datos del libro desde la base de datos
         $book->refresh();
 
-        // comprobamos que redirija al libro actualizado
-        $updateResponse->assertRedirect($book->getUrl());
+        // comprobamos el codigo http final de la actualizacion
+        $updateResponse
+            ->assertOk()
+            ->assertSee($book->name);
 
         // verificamos que los nuevos datos se hayan guardado
         $this->assertDatabaseHas('entities', [
@@ -214,10 +224,11 @@ class PermissionIntegrationTest extends TestCase
         ]);
 
         // eliminamos el libro como administrador
-        $deleteResponse = $this->delete($book->getUrl());
+        $deleteResponse = $this->followingRedirects()
+            ->delete($book->getUrl());
 
-        // comprobamos que vuelva al listado de libros
-        $deleteResponse->assertRedirect('/books');
+        // comprobamos el codigo http final de la eliminacion
+        $deleteResponse->assertOk();
 
         // comprobamos que el libro haya quedado eliminado logicamente
         $this->assertSoftDeleted('entities', [
@@ -262,13 +273,16 @@ class PermissionIntegrationTest extends TestCase
         $this->actingAs($this->editor);
 
         // actualizamos la pagina que si tiene permiso
-        $allowedResponse = $this->put($allowedPage->getUrl(), [
-            'name' => 'Página autorizada actualizada IT-PM-02',
-            'html' => '<p>Actualización permitida.</p>',
-        ]);
+        $allowedResponse = $this->followingRedirects()
+            ->put($allowedPage->getUrl(), [
+                'name' => 'Página autorizada actualizada IT-PM-02',
+                'html' => '<p>Actualización permitida.</p>',
+            ]);
 
-        // comprobamos que la actualizacion genere una redireccion
-        $allowedResponse->assertRedirect();
+        // comprobamos el codigo http final de la actualizacion
+        $allowedResponse
+            ->assertOk()
+            ->assertSee('Página autorizada actualizada IT-PM-02');
 
         // verificamos que la pagina autorizada haya cambiado
         $this->assertDatabaseHas('entities', [
@@ -278,13 +292,13 @@ class PermissionIntegrationTest extends TestCase
         ]);
 
         // intentamos modificar la pagina sin permiso de actualizacion
-        $deniedResponse = $this->put($deniedPage->getUrl(), [
+        $deniedResponse = $this->putJson($deniedPage->getUrl(), [
             'name' => 'Página no autorizada modificada',
             'html' => '<p>Esta modificación debe rechazarse.</p>',
         ]);
 
-        // comprobamos que bookstack rechace la solicitud
-        $this->assertPermissionError($deniedResponse);
+        // comprobamos que bookstack responda exactamente con 403
+        $deniedResponse->assertForbidden();
 
         // verificamos que la pagina conserve su nombre original
         $this->assertDatabaseHas('entities', [
@@ -334,21 +348,21 @@ class PermissionIntegrationTest extends TestCase
             ->assertSee($page->name);
 
         // intentamos abrir el formulario para crear una pagina
-        $createResponse = $this->get(
+        $createResponse = $this->getJson(
             $book->getUrl('/create-page')
         );
 
         // comprobamos que no tenga permiso para crear
-        $this->assertPermissionError($createResponse);
+        $createResponse->assertForbidden();
 
         // intentamos actualizar la pagina como viewer
-        $updateResponse = $this->put($page->getUrl(), [
+        $updateResponse = $this->putJson($page->getUrl(), [
             'name' => 'Página alterada por viewer',
             'html' => '<p>Operación no permitida.</p>',
         ]);
 
         // comprobamos que no tenga permiso para actualizar
-        $this->assertPermissionError($updateResponse);
+        $updateResponse->assertForbidden();
 
         // verificamos que la pagina mantenga su nombre original
         $this->assertDatabaseHas('entities', [
@@ -454,12 +468,12 @@ class PermissionIntegrationTest extends TestCase
         $originalPageName = $page->name;
 
         // la excepcion solo entrega lectura y no edicion
-        $updateResponse = $this->put($page->getUrl(), [
+        $updateResponse = $this->putJson($page->getUrl(), [
             'name' => 'Pagina modificada por viewer',
             'html' => '<p>Este cambio no debe guardarse</p>',
         ]);
 
-        $this->assertPermissionError($updateResponse);
+        $updateResponse->assertForbidden();
 
         // el rechazo tambien debe conservar los datos originales
         $this->assertDatabaseHas('entities', [
@@ -547,6 +561,23 @@ class PermissionIntegrationTest extends TestCase
             'id' => $temporaryRoleId,
         ]);
 
+        // registramos una sesion activa vinculada al usuario temporal
+        $activeSessionId = "it-pm-06-session-{$temporaryUserId}";
+
+        DB::table('sessions')->insert([
+            'id' => $activeSessionId,
+            'user_id' => $temporaryUserId,
+            'ip_address' => '127.0.0.1',
+            'user_agent' => 'PHPUnit IT-PM-06',
+            'payload' => base64_encode('it-pm-06'),
+            'last_activity' => time(),
+        ]);
+
+        $this->assertDatabaseHas('sessions', [
+            'id' => $activeSessionId,
+            'user_id' => $temporaryUserId,
+        ]);
+
         // comprobamos que el acceso existe antes de eliminarlo
         $this->actingAs($temporaryUser)
             ->get($page->getUrl())
@@ -559,8 +590,9 @@ class PermissionIntegrationTest extends TestCase
 
         $deleteResponse->assertRedirect('/settings/users');
 
-        // seguimos la respuesta para revisar el mensaje de confirmacion
+        // seguimos la respuesta para revisar el codigo y el mensaje final
         $this->followRedirects($deleteResponse)
+            ->assertOk()
             ->assertSee('User successfully removed');
 
         // el usuario y su relacion con el rol deben desaparecer
@@ -573,6 +605,17 @@ class PermissionIntegrationTest extends TestCase
             $temporaryRole,
             false
         );
+
+        // la sesion queda invalida porque ya no apunta al usuario eliminado
+        $this->assertDatabaseHas('sessions', [
+            'id' => $activeSessionId,
+            'user_id' => null,
+        ]);
+
+        $this->assertDatabaseMissing('sessions', [
+            'id' => $activeSessionId,
+            'user_id' => $temporaryUserId,
+        ]);
 
         // el rol puede seguir existiendo aunque el usuario ya no lo tenga
         $this->assertDatabaseHas('roles', [
