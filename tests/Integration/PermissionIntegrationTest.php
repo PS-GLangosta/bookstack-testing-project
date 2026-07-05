@@ -7,8 +7,14 @@ use BookStack\Entities\Models\Entity;
 use BookStack\Permissions\PermissionStatus;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
+/**
+ * pruebas de integracion para permisos con http y base de datos
+ */
+#[Group('integration')]
+#[Group('permissions')]
 class PermissionIntegrationTest extends TestCase
 {
     protected User $admin;
