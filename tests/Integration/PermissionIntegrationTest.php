@@ -248,27 +248,47 @@ class PermissionIntegrationTest extends TestCase
 
     public function test_it_pm_03_viewer_solo_lee_contenido_publico(): void
     {
-        // creamos una cadena de contenido perteneciente al administrador
         $content = $this->entities
             ->createChainBelongingToUser($this->admin);
 
-        // obtenemos el libro y la pagina creados
         $book = $content['book'];
         $page = $content['page'];
+        $originalName = $page->name;
 
-        // iniciamos sesion como viewer y comprobamos que pueda ver la pagina
         $this->actingAs($this->viewer)
             ->get($page->getUrl())
             ->assertOk()
             ->assertSee($page->name);
 
-        // comprobamos que el libro no tenga restricciones explicitas
+        $createResponse = $this->get(
+            $book->getUrl('/create-page')
+        );
+
+        $this->assertPermissionError($createResponse);
+
+        $updateResponse = $this->put($page->getUrl(), [
+            'name' => 'Página alterada por viewer',
+            'html' => '<p>Operación no permitida.</p>',
+        ]);
+
+        $this->assertPermissionError($updateResponse);
+
+        $this->assertDatabaseHas('entities', [
+            'id' => $page->id,
+            'type' => 'page',
+            'name' => $originalName,
+        ]);
+
+        $this->assertDatabaseMissing('entities', [
+            'id' => $page->id,
+            'name' => 'Página alterada por viewer',
+        ]);
+
         $this->assertDatabaseMissing('entity_permissions', [
             'entity_id' => $book->id,
             'entity_type' => 'book',
         ]);
 
-        // verificamos que el viewer tenga permiso implicito sobre la pagina
         $this->assertJointPermission(
             $page,
             $this->viewerRole,
