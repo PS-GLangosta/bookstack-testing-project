@@ -405,6 +405,62 @@ class PermissionFlowTest extends TestCase
         $publicPageResponse
             ->assertDontSeeText($privateChapter->name)
             ->assertDontSeeText($privatePage->name);
+
+        static::assertTrue(
+            $book->newQuery()
+                ->whereKey($book->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $publicChapter->newQuery()
+                ->whereKey($publicChapter->id)
+                ->where('book_id', $book->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $publicPage->newQuery()
+                ->whereKey($publicPage->id)
+                ->where('book_id', $book->id)
+                ->where('chapter_id', $publicChapter->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $privateChapter->newQuery()
+                ->whereKey($privateChapter->id)
+                ->where('book_id', $book->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $privatePage->newQuery()
+                ->whereKey($privatePage->id)
+                ->where('book_id', $book->id)
+                ->where('chapter_id', $privateChapter->id)
+                ->exists()
+        );
+
+        static::assertCount(
+            2,
+            $publicChapter->permissions()->get()
+        );
+
+        static::assertCount(
+            0,
+            $publicPage->permissions()->get()
+        );
+
+        static::assertCount(
+            0,
+            $privateChapter->permissions()->get()
+        );
+
+        static::assertCount(
+            0,
+            $privatePage->permissions()->get()
+        );
     }
 
     protected function createPageForParent(
