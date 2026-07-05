@@ -220,6 +220,11 @@ class PermissionFlowTest extends TestCase
         );
     }
 
+    protected function makeEntityPrivate(Entity $entity): void
+    {
+        $this->permissions->disableEntityInheritedPermissions($entity);
+    }
+
     protected function revokeEntityPermissions(Entity $entity): void
     {
         $this->permissions->setEntityPermissions(
