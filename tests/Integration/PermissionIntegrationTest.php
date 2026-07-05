@@ -43,4 +43,38 @@ class PermissionIntegrationTest extends TestCase
             ]
         );
     }
+
+    protected function setEntityPermissions(
+        Entity $entity,
+        array $actions,
+        array $roles = [],
+        bool $inherit = false
+    ): void {
+        $this->permissions->setEntityPermissions(
+            $entity,
+            $actions,
+            $roles,
+            $inherit
+        );
+
+        if (!$inherit) {
+            $this->assertDatabaseHas('entity_permissions', [
+                'entity_id' => $entity->id,
+                'entity_type' => $entity->getMorphClass(),
+                'role_id' => 0,
+            ]);
+        }
+
+        foreach ($roles as $role) {
+            $this->assertDatabaseHas('entity_permissions', [
+                'entity_id' => $entity->id,
+                'entity_type' => $entity->getMorphClass(),
+                'role_id' => $role->id,
+                'view' => in_array('view', $actions, true),
+                'create' => in_array('create', $actions, true),
+                'update' => in_array('update', $actions, true),
+                'delete' => in_array('delete', $actions, true),
+            ]);
+        }
+    }
 }
