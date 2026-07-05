@@ -136,6 +136,16 @@ class PermissionFlowTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertPermissionError($response);
+
+        $this->actingAs($this->admin);
+        $this->revokeEntityPermissions($book);
+
+        static::assertCount(0, $book->permissions()->get());
+
+        $this->assertDatabaseMissing('entity_permissions', [
+            'entity_id' => $book->id,
+            'entity_type' => $book->getMorphClass(),
+        ]);
     }
 
     protected function setPermissionsForUser(
@@ -149,6 +159,16 @@ class PermissionFlowTest extends TestCase
             $entity,
             $actions,
             [$role]
+        );
+    }
+
+    protected function revokeEntityPermissions(Entity $entity): void
+    {
+        $this->permissions->setEntityPermissions(
+            $entity,
+            [],
+            [],
+            true
         );
     }
 
