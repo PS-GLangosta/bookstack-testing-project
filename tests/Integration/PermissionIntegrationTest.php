@@ -402,5 +402,26 @@ class PermissionIntegrationTest extends TestCase
         $this->get($page->getUrl())
             ->assertOk()
             ->assertSee($page->name);
+
+        // el libro conserva su bloqueo calculado
+        $this->assertJointPermission(
+            $book,
+            $this->viewerRole,
+            PermissionStatus::IMPLICIT_DENY
+        );
+
+        // el capitulo recibe un permiso directo
+        $this->assertJointPermission(
+            $chapter,
+            $this->viewerRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
+
+        // la pagina recibe el permiso desde el capitulo
+        $this->assertJointPermission(
+            $page,
+            $this->viewerRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
     }
 }
