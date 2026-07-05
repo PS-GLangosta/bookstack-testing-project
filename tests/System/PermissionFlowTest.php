@@ -334,6 +334,16 @@ class PermissionFlowTest extends TestCase
         $this->followingRedirects()
             ->get($privatePage->getUrl())
             ->assertSeeText('Page not found');
+
+        $this->actingAs($this->admin);
+
+        $publicRole = Role::getSystemRole('public');
+
+        $this->setPermissionsForRole(
+            $publicChapter,
+            $publicRole,
+            ['view']
+        );
     }
 
     protected function createPageForParent(
