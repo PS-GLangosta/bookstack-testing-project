@@ -257,6 +257,18 @@ class PermissionFlowTest extends TestCase
         return $pageRepo->publishDraft($draft, $input);
     }
 
+    protected function setPermissionsForRole(
+        Entity $entity,
+        Role $role,
+        array $actions = []
+    ): void {
+        $this->permissions->setEntityPermissions(
+            $entity,
+            $actions,
+            [$role]
+        );
+    }
+
     protected function setPermissionsForUser(
         Entity $entity,
         User $user,
@@ -264,10 +276,10 @@ class PermissionFlowTest extends TestCase
     ): void {
         $role = $user->roles->first();
 
-        $this->permissions->setEntityPermissions(
+        $this->setPermissionsForRole(
             $entity,
-            $actions,
-            [$role]
+            $role,
+            $actions
         );
     }
 
@@ -286,13 +298,11 @@ class PermissionFlowTest extends TestCase
         );
     }
 
-    protected function assertStoredPermissions(
+    protected function assertStoredPermissionsForRole(
         Entity $entity,
-        User $user,
+        Role $role,
         array $actions = []
     ): void {
-        $role = $user->roles->first();
-
         $this->assertDatabaseHas('entity_permissions', [
             'entity_id'   => $entity->id,
             'entity_type' => $entity->getMorphClass(),
@@ -302,5 +312,19 @@ class PermissionFlowTest extends TestCase
             'update'      => in_array('update', $actions, true),
             'delete'      => in_array('delete', $actions, true),
         ]);
+    }
+
+    protected function assertStoredPermissions(
+        Entity $entity,
+        User $user,
+        array $actions = []
+    ): void {
+        $role = $user->roles->first();
+
+        $this->assertStoredPermissionsForRole(
+            $entity,
+            $role,
+            $actions
+        );
     }
 }
