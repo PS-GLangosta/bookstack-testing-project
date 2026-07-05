@@ -24,7 +24,7 @@ class PermissionIntegrationTest extends TestCase
         // usamos el admin que ya viene en los datos de prueba
         $this->admin = $this->users->admin();
 
-        // creamos un usuario editor con permisos para ver crear y editar paginas
+        // creamos un editor con permisos para ver crear y editar paginas
         [$this->editor, $this->editorRole] = $this->users->newUserWithRole(
             ['name' => 'Issue 24 Editor'],
             [
@@ -133,7 +133,7 @@ class PermissionIntegrationTest extends TestCase
             'description_html' => '<p>Contenido actualizado por el administrador.</p>',
         ]);
 
-        // actualizamos los datos del modelo desde la base de datos
+        // recargamos los datos del libro desde la base de datos
         $book->refresh();
 
         // comprobamos que redirija al libro actualizado
@@ -149,7 +149,7 @@ class PermissionIntegrationTest extends TestCase
         // eliminamos el libro como administrador
         $deleteResponse = $this->delete($book->getUrl());
 
-        // despues de eliminar debe volver al listado de libros
+        // comprobamos que vuelva al listado de libros
         $deleteResponse->assertRedirect('/books');
 
         // comprobamos que el libro haya quedado eliminado logicamente
@@ -161,37 +161,88 @@ class PermissionIntegrationTest extends TestCase
 
     public function test_it_pm_02_editor_solo_edita_paginas_autorizadas(): void
     {
+        // creamos una cadena de entidades que si podra editar
         $allowed = $this->entities
             ->createChainBelongingToUser($this->admin);
 
+        // creamos otra cadena de entidades que no podra editar
+        $denied = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        // permitimos que el editor vea y actualice el primer libro
         $this->setEntityPermissions(
             $allowed['book'],
             ['view', 'update'],
             [$this->editorRole]
         );
 
-        $allowedPage = $allowed['page'];
+        // permitimos que el editor solo vea el segundo libro
+        $this->setEntityPermissions(
+            $denied['book'],
+            ['view'],
+            [$this->editorRole]
+        );
 
+        // obtenemos las paginas de cada cadena
+        $allowedPage = $allowed['page'];
+        $deniedPage = $denied['page'];
+
+        // guardamos el nombre original para comprobar que no cambie
+        $deniedOriginalName = $deniedPage->name;
+
+        // iniciamos sesion como editor
         $this->actingAs($this->editor);
 
+        // actualizamos la pagina que si tiene permiso
         $allowedResponse = $this->put($allowedPage->getUrl(), [
             'name' => 'Página autorizada actualizada IT-PM-02',
             'html' => '<p>Actualización permitida.</p>',
         ]);
 
+        // comprobamos que la actualizacion genere una redireccion
         $allowedResponse->assertRedirect();
 
+        // verificamos que la pagina autorizada haya cambiado
         $this->assertDatabaseHas('entities', [
             'id' => $allowedPage->id,
             'type' => 'page',
             'name' => 'Página autorizada actualizada IT-PM-02',
         ]);
 
+        // intentamos modificar la pagina sin permiso de actualizacion
+        $deniedResponse = $this->put($deniedPage->getUrl(), [
+            'name' => 'Página no autorizada modificada',
+            'html' => '<p>Esta modificación debe rechazarse.</p>',
+        ]);
+
+        // comprobamos que bookstack rechace la solicitud
+        $this->assertPermissionError($deniedResponse);
+
+        // verificamos que la pagina conserve su nombre original
+        $this->assertDatabaseHas('entities', [
+            'id' => $deniedPage->id,
+            'type' => 'page',
+            'name' => $deniedOriginalName,
+        ]);
+
+        // comprobamos que el nombre no autorizado no se haya guardado
+        $this->assertDatabaseMissing('entities', [
+            'id' => $deniedPage->id,
+            'name' => 'Página no autorizada modificada',
+        ]);
+
+        // comprobamos el permiso efectivo sobre la pagina autorizada
         $this->assertJointPermission(
             $allowedPage,
             $this->editorRole,
             PermissionStatus::EXPLICIT_ALLOW
         );
+
+        // comprobamos el permiso efectivo de visualizacion sobre la otra pagina
+        $this->assertJointPermission(
+            $deniedPage,
+            $this->editorRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
     }
-    
 }
