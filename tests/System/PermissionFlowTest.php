@@ -555,6 +555,19 @@ class PermissionFlowTest extends TestCase
         $viewResponse
             ->assertOk()
             ->assertSeeText($book->name);
+
+        $originalName = $book->name;
+        $originalDescription = $book->description;
+
+        $updateResponse = $this->put(
+            $book->getUrl(),
+            [
+                'name' => 'Libro modificado por antiguo administrador',
+                'description' => 'Este cambio no debe guardarse',
+            ]
+        );
+
+        $this->assertPermissionError($updateResponse);
     }
 
     protected function replaceUserRoles(
