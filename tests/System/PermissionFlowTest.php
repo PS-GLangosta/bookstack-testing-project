@@ -224,6 +224,27 @@ class PermissionFlowTest extends TestCase
 
         $pageResponse->assertNotFound();
         $pageResponse->assertJsonPath('error.code', 404);
+
+        static::assertTrue(
+            $book->newQuery()
+                ->whereKey($book->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $chapter->newQuery()
+                ->whereKey($chapter->id)
+                ->where('book_id', $book->id)
+                ->exists()
+        );
+
+        static::assertTrue(
+            $page->newQuery()
+                ->whereKey($page->id)
+                ->where('book_id', $book->id)
+                ->where('chapter_id', $chapter->id)
+                ->exists()
+        );
     }
 
     protected function createPageForParent(
