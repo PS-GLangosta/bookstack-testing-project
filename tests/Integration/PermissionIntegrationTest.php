@@ -529,5 +529,18 @@ class PermissionIntegrationTest extends TestCase
             'user_id' => $temporaryUserId,
             'role_id' => $temporaryRoleId,
         ]);
+
+        // el rol puede seguir existiendo aunque el usuario ya no lo tenga
+        $this->assertDatabaseHas('roles', [
+            'id' => $temporaryRoleId,
+        ]);
+
+        // el permiso pertenece al rol y no directamente al usuario
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id' => $book->id,
+            'entity_type' => $book->getMorphClass(),
+            'role_id' => $temporaryRoleId,
+            'view' => true,
+        ]);
     }
 }
