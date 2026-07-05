@@ -207,6 +207,13 @@ class PermissionFlowTest extends TestCase
             'update' => false,
             'delete' => false,
         ]);
+
+        $this->actingAs($this->viewer, 'api');
+
+        $bookResponse = $this->getJson("/api/books/{$book->id}");
+
+        $bookResponse->assertNotFound();
+        $bookResponse->assertJsonPath('error.code', 404);
     }
 
     protected function createPageForParent(
