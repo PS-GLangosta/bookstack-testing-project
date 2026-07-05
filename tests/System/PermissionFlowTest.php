@@ -507,6 +507,11 @@ class PermissionFlowTest extends TestCase
 
         static::assertNotNull($currentUser);
         static::assertSame($roleUser->id, $currentUser->id);
+
+        $this->replaceUserRoles(
+            $currentUser,
+            [$viewerRole]
+        );
     }
 
     protected function replaceUserRoles(
