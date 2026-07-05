@@ -463,6 +463,46 @@ class PermissionFlowTest extends TestCase
         );
     }
 
+    public function test_st_02_05_cambio_de_admin_a_viewer_actualiza_permisos_en_misma_sesion(): void
+    {
+        $roleUser = $this->users->newUser([
+            'name' => 'ST-02 Usuario con cambio de rol',
+        ]);
+
+        $adminRole = Role::getSystemRole('admin');
+        $viewerRole = Role::getRole('viewer');
+
+        $roleUser->attachRole($adminRole);
+
+        $this->actingAs($roleUser);
+
+        $book = $this->entities->newBook([
+            'name' => 'Libro para cambio de rol ST-02-05',
+            'description' => 'Libro usado para comprobar permisos en la misma sesion',
+        ]);
+
+        static::assertTrue($book->exists);
+
+        static::assertTrue(
+            $roleUser->roles()
+                ->whereKey($adminRole->id)
+                ->exists()
+        );
+
+        static::assertFalse(
+            $roleUser->roles()
+                ->whereKey($viewerRole->id)
+                ->exists()
+        );
+
+        $this->get($book->getUrl())
+            ->assertOk()
+            ->assertSeeText($book->name);
+
+        $this->get($book->getUrl('/permissions'))
+            ->assertOk();
+    }
+
     protected function createPageForParent(
         Entity $parent,
         array $input
