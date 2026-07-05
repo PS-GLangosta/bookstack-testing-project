@@ -516,6 +516,10 @@ class PermissionIntegrationTest extends TestCase
 
         $deleteResponse->assertRedirect('/settings/users');
 
+        // seguimos la respuesta para revisar el mensaje de confirmacion
+        $this->followRedirects($deleteResponse)
+            ->assertSee('User successfully removed');
+
         // el usuario y su relacion con el rol deben desaparecer
         $this->assertDatabaseMissing('users', [
             'id' => $temporaryUserId,
