@@ -528,6 +528,13 @@ class PermissionFlowTest extends TestCase
         static::assertCount(1, $currentUser->roles);
         static::assertFalse($currentUser->hasRole($adminRole->id));
         static::assertTrue($currentUser->hasRole($viewerRole->id));
+
+        $sessionUser = auth('standard')->user();
+
+        static::assertNotNull($sessionUser);
+        static::assertSame($roleUser->id, $sessionUser->id);
+        static::assertSame($currentUser->id, $sessionUser->id);
+        static::assertTrue(auth('standard')->check());
     }
 
     protected function replaceUserRoles(
