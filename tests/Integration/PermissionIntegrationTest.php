@@ -8,6 +8,7 @@ use BookStack\Permissions\PermissionStatus;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
 /**
@@ -163,6 +164,7 @@ class PermissionIntegrationTest extends TestCase
             ->assertSee($expectedName);
     }
 
+    #[TestDox('IT-PM-01 administrador gestiona un libro restringido')]
     public function test_it_pm_01_admin_puede_gestionar_libro_restringido(): void
     {
         // iniciamos sesion como administrador
@@ -224,6 +226,7 @@ class PermissionIntegrationTest extends TestCase
         ]);
     }
 
+    #[TestDox('IT-PM-02 editor modifica solo paginas autorizadas')]
     public function test_it_pm_02_editor_solo_edita_paginas_autorizadas(): void
     {
         // creamos una cadena de entidades que si podra editar
@@ -311,6 +314,7 @@ class PermissionIntegrationTest extends TestCase
         );
     }
 
+    #[TestDox('IT-PM-03 viewer consulta contenido pero no lo modifica')]
     public function test_it_pm_03_viewer_solo_lee_contenido_publico(): void
     {
         // creamos una cadena publica para probar al viewer
@@ -373,6 +377,7 @@ class PermissionIntegrationTest extends TestCase
         );
     }
 
+    #[TestDox('IT-PM-04 libro privado oculta todos sus descendientes')]
     public function test_it_pm_04_libro_privado_oculta_descendientes(): void
     {
         // armamos una cadena completa para probar la herencia
@@ -414,6 +419,7 @@ class PermissionIntegrationTest extends TestCase
         );
     }
 
+    #[TestDox('IT-PM-05 capitulo publico reemplaza la herencia privada')]
     public function test_it_pm_05_capitulo_publico_sobrescribe_libro_privado(): void
     {
         // armamos otra cadena para probar el permiso especial del capitulo
@@ -489,6 +495,7 @@ class PermissionIntegrationTest extends TestCase
         );
     }
 
+    #[TestDox('IT-PM-06 usuario eliminado pierde su asignacion de acceso')]
     public function test_it_pm_06_eliminar_usuario_revoca_su_acceso(): void
     {
         // creamos un usuario temporal con un rol propio
