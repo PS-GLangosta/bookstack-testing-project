@@ -403,6 +403,14 @@ class PermissionIntegrationTest extends TestCase
             ->assertOk()
             ->assertSee($page->name);
 
+        // la excepcion solo entrega lectura y no edicion
+        $updateResponse = $this->put($page->getUrl(), [
+            'name' => 'Pagina modificada por viewer',
+            'html' => '<p>Este cambio no debe guardarse</p>',
+        ]);
+
+        $this->assertPermissionError($updateResponse);
+
         // el libro conserva su bloqueo calculado
         $this->assertJointPermission(
             $book,
