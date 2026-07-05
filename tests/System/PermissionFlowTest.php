@@ -365,6 +365,26 @@ class PermissionFlowTest extends TestCase
             2,
             $publicChapter->permissions()->get()
         );
+
+        auth('standard')->logout();
+
+        $publicChapterResponse = $this->get(
+            $publicChapter->getUrl()
+        );
+
+        $publicChapterResponse
+            ->assertOk()
+            ->assertSeeText($publicChapter->name)
+            ->assertSeeText($publicPage->name);
+
+        $publicPageResponse = $this->get(
+            $publicPage->getUrl()
+        );
+
+        $publicPageResponse
+            ->assertOk()
+            ->assertSeeText($publicPage->name)
+            ->assertSeeText('Contenido que debe permanecer visible');
     }
 
     protected function createPageForParent(
