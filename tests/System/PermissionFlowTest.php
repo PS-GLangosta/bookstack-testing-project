@@ -146,6 +146,12 @@ class PermissionFlowTest extends TestCase
             'entity_id' => $book->id,
             'entity_type' => $book->getMorphClass(),
         ]);
+
+        $response = $this->actingAs($this->editor)
+            ->get($book->getUrl('/edit'));
+
+        $response->assertOk();
+        $this->assertNotPermissionError($response);
     }
 
     protected function setPermissionsForUser(
