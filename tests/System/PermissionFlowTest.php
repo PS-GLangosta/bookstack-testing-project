@@ -568,6 +568,24 @@ class PermissionFlowTest extends TestCase
         );
 
         $this->assertPermissionError($updateResponse);
+
+        $book->refresh();
+
+        static::assertSame($originalName, $book->name);
+        static::assertSame(
+            $originalDescription,
+            $book->description
+        );
+
+        static::assertFalse(
+            $book->newQuery()
+                ->whereKey($book->id)
+                ->where(
+                    'name',
+                    'Libro modificado por antiguo administrador'
+                )
+                ->exists()
+        );
     }
 
     protected function replaceUserRoles(
