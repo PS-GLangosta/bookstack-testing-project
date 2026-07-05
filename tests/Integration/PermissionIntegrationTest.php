@@ -295,4 +295,56 @@ class PermissionIntegrationTest extends TestCase
             PermissionStatus::IMPLICIT_ALLOW
         );
     }
+
+    public function test_it_pm_04_libro_privado_oculta_descendientes(): void
+    {
+        $content = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        $book = $content['book'];
+        $chapter = $content['chapter'];
+        $page = $content['page'];
+
+        $this->setEntityPermissions($book, []);
+
+        $this->actingAs($this->viewer);
+
+        $this->followingRedirects()
+            ->get($book->getUrl())
+            ->assertSee('Book not found');
+
+        $this->followingRedirects()
+            ->get($chapter->getUrl())
+            ->assertSee('Chapter not found');
+
+        $this->followingRedirects()
+            ->get($page->getUrl())
+            ->assertSee('Page not found');
+
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id' => $book->id,
+            'entity_type' => 'book',
+            'role_id' => 0,
+            'view' => false,
+        ]);
+
+        $this->assertJointPermission(
+            $book,
+            $this->viewerRole,
+            PermissionStatus::IMPLICIT_DENY
+        );
+
+        $this->assertJointPermission(
+            $chapter,
+            $this->viewerRole,
+            PermissionStatus::IMPLICIT_DENY
+        );
+
+        $this->assertJointPermission(
+            $page,
+            $this->viewerRole,
+            PermissionStatus::IMPLICIT_DENY
+        );
+    }
+
 }
