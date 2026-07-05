@@ -541,6 +541,12 @@ class PermissionFlowTest extends TestCase
         );
 
         $this->assertPermissionError($permissionsResponse);
+
+        $editResponse = $this->get(
+            $book->getUrl('/edit')
+        );
+
+        $this->assertPermissionError($editResponse);
     }
 
     protected function replaceUserRoles(
