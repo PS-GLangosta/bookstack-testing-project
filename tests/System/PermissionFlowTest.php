@@ -3,6 +3,8 @@
 namespace Tests\System;
 
 use BookStack\Entities\Models\Entity;
+use BookStack\Entities\Models\Page;
+use BookStack\Entities\Repos\PageRepo;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
 use Tests\TestCase;
@@ -152,6 +154,16 @@ class PermissionFlowTest extends TestCase
 
         $response->assertOk();
         $this->assertNotPermissionError($response);
+    }
+
+    protected function createPageForParent(
+        Entity $parent,
+        array $input
+    ): Page {
+        $pageRepo = app(PageRepo::class);
+        $draft = $pageRepo->getNewDraftPage($parent);
+
+        return $pageRepo->publishDraft($draft, $input);
     }
 
     protected function setPermissionsForUser(
