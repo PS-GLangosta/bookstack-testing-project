@@ -70,6 +70,30 @@ class PermissionFlowTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertPermissionError($response);
+
+        $originalName = $book->name;
+        $originalDescription = $book->description;
+
+        $response = $this->actingAs($this->editor)
+            ->put($book->getUrl(), [
+                'name' => 'Libro modificado por editor',
+                'description' => 'Este cambio no debe guardarse',
+            ]);
+
+        $response->assertRedirect('/');
+        $this->assertPermissionError($response);
+
+        $book->refresh();
+
+        static::assertSame($originalName, $book->name);
+        static::assertSame($originalDescription, $book->description);
+
+        static::assertFalse(
+            $book->newQuery()
+                ->whereKey($book->id)
+                ->where('name', 'Libro modificado por editor')
+                ->exists()
+        );
     }
 
     protected function setPermissionsForUser(
