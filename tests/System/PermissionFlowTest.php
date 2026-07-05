@@ -219,6 +219,11 @@ class PermissionFlowTest extends TestCase
 
         $chapterResponse->assertNotFound();
         $chapterResponse->assertJsonPath('error.code', 404);
+
+        $pageResponse = $this->getJson("/api/pages/{$page->id}");
+
+        $pageResponse->assertNotFound();
+        $pageResponse->assertJsonPath('error.code', 404);
     }
 
     protected function createPageForParent(
