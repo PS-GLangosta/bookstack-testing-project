@@ -107,6 +107,16 @@ class PermissionIntegrationTest extends TestCase
         ]);
     }
 
+    protected function assertEntityHidden(
+        Entity $entity,
+        string $expectedMessage
+    ): void {
+        // seguimos la redireccion para revisar el mensaje final
+        $this->followingRedirects()
+            ->get($entity->getUrl())
+            ->assertSee($expectedMessage);
+    }
+
     public function test_it_pm_01_admin_puede_gestionar_libro_restringido(): void
     {
         // iniciamos sesion como administrador
@@ -257,47 +267,59 @@ class PermissionIntegrationTest extends TestCase
 
     public function test_it_pm_03_viewer_solo_lee_contenido_publico(): void
     {
+        // creamos una cadena publica para probar al viewer
         $content = $this->entities
             ->createChainBelongingToUser($this->admin);
 
         $book = $content['book'];
         $page = $content['page'];
+
+        // guardamos el nombre original antes de intentar modificarlo
         $originalName = $page->name;
 
+        // comprobamos que el viewer pueda abrir la pagina
         $this->actingAs($this->viewer)
             ->get($page->getUrl())
             ->assertOk()
             ->assertSee($page->name);
 
+        // intentamos abrir el formulario para crear una pagina
         $createResponse = $this->get(
             $book->getUrl('/create-page')
         );
 
+        // comprobamos que no tenga permiso para crear
         $this->assertPermissionError($createResponse);
 
+        // intentamos actualizar la pagina como viewer
         $updateResponse = $this->put($page->getUrl(), [
             'name' => 'Página alterada por viewer',
             'html' => '<p>Operación no permitida.</p>',
         ]);
 
+        // comprobamos que no tenga permiso para actualizar
         $this->assertPermissionError($updateResponse);
 
+        // verificamos que la pagina mantenga su nombre original
         $this->assertDatabaseHas('entities', [
             'id' => $page->id,
             'type' => 'page',
             'name' => $originalName,
         ]);
 
+        // comprobamos que el cambio rechazado no se haya guardado
         $this->assertDatabaseMissing('entities', [
             'id' => $page->id,
             'name' => 'Página alterada por viewer',
         ]);
 
+        // comprobamos que el libro no tenga permisos explicitos
         $this->assertDatabaseMissing('entity_permissions', [
             'entity_id' => $book->id,
             'entity_type' => 'book',
         ]);
 
+        // verificamos que el viewer tenga acceso implicito
         $this->assertJointPermission(
             $page,
             $this->viewerRole,
@@ -322,17 +344,9 @@ class PermissionIntegrationTest extends TestCase
         $this->actingAs($this->viewer);
 
         // el libro y sus hijos deben quedar ocultos
-        $this->followingRedirects()
-            ->get($book->getUrl())
-            ->assertSee('Book not found');
-
-        $this->followingRedirects()
-            ->get($chapter->getUrl())
-            ->assertSee('Chapter not found');
-
-        $this->followingRedirects()
-            ->get($page->getUrl())
-            ->assertSee('Page not found');
+        $this->assertEntityHidden($book, 'Book not found');
+        $this->assertEntityHidden($chapter, 'Chapter not found');
+        $this->assertEntityHidden($page, 'Page not found');
 
         // revisamos el permiso calculado en cada nivel
         $this->assertJointPermission(
