@@ -502,6 +502,11 @@ class PermissionFlowTest extends TestCase
 
         $this->get($book->getUrl('/permissions'))
             ->assertOk();
+
+        $currentUser = auth('standard')->user();
+
+        static::assertNotNull($currentUser);
+        static::assertSame($roleUser->id, $currentUser->id);
     }
 
     protected function replaceUserRoles(
