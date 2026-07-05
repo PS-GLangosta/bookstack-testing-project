@@ -77,4 +77,17 @@ class PermissionIntegrationTest extends TestCase
             ]);
         }
     }
+
+    protected function assertJointPermission(
+        Entity $entity,
+        Role $role,
+        int $status
+    ): void {
+        $this->assertDatabaseHas('joint_permissions', [
+            'entity_id' => $entity->id,
+            'entity_type' => $entity->getMorphClass(),
+            'role_id' => $role->id,
+            'status' => $status,
+        ]);
+    }
 }
