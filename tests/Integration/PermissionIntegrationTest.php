@@ -481,6 +481,16 @@ class PermissionIntegrationTest extends TestCase
             [$temporaryRole]
         );
 
+        // primero verificamos que el rol si quedo conectado al usuario
+        $this->assertDatabaseHas('role_user', [
+            'user_id' => $temporaryUserId,
+            'role_id' => $temporaryRoleId,
+        ]);
+
+        $this->assertDatabaseHas('roles', [
+            'id' => $temporaryRoleId,
+        ]);
+
         // comprobamos que el acceso existe antes de eliminarlo
         $this->actingAs($temporaryUser)
             ->get($page->getUrl())
