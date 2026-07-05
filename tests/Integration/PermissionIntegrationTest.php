@@ -487,6 +487,19 @@ class PermissionIntegrationTest extends TestCase
             'role_id' => $temporaryRoleId,
         ]);
 
+        // el permiso calculado debe existir antes de borrar la cuenta
+        $this->assertJointPermission(
+            $book,
+            $temporaryRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
+
+        $this->assertJointPermission(
+            $page,
+            $temporaryRole,
+            PermissionStatus::EXPLICIT_ALLOW
+        );
+
         $this->assertDatabaseHas('roles', [
             'id' => $temporaryRoleId,
         ]);
