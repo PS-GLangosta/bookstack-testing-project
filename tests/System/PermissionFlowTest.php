@@ -44,6 +44,12 @@ class PermissionFlowTest extends TestCase
 
         static::assertTrue($book->exists);
         static::assertSame('Libro restringido ST-02-01', $book->name);
+
+        $response = $this->actingAs($this->editor)
+            ->get($book->getUrl('/edit'));
+
+        $response->assertOk();
+        $this->assertNotPermissionError($response);
     }
 
     protected function setPermissionsForUser(
