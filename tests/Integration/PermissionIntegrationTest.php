@@ -245,4 +245,34 @@ class PermissionIntegrationTest extends TestCase
             PermissionStatus::EXPLICIT_ALLOW
         );
     }
+
+    public function test_it_pm_03_viewer_solo_lee_contenido_publico(): void
+    {
+        // creamos una cadena de contenido perteneciente al administrador
+        $content = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        // obtenemos el libro y la pagina creados
+        $book = $content['book'];
+        $page = $content['page'];
+
+        // iniciamos sesion como viewer y comprobamos que pueda ver la pagina
+        $this->actingAs($this->viewer)
+            ->get($page->getUrl())
+            ->assertOk()
+            ->assertSee($page->name);
+
+        // comprobamos que el libro no tenga restricciones explicitas
+        $this->assertDatabaseMissing('entity_permissions', [
+            'entity_id' => $book->id,
+            'entity_type' => 'book',
+        ]);
+
+        // verificamos que el viewer tenga permiso implicito sobre la pagina
+        $this->assertJointPermission(
+            $page,
+            $this->viewerRole,
+            PermissionStatus::IMPLICIT_ALLOW
+        );
+    }
 }
