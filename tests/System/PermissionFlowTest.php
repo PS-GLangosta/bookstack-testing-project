@@ -34,4 +34,21 @@ class PermissionFlowTest extends TestCase
             [$role]
         );
     }
+    protected function assertStoredPermissions(
+        Entity $entity,
+        User $user,
+        array $actions = []
+    ): void {
+        $role = $user->roles->first();
+
+        $this->assertDatabaseHas('entity_permissions', [
+            'entity_id'   => $entity->id,
+            'entity_type' => $entity->getMorphClass(),
+            'role_id'     => $role->id,
+            'view'        => in_array('view', $actions, true),
+            'create'      => in_array('create', $actions, true),
+            'update'      => in_array('update', $actions, true),
+            'delete'      => in_array('delete', $actions, true),
+        ]);
+    }
 }
