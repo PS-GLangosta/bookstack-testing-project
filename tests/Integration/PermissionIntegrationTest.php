@@ -367,4 +367,40 @@ class PermissionIntegrationTest extends TestCase
             PermissionStatus::IMPLICIT_DENY
         );
     }
+
+    public function test_it_pm_05_capitulo_publico_sobrescribe_libro_privado(): void
+    {
+        // armamos otra cadena para probar el permiso especial del capitulo
+        $content = $this->entities
+            ->createChainBelongingToUser($this->admin);
+
+        $book = $content['book'];
+        $chapter = $content['chapter'];
+        $page = $content['page'];
+
+        // primero cerramos todo el libro
+        $this->setEntityPermissions($book, []);
+
+        // luego damos lectura solo desde el capitulo
+        $this->setEntityPermissions(
+            $chapter,
+            ['view'],
+            [$this->viewerRole]
+        );
+
+        // entramos como viewer para revisar el resultado real
+        $this->actingAs($this->viewer);
+
+        // el libro sigue oculto aunque el capitulo tenga una excepcion
+        $this->assertEntityHidden($book, 'Book not found');
+
+        // el capitulo y su pagina deben quedar disponibles
+        $this->get($chapter->getUrl())
+            ->assertOk()
+            ->assertSee($chapter->name);
+
+        $this->get($page->getUrl())
+            ->assertOk()
+            ->assertSee($page->name);
+    }
 }
