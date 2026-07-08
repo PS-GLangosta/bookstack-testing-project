@@ -9,17 +9,6 @@ use BookStack\Users\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-/**
- * ST-06 - Flujo API completo.
- *
- * Los cinco casos siguen una secuencia lógica end-to-end sobre la API REST de
- * BookStack: autenticar con un token de API, crear un libro, crear una página
- * dentro de ese libro, leer el libro y finalmente eliminarlo, verificando en
- * cada paso el estado real de la base de datos.
- *
- * El token de API se genera en setUp() con el factory de ApiToken y todas las
- * peticiones viajan con el header Authorization: Token {id}:{secret}.
- */
 class ApiFlowTest extends TestCase
 {
     protected User $apiUser;
@@ -30,6 +19,7 @@ class ApiFlowTest extends TestCase
     {
         parent::setUp();
 
+        // Setup de autenticación API (generación de token)
         $this->apiUser = $this->users->admin();
 
         $token = ApiToken::factory()->create([
@@ -76,9 +66,6 @@ class ApiFlowTest extends TestCase
     /**
      * ST-06-01
      * Autenticar con token de API válido y recuperar los datos del usuario autenticado.
-     *
-     * Esta versión de BookStack no expone un endpoint /api/users/me, por lo que el
-     * usuario autenticado se recupera a través de GET /api/users/{id} usando su propio id.
      */
     public function test_st_06_01_autenticar_con_token_valido_retorna_datos_del_usuario(): void
     {
