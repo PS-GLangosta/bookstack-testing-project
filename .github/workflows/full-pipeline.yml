@@ -60,6 +60,9 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
+      - name: Sembrar datos base de prueba
+        run: php artisan db:seed --env=testing --force
+
       - name: Ejecutar suite unitaria con cobertura
         env:
           XDEBUG_MODE: coverage
@@ -125,6 +128,9 @@ jobs:
 
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
+
+      - name: Sembrar datos base de prueba
+        run: php artisan db:seed --env=testing --force
 
       - name: Ejecutar suite de integración con cobertura
         env:
@@ -192,6 +198,9 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
+      - name: Sembrar datos base de prueba
+        run: php artisan db:seed --env=testing --force
+
       - name: Ejecutar suite de sistema con cobertura
         env:
           XDEBUG_MODE: coverage
@@ -257,6 +266,9 @@ jobs:
 
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
+
+      - name: Sembrar datos base de prueba
+        run: php artisan db:seed --env=testing --force
 
       - name: Ejecutar resto de tests con cobertura
         env:
