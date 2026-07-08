@@ -57,6 +57,9 @@ jobs:
       - name: Generar clave de aplicación
         run: php artisan key:generate --env=testing
 
+      - name: Ejecutar migraciones en BD de prueba
+        run: php artisan migrate --env=testing --force
+
       - name: Ejecutar suite de pruebas unitarias con cobertura
         run: vendor/bin/phpunit --testsuite=Unit --coverage-clover coverage.xml
 
