@@ -11,6 +11,7 @@ jobs:
   # JOB 1 — Unit Tests
   # -------------------------------------------------------------------------
   unit-tests:
+    
     name: PHPUnit – Suite Unitaria
     runs-on: ubuntu-latest
 
@@ -69,6 +70,15 @@ jobs:
           name: coverage-report
           path: coverage.xml
           retention-days: 5
+
+    name: Depurar coverage.xml
+        run: |
+          echo "=== Tamaño del archivo ==="
+          ls -la coverage.xml
+          echo "=== Nodo <metrics> a nivel proyecto ==="
+          grep -o '<metrics[^/]*/>' coverage.xml | head -5
+          echo "=== Primeras 40 líneas ==="
+          head -40 coverage.xml
 
   # -------------------------------------------------------------------------
   # JOB 2 — Integration Tests (depende de unit-tests)
