@@ -14,6 +14,22 @@ jobs:
     name: PHPUnit – Suite Unitaria
     runs-on: ubuntu-latest
 
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: rootpassword
+          MARIADB_DATABASE: bookstack-test
+          MARIADB_USER: bookstack-test
+          MARIADB_PASSWORD: bookstack-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
@@ -40,6 +56,9 @@ jobs:
 
       - name: Generar clave de aplicación
         run: php artisan key:generate --env=testing
+
+      - name: Ejecutar migraciones en BD de prueba
+        run: php artisan migrate --env=testing --force
 
       - name: Ejecutar suite unitaria con cobertura
         env:
