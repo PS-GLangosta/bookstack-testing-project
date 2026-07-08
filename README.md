@@ -1,4 +1,10 @@
+
+[![Full Pipeline CI/CD](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml)
+
+
+
 # **BookStack Testing Project**
+
 
 **Asignatura:** Pruebas de Software \- UNSA 2026
 
@@ -14,11 +20,6 @@
 * Meza Vizcarra Cielo Cristal  
 * Perez Huamani Jeremy Joshua  
 * Zegarra Puma Mauricio Eduardo
-
-
-
-[![Full Pipeline CI/CD](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml)
-
 
 Proyecto académico orientado al análisis, diseño, implementación y documentación de un proceso completo de pruebas de software sobre [**BookStack**](https://github.com/BookStackApp/BookStack), una plataforma de documentación de código abierto construida con PHP y Laravel.
 
