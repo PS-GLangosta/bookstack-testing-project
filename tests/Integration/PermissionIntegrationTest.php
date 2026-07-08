@@ -7,7 +7,7 @@ use BookStack\Entities\Models\Entity;
 use BookStack\Permissions\PermissionStatus;
 use BookStack\Users\Models\Role;
 use BookStack\Users\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 #[Group('permissions')]
 class PermissionIntegrationTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected User $admin;
     protected User $editor;
