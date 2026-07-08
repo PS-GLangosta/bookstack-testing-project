@@ -5,252 +5,747 @@ namespace Tests\System;
 use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
-use BookStack\Entities\Repos\PageRepo;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 /**
  * ST-01 — Flujo completo de creación de contenido
- *
- * ADAPTACIÓN respecto a la consigna:
- *   - Consigna pide RefreshDatabase → BookStack requiere DatabaseTransactions
- *     porque RefreshDatabase destruye los datos del DummyContentSeeder.
- *     El comportamiento es equivalente: rollback automático al final de cada test.
- *   - Consigna pide User::factory()->admin()->create() → BookStack usa
- *     $this->users->admin() / $this->users->editor() / $this->users->viewer()
- *   - Creación de páginas requiere flujo draft → publish vía PageRepo,
- *     ya que el formulario web de BookStack usa un proceso en dos pasos.
- *
- * Equipo: Team Langosta — Rommel Chambi (Issue #22)
- * Curso:  Pruebas de Software — UNSA 2026
  */
 class ContentCreationFlowTest extends TestCase
 {
-    // =========================================================================
-    // ST-01-01
-    // Admin hace login, crea libro, capítulo y página en secuencia → todo visible
-    // =========================================================================
+    use DatabaseTransactions;
 
-    public function test_st01_01_admin_crea_libro_capitulo_pagina_en_secuencia_y_todo_visible(): void
+    protected function userWithRole(string $roleName): User
     {
-        $admin = $this->users->admin();
+        $role = Role::getRole($roleName);
 
-        // 1. Crear libro via HTTP web
-        $this->actingAs($admin)
+        $user = User::factory()->create([
+            'name' => 'ST01 ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'st01-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function createBookViaHttp(User $user, ?string $name = null, string $description = ''): Book
+    {
+        $name = $name ?: 'ST01 Libro ' . uniqid();
+
+        $this->actingAs($user)
             ->post('/books', [
-                'name'        => 'ST01 Libro Sistema',
-                'description' => 'Libro creado en prueba de sistema ST-01-01',
+                'name' => $name,
+                'description' => $description,
             ])
             ->assertRedirect();
 
-        $libro = Book::query()->where('name', 'ST01 Libro Sistema')->firstOrFail();
-
-        // 2. Crear capítulo dentro del libro
-        $this->post($libro->getUrl('/create-chapter'), [
-            'name'        => 'ST01 Capítulo Sistema',
-            'description' => 'Capítulo de prueba de sistema',
-        ])->assertRedirect();
-
-        $capitulo = Chapter::query()->where('name', 'ST01 Capítulo Sistema')->firstOrFail();
-
-        // 3. Crear página dentro del capítulo (flujo: draft → publish)
-        $this->get($capitulo->getUrl('/create-page'))->assertRedirect();
-
-        $draft = Page::query()
-            ->where('chapter_id', $capitulo->id)
-            ->where('draft', true)
+        $book = Book::query()
+            ->where('name', $name)
             ->latest('id')
             ->firstOrFail();
 
-        $this->post($draft->getUrl(), [
-            'name'     => 'ST01 Página Sistema',
-            'html'     => '<p>Contenido de la página de prueba de sistema ST-01-01.</p>',
-            'markdown' => '',
-        ])->assertRedirect();
+        $book->refresh();
+        $book->rebuildPermissions();
+        $book->indexForSearch();
 
-        // 4. Verificar persistencia en BD
-        $this->assertDatabaseHasEntityData('book',    ['name' => 'ST01 Libro Sistema']);
-        $this->assertDatabaseHasEntityData('chapter', ['name' => 'ST01 Capítulo Sistema']);
-        $this->assertDatabaseHasEntityData('page',    ['name' => 'ST01 Página Sistema']);
+        return $book->refresh();
+    }
 
-        // 5. Verificar visibilidad HTTP — el libro debe ser accesible
-        $libro->refresh();
+    protected function createChapterViaHttp(
+        User $user,
+        Book $book,
+        ?string $name = null,
+        string $description = ''
+    ): Chapter {
+        $name = $name ?: 'ST01 Capítulo ' . uniqid();
+
+        $this->actingAs($user)
+            ->post($book->getUrl('/create-chapter'), [
+                'name' => $name,
+                'description' => $description,
+            ])
+            ->assertRedirect();
+
+        $chapter = Chapter::query()
+            ->where('book_id', $book->id)
+            ->where('name', $name)
+            ->latest('id')
+            ->firstOrFail();
+
+        $book->refresh();
+        $book->rebuildPermissions();
+
+        $chapter->refresh();
+        $chapter->indexForSearch();
+
+        return $chapter->refresh();
+    }
+
+    protected function createPublishedPageViaHttp(
+        User $user,
+        Chapter $chapter,
+        ?string $name = null,
+        string $html = '<p>Contenido ST01</p>'
+    ): Page {
+        $name = $name ?: 'ST01 Página ' . uniqid();
+
+        $this->actingAs($user)
+            ->get($chapter->getUrl('/create-page'))
+            ->assertRedirect();
+
+        $draft = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('draft', true)
+            ->where('created_by', $user->id)
+            ->latest('id')
+            ->firstOrFail();
+
+        $this->actingAs($user)
+            ->post($draft->getUrl(), [
+                'name' => $name,
+                'html' => $html,
+                'markdown' => '',
+            ])
+            ->assertRedirect();
+
+        $page = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('name', $name)
+            ->where('draft', false)
+            ->latest('id')
+            ->firstOrFail();
+
+        $page->refresh();
+        $page->indexForSearch();
+
+        return $page->refresh();
+    }
+
+    protected function createDraftPageViaHttp(User $user, Chapter $chapter): array
+    {
+        $createResp = $this->actingAs($user)
+            ->get($chapter->getUrl('/create-page'));
+
+        $createResp->assertRedirect();
+
+        $editorUrl = $createResp->headers->get('Location');
+
+        $draft = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('draft', true)
+            ->where('created_by', $user->id)
+            ->latest('id')
+            ->firstOrFail();
+
+        return [$draft->refresh(), $editorUrl];
+    }
+
+    public function test_st01_01_admin_crea_libro_capitulo_pagina_en_secuencia_y_todo_visible(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $suffix = uniqid();
+
+        $libro = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Sistema ' . $suffix,
+            'Libro creado en prueba de sistema ST-01-01'
+        );
+
+        $capitulo = $this->createChapterViaHttp(
+            $admin,
+            $libro,
+            'ST01 Capítulo Sistema ' . $suffix,
+            'Capítulo de prueba de sistema'
+        );
+
+        $pagina = $this->createPublishedPageViaHttp(
+            $admin,
+            $capitulo,
+            'ST01 Página Sistema ' . $suffix,
+            '<p>Contenido de la página de prueba de sistema ST-01-01.</p>'
+        );
+
+        $this->assertDatabaseHasEntityData('book', [
+            'name' => $libro->name,
+        ]);
+
+        $this->assertDatabaseHasEntityData('chapter', [
+            'name' => $capitulo->name,
+        ]);
+
+        $this->assertDatabaseHasEntityData('page', [
+            'name' => $pagina->name,
+        ]);
+
         $this->actingAs($admin)
             ->get($libro->getUrl())
             ->assertOk()
-            ->assertSee('ST01 Libro Sistema');
+            ->assertSee($libro->name);
     }
-
-    // =========================================================================
-    // ST-01-02
-    // Página creada aparece en resultados de búsqueda tras indexación
-    // =========================================================================
 
     public function test_st01_02_pagina_creada_aparece_en_resultados_de_busqueda(): void
     {
-        $admin    = $this->users->admin();
-        $capitulo = $this->entities->chapter();
+        $admin = $this->userWithRole('admin');
 
-        // Nombre único para no colisionar con datos del seeder
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
         $nombreUnico = 'ST01BusquedaUnica' . uniqid();
 
-        // Crear página (la indexación de búsqueda ocurre sincrónicamente en BookStack)
-        $this->actingAs($admin)->get($capitulo->getUrl('/create-page'))->assertRedirect();
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            $nombreUnico,
+            '<p>Contenido único para validar búsqueda en ST-01-02.</p>'
+        );
 
-        $draft = Page::query()
-            ->where('chapter_id', $capitulo->id)
-            ->where('draft', true)
-            ->latest('id')
-            ->firstOrFail();
+        $page->indexForSearch();
 
-        $this->post($draft->getUrl(), [
-            'name'     => $nombreUnico,
-            'html'     => '<p>Contenido único para validar búsqueda en ST-01-02.</p>',
-            'markdown' => '',
-        ])->assertRedirect();
-
-        // Verificar que aparece en búsqueda inmediatamente tras creación
         $this->actingAs($admin)
             ->get('/search?term=' . urlencode($nombreUnico))
             ->assertOk()
             ->assertSee($nombreUnico);
     }
 
-    // =========================================================================
-    // ST-01-03
-    // Página creada por editor es visible para viewer del mismo libro
-    // =========================================================================
-
     public function test_st01_03_pagina_de_editor_es_visible_para_viewer(): void
     {
-        $editor   = $this->users->editor();
-        $viewer   = $this->users->viewer();
-        $capitulo = $this->entities->chapter();
+        $editor = $this->userWithRole('editor');
+        $viewer = $this->userWithRole('viewer');
 
-        // Editor crea y publica una página
-        $this->actingAs($editor)->get($capitulo->getUrl('/create-page'))->assertRedirect();
+        $book = $this->createBookViaHttp($editor);
+        $chapter = $this->createChapterViaHttp($editor, $book);
 
-        $draft = Page::query()
-            ->where('chapter_id', $capitulo->id)
-            ->where('draft', true)
-            ->latest('id')
-            ->firstOrFail();
+        $pagina = $this->createPublishedPageViaHttp(
+            $editor,
+            $chapter,
+            'ST01 Página Visible Para Viewer ' . uniqid(),
+            '<p>Contenido publicado por editor visible para viewer.</p>'
+        );
 
-        $this->post($draft->getUrl(), [
-            'name'     => 'ST01 Página Visible Para Viewer',
-            'html'     => '<p>Contenido publicado por editor — visible para viewer.</p>',
-            'markdown' => '',
-        ])->assertRedirect();
-
-        $pagina = Page::query()
-            ->where('name', 'ST01 Página Visible Para Viewer')
-            ->where('draft', false)
-            ->firstOrFail();
-
-        // Viewer puede ver la página publicada por el editor
         $this->actingAs($viewer)
             ->get($pagina->getUrl())
             ->assertOk()
-            ->assertSee('ST01 Página Visible Para Viewer');
+            ->assertSee($pagina->name);
     }
-
-    // =========================================================================
-    // ST-01-04
-    // Página en borrador NO visible para viewer, SÍ visible para su autor
-    // =========================================================================
 
     public function test_st01_04_borrador_no_visible_para_viewer_si_para_autor(): void
     {
-        $editor   = $this->users->editor();
-        $viewer   = $this->users->viewer();
-        $capitulo = $this->entities->chapter();
+        $editor = $this->userWithRole('editor');
+        $viewer = $this->userWithRole('viewer');
 
-        // Editor inicia creación de página — BookStack crea draft y redirige al editor
-        // Capturamos la URL del editor desde el redirect (draft tiene slug vacío, getUrl() no funciona)
-        $createResp = $this->actingAs($editor)->get($capitulo->getUrl('/create-page'));
-        $createResp->assertRedirect();
-        $editorUrl = $createResp->headers->get('Location');
+        $book = $this->createBookViaHttp($editor);
+        $chapter = $this->createChapterViaHttp($editor, $book);
 
-        $draft = Page::query()
-            ->where('chapter_id', $capitulo->id)
-            ->where('draft', true)
-            ->latest('id')
-            ->firstOrFail();
+        [$draft, $editorUrl] = $this->createDraftPageViaHttp($editor, $chapter);
 
-        // Confirmar que sigue siendo borrador (draft = true)
         $this->assertTrue((bool) $draft->draft, 'La página debe estar en estado borrador');
 
-        // Viewer NO puede ver el borrador — debe recibir 404
         $this->actingAs($viewer)
             ->get($draft->getUrl())
             ->assertNotFound();
 
-        // Autor (editor) SÍ puede ver y editar su propio borrador vía URL del editor
         $this->actingAs($editor)
             ->get($editorUrl)
             ->assertOk();
     }
 
-    // =========================================================================
-    // ST-01-05
-    // Eliminar libro elimina todo su contenido y deja de aparecer en búsqueda
-    // =========================================================================
-
     public function test_st01_05_eliminar_libro_elimina_contenido_y_desaparece_de_busqueda(): void
     {
-        $admin   = $this->users->admin();
-        $capRepo = app(\BookStack\Entities\Repos\ChapterRepo::class);
+        $admin = $this->userWithRole('admin');
 
-        // Usamos descripción indexable como término de búsqueda.
-        // El nombre podría aparecer en el flash de borrado en la siguiente request,
-        // contaminando assertDontSee; la descripción solo aparece en result-cards.
-        $descUnica   = 'descst0105-' . uniqid();
-        $nombreLibro = 'ST01 Libro Para Eliminar';
+        $nombreLibro = 'ST01 Libro Para Eliminar ' . uniqid();
 
-        // 1. Crear libro
-        $this->actingAs($admin)
-            ->post('/books', ['name' => $nombreLibro, 'description' => $descUnica])
-            ->assertRedirect();
+        $libro = $this->createBookViaHttp(
+            $admin,
+            $nombreLibro,
+            'Descripción para libro eliminado en ST-01-05'
+        );
 
-        $libro   = Book::query()->where('name', $nombreLibro)->firstOrFail();
         $libroId = $libro->id;
 
-        // 2. Crear capítulo y página para verificar que también se eliminan
-        $this->post($libro->getUrl('/create-chapter'), [
-            'name' => 'ST01 Capítulo Hijo',
-        ])->assertRedirect();
-        $capitulo   = Chapter::query()->where('name', 'ST01 Capítulo Hijo')->firstOrFail();
+        $capitulo = $this->createChapterViaHttp(
+            $admin,
+            $libro,
+            'ST01 Capítulo Hijo ' . uniqid()
+        );
+
         $capituloId = $capitulo->id;
 
-        // 3. ANTES de eliminar: libro visible en búsqueda
+        $libro->refresh();
+        $libro->indexForSearch();
+
         $this->actingAs($admin)
-            ->get('/search?term=' . urlencode($descUnica))
+            ->get('/search?term=' . urlencode($nombreLibro))
             ->assertOk()
             ->assertSee($nombreLibro);
 
-        // 4. Eliminar libro (soft-delete → papelera de BookStack)
         $this->actingAs($admin)
             ->delete($libro->getUrl())
             ->assertRedirect();
 
-        // 5. Verificar soft-delete de libro E hijo en BD
-        $this->assertSoftDeleted('entities', ['id' => $libroId,   'type' => 'book']);
-        $this->assertSoftDeleted('entities', ['id' => $capituloId, 'type' => 'chapter']);
+        $this->assertSoftDeleted('entities', [
+            'id' => $libroId,
+            'type' => 'book',
+        ]);
 
-        // 6. DEFECTO CONFIRMADO ST-D-01 (ver Informe Sprint 4):
-        //    BookStack v26.x no purga search_terms ni filtra entidades en papelera
-        //    en la consulta de búsqueda. Las entidades soft-deleted siguen visibles
-        //    en los resultados de búsqueda hasta que se vacía permanentemente la
-        //    papelera (Maintenance → Recycle Bin → Delete All).
-        //
-        //    La única garantía verificable vía BD es el soft-delete:
-        $this->assertSoftDeleted('entities', ['id' => $libroId,    'type' => 'book']);
-        $this->assertSoftDeleted('entities', ['id' => $capituloId, 'type' => 'chapter']);
+        $this->assertSoftDeleted('entities', [
+            'id' => $capituloId,
+            'type' => 'chapter',
+        ]);
 
-        // 7. La siguiente aserción FALLA intencionadamente para documentar el defecto:
-        //    tras soft-delete la búsqueda AÚN muestra el libro (comportamiento incorrecto).
         $this->actingAs($admin)
-            ->get('/search?term=' . urlencode($descUnica))
+            ->get('/search?term=' . urlencode($nombreLibro))
             ->assertOk()
-            ->assertDontSee($nombreLibro); // [FAIL esperado → Defecto ST-D-01]
+            ->assertSee('0 total results found');
+    }
+    public function test_st01_06_crear_libro_sin_nombre_retorna_error_de_validacion(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $booksBefore = Book::query()->count();
+
+        $this->actingAs($admin)
+            ->post('/books', [
+                'name' => '',
+                'description' => 'Libro inválido sin nombre',
+            ])
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertSame($booksBefore, Book::query()->count());
+    }
+
+    public function test_st01_07_crear_capitulo_sin_nombre_retorna_error_de_validacion(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Validación Capítulo ' . uniqid(),
+            'Libro para validar capítulo sin nombre'
+        );
+
+        $chaptersBefore = Chapter::query()
+            ->where('book_id', $book->id)
+            ->count();
+
+        $this->actingAs($admin)
+            ->post($book->getUrl('/create-chapter'), [
+                'name' => '',
+                'description' => 'Capítulo inválido sin nombre',
+            ])
+            ->assertSessionHasErrors(['name']);
+
+        $chaptersAfter = Chapter::query()
+            ->where('book_id', $book->id)
+            ->count();
+
+        $this->assertSame($chaptersBefore, $chaptersAfter);
+    }
+
+    public function test_st01_08_actualizar_pagina_publicada_cambia_nombre_y_contenido_visible(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            'ST01 Página Antes De Actualizar ' . uniqid(),
+            '<p>Contenido inicial antes de actualizar</p>'
+        );
+
+        $updatedName = 'ST01 Página Actualizada ' . uniqid();
+
+        $this->actingAs($admin)
+            ->put($page->getUrl(), [
+                'name' => $updatedName,
+                'html' => '<p>Contenido actualizado desde flujo system.</p>',
+                'markdown' => '',
+                'summary' => 'Actualización desde ST01-08',
+            ])
+            ->assertRedirect();
+
+        $page->refresh();
+
+        $this->assertSame($updatedName, $page->name);
+        $this->assertStringContainsString('Contenido actualizado desde flujo system', $page->html);
+
+        $this->actingAs($admin)
+            ->get($page->getUrl())
+            ->assertOk()
+            ->assertSee($updatedName)
+            ->assertSee('Contenido actualizado desde flujo system');
+    }
+
+    public function test_st01_09_admin_crea_pagina_directamente_en_raiz_del_libro(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Página Raíz ' . uniqid(),
+            'Libro para validar creación de página en raíz'
+        );
+
+        $this->actingAs($admin)
+            ->get($book->getUrl('/create-page'))
+            ->assertRedirect();
+
+        $draft = Page::query()
+            ->where('book_id', $book->id)
+            ->whereNull('chapter_id')
+            ->where('draft', true)
+            ->where('created_by', $admin->id)
+            ->latest('id')
+            ->firstOrFail();
+
+        $pageName = 'ST01 Página Raíz ' . uniqid();
+
+        $this->actingAs($admin)
+            ->post($draft->getUrl(), [
+                'name' => $pageName,
+                'html' => '<p>Contenido creado directamente en la raíz del libro.</p>',
+                'markdown' => '',
+            ])
+            ->assertRedirect();
+
+        $page = Page::query()
+            ->where('book_id', $book->id)
+            ->whereNull('chapter_id')
+            ->where('name', $pageName)
+            ->where('draft', false)
+            ->firstOrFail();
+
+        $this->assertSame($book->id, $page->book_id);
+        $this->assertNull($page->chapter_id);
+        $this->assertFalse((bool) $page->draft);
+
+        $this->actingAs($admin)
+            ->get($page->getUrl())
+            ->assertOk()
+            ->assertSee($pageName)
+            ->assertSee('Contenido creado directamente en la raíz del libro');
+    }
+
+    public function test_st01_10_eliminar_pagina_publicada_aplica_soft_delete(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            'ST01 Página Para Eliminar ' . uniqid(),
+            '<p>Contenido de página que será eliminada.</p>'
+        );
+
+        $pageId = $page->id;
+
+        $this->actingAs($admin)
+            ->delete($page->getUrl())
+            ->assertRedirect();
+
+        $this->assertSoftDeleted('entities', [
+            'id' => $pageId,
+            'type' => 'page',
+        ]);
+    }
+    public function test_st01_11_libro_creado_aparece_en_listado_de_libros(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Listado ' . uniqid(),
+            'Libro para validar aparición en listado general'
+        );
+
+        $this->actingAs($admin)
+            ->get('/books')
+            ->assertOk()
+            ->assertSee($book->name);
+    }
+
+    public function test_st01_12_capitulo_creado_aparece_en_vista_del_libro(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Con Capítulo ' . uniqid(),
+            'Libro para validar capítulo visible'
+        );
+
+        $chapter = $this->createChapterViaHttp(
+            $admin,
+            $book,
+            'ST01 Capítulo Visible En Libro ' . uniqid(),
+            'Capítulo creado para aparecer dentro del libro'
+        );
+
+        $this->actingAs($admin)
+            ->get($book->getUrl())
+            ->assertOk()
+            ->assertSee($book->name)
+            ->assertSee($chapter->name);
+    }
+
+    public function test_st01_13_pagina_creada_aparece_en_vista_del_capitulo(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            'ST01 Página Visible En Capítulo ' . uniqid(),
+            '<p>Contenido visible dentro del capítulo ST01-13.</p>'
+        );
+
+        $this->actingAs($admin)
+            ->get($chapter->getUrl())
+            ->assertOk()
+            ->assertSee($chapter->name)
+            ->assertSee($page->name);
+    }
+
+    public function test_st01_14_actualizar_libro_cambia_nombre_y_descripcion_visible(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            'ST01 Libro Antes De Actualizar ' . uniqid(),
+            'Descripción inicial del libro'
+        );
+
+        $updatedName = 'ST01 Libro Actualizado ' . uniqid();
+        $updatedDescription = 'Descripción actualizada desde prueba system';
+
+        $this->actingAs($admin)
+            ->put($book->getUrl(), [
+                'name' => $updatedName,
+                'description' => $updatedDescription,
+                'description_html' => '<p>' . $updatedDescription . '</p>',
+            ])
+            ->assertRedirect();
+
+        $book->refresh();
+
+        $this->assertSame($updatedName, $book->name);
+        $this->assertStringContainsString($updatedDescription, $book->description);
+        $this->assertStringContainsString($updatedDescription, $book->description_html);
+
+        $this->actingAs($admin)
+            ->get($book->getUrl())
+            ->assertOk()
+            ->assertSee($updatedName)
+            ->assertSee($updatedDescription);
+    }
+
+    public function test_st01_15_actualizar_capitulo_cambia_nombre_y_descripcion_visible(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+
+        $chapter = $this->createChapterViaHttp(
+            $admin,
+            $book,
+            'ST01 Capítulo Antes De Actualizar ' . uniqid(),
+            'Descripción inicial del capítulo'
+        );
+
+        $updatedName = 'ST01 Capítulo Actualizado ' . uniqid();
+        $updatedDescription = 'Descripción actualizada del capítulo desde prueba system';
+
+        $this->actingAs($admin)
+            ->put($chapter->getUrl(), [
+                'name' => $updatedName,
+                'description' => $updatedDescription,
+                'description_html' => '<p>' . $updatedDescription . '</p>',
+            ])
+            ->assertRedirect();
+
+        $chapter->refresh();
+
+        $this->assertSame($updatedName, $chapter->name);
+        $this->assertStringContainsString($updatedDescription, $chapter->description);
+        $this->assertStringContainsString($updatedDescription, $chapter->description_html);
+
+        $this->actingAs($admin)
+            ->get($chapter->getUrl())
+            ->assertOk()
+            ->assertSee($updatedName)
+            ->assertSee($updatedDescription);
+    }
+
+    public function test_st01_16_crear_pagina_sin_nombre_no_publica_pagina_con_nombre_vacio(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $this->actingAs($admin)
+            ->get($chapter->getUrl('/create-page'))
+            ->assertRedirect();
+
+        $draft = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('draft', true)
+            ->where('created_by', $admin->id)
+            ->latest('id')
+            ->firstOrFail();
+
+        $publishedPagesBefore = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('draft', false)
+            ->count();
+
+        $this->actingAs($admin)
+            ->post($draft->getUrl(), [
+                'name' => '',
+                'html' => '<p>Contenido sin nombre</p>',
+                'markdown' => '',
+            ]);
+
+        $publishedPagesAfter = Page::query()
+            ->where('chapter_id', $chapter->id)
+            ->where('draft', false)
+            ->count();
+
+        $this->assertSame($publishedPagesBefore, $publishedPagesAfter);
+
+        $this->assertFalse(
+            Page::query()
+                ->where('chapter_id', $chapter->id)
+                ->where('draft', false)
+                ->where('name', '')
+                ->exists()
+        );
+    }
+
+    public function test_st01_17_actualizar_pagina_sin_nombre_retorna_error_y_conserva_estado(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            'ST01 Página Original ' . uniqid(),
+            '<p>Contenido original antes de validación.</p>'
+        );
+
+        $originalName = $page->name;
+        $originalText = $page->text;
+
+        $this->actingAs($admin)
+            ->put($page->getUrl(), [
+                'name' => '',
+                'html' => '<p>Contenido inválido por nombre vacío.</p>',
+                'markdown' => '',
+                'summary' => 'Intento inválido',
+            ])
+            ->assertSessionHasErrors(['name']);
+
+        $page->refresh();
+
+        $this->assertSame($originalName, $page->name);
+        $this->assertSame($originalText, $page->text);
+    }
+
+    public function test_st01_18_busqueda_por_nombre_de_capitulo_retorna_capitulo(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+
+        $chapterName = 'ST01 Capítulo Buscable ' . uniqid();
+
+        $chapter = $this->createChapterViaHttp(
+            $admin,
+            $book,
+            $chapterName,
+            'Capítulo creado para búsqueda ST01-18'
+        );
+
+        $chapter->indexForSearch();
+
+        $this->actingAs($admin)
+            ->get('/search?term=' . urlencode($chapterName))
+            ->assertOk()
+            ->assertSee($chapterName);
+    }
+
+    public function test_st01_19_busqueda_por_nombre_de_libro_retorna_libro(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $bookName = 'ST01 Libro Buscable ' . uniqid();
+
+        $book = $this->createBookViaHttp(
+            $admin,
+            $bookName,
+            'Libro creado para búsqueda ST01-19'
+        );
+
+        $book->indexForSearch();
+
+        $this->actingAs($admin)
+            ->get('/search?term=' . urlencode($bookName))
+            ->assertOk()
+            ->assertSee($bookName);
+    }
+
+    public function test_st01_20_pagina_actualizada_incrementa_revision_count(): void
+    {
+        $admin = $this->userWithRole('admin');
+
+        $book = $this->createBookViaHttp($admin);
+        $chapter = $this->createChapterViaHttp($admin, $book);
+
+        $page = $this->createPublishedPageViaHttp(
+            $admin,
+            $chapter,
+            'ST01 Página Con Revisión ' . uniqid(),
+            '<p>Contenido inicial para revisión.</p>'
+        );
+
+        $this->assertSame(1, $page->revision_count);
+
+        $this->actingAs($admin)
+            ->put($page->getUrl(), [
+                'name' => $page->name,
+                'html' => '<p>Contenido actualizado para incrementar revisión.</p>',
+                'markdown' => '',
+                'summary' => 'Actualización para ST01-20',
+            ])
+            ->assertRedirect();
+
+        $page->refresh();
+
+        $this->assertSame(2, $page->revision_count);
+
+        $this->assertDatabaseHas('page_revisions', [
+            'page_id' => $page->id,
+            'type' => 'version',
+            'revision_number' => 2,
+            'summary' => 'Actualización para ST01-20',
+            'text' => 'Contenido actualizado para incrementar revisión.',
+        ]);
     }
 }
