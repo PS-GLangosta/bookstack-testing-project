@@ -3,14 +3,19 @@
 namespace Tests\Unit;
 
 use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Page;
 use BookStack\Entities\Queries\EntityQueries;
+use BookStack\Entities\Repos\PageRepo;
 use BookStack\Exceptions\ZipImportException;
 use BookStack\Exceptions\ZipValidationException;
 use BookStack\Exports\Import;
 use BookStack\Exports\ImportRepo;
 use BookStack\Exports\ZipExports\ZipImportRunner;
 use BookStack\Uploads\FileStorage;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\TestCase;
@@ -18,6 +23,8 @@ use ZipArchive;
 
 class ImportRepoUnitTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected array $filesToDelete = [];
 
     protected function tearDown(): void
@@ -49,6 +56,62 @@ class ImportRepoUnitTest extends TestCase
         $this->filesToDelete = [];
 
         parent::tearDown();
+    }
+
+    protected function userWithRole(string $roleName): User
+    {
+        $role = Role::getRole($roleName);
+
+        $user = User::factory()->create([
+            'name' => 'Import Repo ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'import-repo-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function actAsRole(string $roleName): User
+    {
+        $user = $this->userWithRole($roleName);
+
+        $this->actingAs($user);
+
+        return $user;
+    }
+
+    protected function createBookFor(User $user, array $attributes = []): Book
+    {
+        $this->actingAs($user);
+
+        $book = Book::factory()->create(array_merge([
+            'name' => 'Libro Import Repo ' . uniqid(),
+            'description' => 'Libro creado para ImportRepoUnitTest.',
+            'description_html' => '<p>Libro creado para ImportRepoUnitTest.</p>',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ], $attributes));
+
+        $book->rebuildPermissions();
+
+        return $book->refresh();
+    }
+
+    protected function createPublishedPageFor(User $user, Book $book, array $data = []): Page
+    {
+        $this->actingAs($user);
+
+        $pageRepo = app(PageRepo::class);
+        $draft = $pageRepo->getNewDraftPage($book);
+
+        $page = $pageRepo->publishDraft($draft, array_merge([
+            'name' => 'Página Import Repo ' . uniqid(),
+            'html' => '<p>Contenido Import Repo</p>',
+        ], $data));
+
+        return $page->refresh();
     }
 
     protected function repo(
@@ -119,14 +182,14 @@ class ImportRepoUnitTest extends TestCase
 
     protected function createStoredImport(array $overrides = []): Import
     {
-        $admin = $this->users->admin();
+        $creatorId = $overrides['created_by'] ?? user()->id;
 
         $import = new Import();
         $import->name = $overrides['name'] ?? 'Import guardado';
         $import->type = $overrides['type'] ?? 'book';
         $import->path = $overrides['path'] ?? 'uploads/files/imports/demo.zip';
         $import->size = $overrides['size'] ?? 1234;
-        $import->created_by = $overrides['created_by'] ?? $admin->id;
+        $import->created_by = $creatorId;
         $import->metadata = $overrides['metadata'] ?? json_encode([
             'id' => 1,
             'name' => 'Libro importado',
@@ -144,8 +207,10 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_get_visible_imports_filtra_por_usuario_si_no_tiene_permiso_settings_manage(): void
     {
-        $admin = $this->users->admin();
-        $editor = $this->users->editor();
+        $admin = $this->userWithRole('admin');
+        $editor = $this->userWithRole('editor');
+
+        $this->actingAs($editor);
 
         $ownImport = $this->createStoredImport([
             'name' => 'Import propio del editor',
@@ -176,8 +241,10 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_find_visible_respeta_visibilidad_del_usuario(): void
     {
-        $admin = $this->users->admin();
-        $editor = $this->users->editor();
+        $admin = $this->userWithRole('admin');
+        $editor = $this->userWithRole('editor');
+
+        $this->actingAs($editor);
 
         $ownImport = $this->createStoredImport([
             'created_by' => $editor->id,
@@ -202,9 +269,7 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_store_from_upload_guarda_import_valido_de_pagina(): void
     {
-        $admin = $this->users->admin();
-
-        $this->actingAs($admin);
+        $admin = $this->actAsRole('admin');
 
         $zipPath = $this->createZipFile($this->validPageZipData('Página ZIP válida'));
         $uploadedFile = $this->uploadedZipFile($zipPath);
@@ -247,7 +312,7 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_store_from_upload_lanza_zip_validation_exception_si_zip_no_es_valido(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $zipPath = $this->createZipFile([]);
         $uploadedFile = $this->uploadedZipFile($zipPath, 'invalid.zip');
@@ -265,14 +330,16 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_run_import_de_libro_ejecuta_importer_elimina_import_y_retorna_entidad(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->createStoredImport([
             'type' => 'book',
             'path' => 'uploads/files/imports/book.zip',
         ]);
 
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin, [
+            'name' => 'Libro importado final desde runner',
+        ]);
 
         $storage = Mockery::mock(FileStorage::class);
         $importer = Mockery::mock(ZipImportRunner::class);
@@ -303,7 +370,7 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_run_import_de_pagina_resuelve_parent_antes_de_importar(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->createStoredImport([
             'type' => 'page',
@@ -320,9 +387,11 @@ class ImportRepoUnitTest extends TestCase
             ]),
         ]);
 
-        $parentBook = $this->entities->book();
+        $parentBook = $this->createBookFor($admin, [
+            'name' => 'Libro parent para import page',
+        ]);
 
-        $page = $this->entities->newPage([
+        $page = $this->createPublishedPageFor($admin, $parentBook, [
             'name' => 'Página importada final',
             'html' => '<p>Contenido final</p>',
         ]);
@@ -360,7 +429,7 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_run_import_hace_rollback_y_revierte_archivos_si_importer_falla(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->createStoredImport([
             'type' => 'book',
@@ -401,7 +470,7 @@ class ImportRepoUnitTest extends TestCase
 
     public function test_delete_import_elimina_archivo_y_registro(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->createStoredImport([
             'path' => 'uploads/files/imports/delete-me.zip',
