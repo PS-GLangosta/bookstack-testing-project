@@ -2,22 +2,82 @@
 
 namespace Tests\System;
 
+use BookStack\Entities\Models\Book;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Models\PageRevision;
+use BookStack\Entities\Repos\PageRepo;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class PageRevisionFlowTest extends TestCase
 {
+    use DatabaseTransactions;
+
+    protected User $adminUser;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->actingAs($this->users->admin());
+        $this->adminUser = $this->userWithRole('admin');
+
+        $this->actingAs($this->adminUser);
+    }
+
+    protected function userWithRole(string $roleName): User
+    {
+        $role = Role::getRole($roleName);
+
+        $user = User::factory()->create([
+            'name' => $roleName === 'admin' ? 'Admin' : 'ST05 ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'st05-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function createBookFor(User $user, array $attributes = []): Book
+    {
+        $this->actingAs($user);
+
+        $book = Book::factory()->create(array_merge([
+            'name' => 'Libro ST05 ' . uniqid(),
+            'description' => 'Libro creado para PageRevisionFlowTest.',
+            'description_html' => '<p>Libro creado para PageRevisionFlowTest.</p>',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ], $attributes));
+
+        $book->rebuildPermissions();
+
+        return $book->refresh();
+    }
+
+    protected function createPublishedPageFor(User $user, Book $book, array $data = []): Page
+    {
+        $this->actingAs($user);
+
+        $pageRepo = app(PageRepo::class);
+        $draft = $pageRepo->getNewDraftPage($book);
+
+        $page = $pageRepo->publishDraft($draft, array_merge([
+            'name' => 'Página ST05 ' . uniqid(),
+            'html' => '<p>Contenido inicial ST-05</p>',
+        ], $data));
+
+        return $page->refresh();
     }
 
     protected function createPageForRevisionFlow(string $name = 'ST-05 Página revisiones inicial'): Page
     {
-        $page = $this->entities->newPage([
+        $book = $this->createBookFor($this->adminUser);
+
+        $page = $this->createPublishedPageFor($this->adminUser, $book, [
             'name' => $name,
             'html' => '<p>Contenido inicial ST-05</p>',
         ]);
@@ -31,6 +91,8 @@ class PageRevisionFlowTest extends TestCase
 
     protected function updatePage(Page $page, string $name, string $html, string $summary): void
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->put($page->getUrl(), [
             'name' => $name,
             'html' => $html,
@@ -107,7 +169,7 @@ class PageRevisionFlowTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('ST-05 historial 1');
         $response->assertSee('ST-05 historial 2');
-        $response->assertSee($this->users->admin()->name);
+        $response->assertSee($this->adminUser->name);
     }
 
     public function test_st_05_03_restaurar_revision_anterior_actualiza_contenido_visible(): void
@@ -207,7 +269,7 @@ class PageRevisionFlowTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Contenido histórico visible');
         $response->assertSee('Revision');
-        $response->assertSee('Admin');
+        $response->assertSee($this->adminUser->name);
     }
 
     public function test_st_05_07_revisiones_mantienen_orden_de_creacion_en_base_de_datos(): void
@@ -435,7 +497,7 @@ class PageRevisionFlowTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Revision');
         $response->assertSee('Created');
-        $response->assertSee('Admin');
+        $response->assertSee($this->adminUser->name);
         $response->assertSee('Contenido con detalles de revisión');
     }
 
