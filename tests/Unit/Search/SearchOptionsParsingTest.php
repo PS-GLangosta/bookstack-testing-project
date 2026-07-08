@@ -3,6 +3,9 @@
 namespace Tests\Unit\Search;
 
 use BookStack\Search\SearchOptions;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 /**
@@ -10,15 +13,12 @@ use Tests\TestCase;
  *
  * Clase bajo prueba: BookStack\Search\SearchOptions
  * Ubicación: app/Search/SearchOptions.php
- * Issue: #14 (y complementos)
- * Sprint: 2
- * Responsable: Ower Frank Lopez Arela (Test Designer)
  *
- * Cobertura objetivo:
- *   - fromString(): parseo de términos, exacts, tags, filtros
- *   - Manejo de negación con prefijo '-'
- *   - limitOptions(): rate limiting por nivel de autenticación
- *   - toString(): serialización inversa
+ * Regla aplicada:
+ * - Dependencia 0 de usuarios seed.
+ * - No usar $this->users.
+ * - No usar $this->entities.
+ * - No usar $this->asEditor().
  *
  * @group sprint-2
  * @group search
@@ -26,140 +26,250 @@ use Tests\TestCase;
  */
 class SearchOptionsParsingTest extends TestCase
 {
-    // =========================================================================
-    // UT-SRC-007 — Parseo de términos estándar separados por espacio
-    // Técnica: Partición de equivalencia (clase válida: términos simples)
-    // Requisito: RF-SRC-02
-    // =========================================================================
+    use DatabaseTransactions;
 
-    /** @test */
-    public function parsea_terminos_estandar_separados_por_espacio(): void
+    protected function userWithRole(string $roleName): User
     {
-        // Arrange & Act
-        $this->asEditor();
+        $role = Role::getRole($roleName);
+
+        $user = User::factory()->create([
+            'name' => 'Search Options ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'search-options-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function actAsRole(string $roleName): User
+    {
+        $user = $this->userWithRole($roleName);
+
+        $this->actingAs($user);
+
+        return $user;
+    }
+
+    /**
+     * UT-SRC-007
+     * Parseo de términos estándar separados por espacio.
+     */
+    public function test_parsea_terminos_estandar_separados_por_espacio(): void
+    {
+        $this->actAsRole('editor');
+
         $opciones = SearchOptions::fromString('laravel php testing');
 
-        // Assert
-        $this->assertEquals(
+        $this->assertSame(
             ['laravel', 'php', 'testing'],
             $opciones->searches->toValueArray()
         );
     }
 
-    // =========================================================================
-    // UT-SRC-008 — Parseo de coincidencia exacta (comillas dobles)
-    // Técnica: Partición de equivalencia (entrada mixta: términos + exacts)
-    // Requisito: RF-SRC-02
-    // =========================================================================
-
-    /** @test */
-    public function parsea_coincidencia_exacta_entre_comillas(): void
+    /**
+     * UT-SRC-008
+     * Parseo de coincidencia exacta con comillas dobles.
+     */
+    public function test_parsea_coincidencia_exacta_entre_comillas(): void
     {
-        $this->asEditor();
+        $this->actAsRole('editor');
+
         $opciones = SearchOptions::fromString('cat "dog house" bird');
 
-        // Términos estándar
-        $this->assertEquals(['cat', 'bird'], $opciones->searches->toValueArray());
-        // Coincidencia exacta
-        $this->assertEquals(['dog house'], $opciones->exacts->toValueArray());
+        $this->assertSame(['cat', 'bird'], $opciones->searches->toValueArray());
+        $this->assertSame(['dog house'], $opciones->exacts->toValueArray());
     }
 
-    // =========================================================================
-    // UT-SRC-009 — Parseo de sintaxis de tags (corchetes)
-    // Técnica: Partición de equivalencia (sintaxis de tag con y sin valor)
-    // Requisito: RF-SRC-02
-    // =========================================================================
-
-    /** @test */
-    public function parsea_sintaxis_de_tags_con_corchetes(): void
+    /**
+     * UT-SRC-009
+     * Parseo de tags con corchetes.
+     */
+    public function test_parsea_sintaxis_de_tags_con_corchetes(): void
     {
-        $this->asEditor();
+        $this->actAsRole('editor');
+
         $opciones = SearchOptions::fromString('test [category=php] [priority]');
 
-        $this->assertEquals(['test'], $opciones->searches->toValueArray());
-        $this->assertEquals(
+        $this->assertSame(['test'], $opciones->searches->toValueArray());
+
+        $this->assertSame(
             ['category=php', 'priority'],
             $opciones->tags->toValueArray()
         );
     }
 
-    // =========================================================================
-    // UT-SRC-010 — Parseo de filtros (llaves con clave:valor)
-    // Técnica: Tabla de decisión (flag booleano, clave:valor)
-    // Requisito: RF-SRC-02
-    // =========================================================================
-
-    /** @test */
-    public function parsea_filtros_clave_valor_entre_llaves(): void
+    /**
+     * UT-SRC-010
+     * Parseo de filtros con llaves.
+     */
+    public function test_parsea_filtros_clave_valor_entre_llaves(): void
     {
-        $this->asEditor();
+        $this->actAsRole('editor');
+
         $opciones = SearchOptions::fromString('{is_template} {created_by:admin} {sort_by:last_commented}');
 
         $filtros = $opciones->filters->toValueMap();
 
-        $this->assertEquals('', $filtros['is_template']);
-        $this->assertEquals('admin', $filtros['created_by']);
-        $this->assertEquals('last_commented', $filtros['sort_by']);
+        $this->assertArrayHasKey('is_template', $filtros);
+        $this->assertArrayHasKey('created_by', $filtros);
+        $this->assertArrayHasKey('sort_by', $filtros);
+
+        $this->assertSame('', $filtros['is_template']);
+        $this->assertSame('admin', $filtros['created_by']);
+        $this->assertSame('last_commented', $filtros['sort_by']);
     }
 
-    // =========================================================================
-    // UT-SRC-011 — Prefijo de negación (-) en exacts, tags y filtros
-    // Técnica: Partición de equivalencia (negado vs no negado)
-    // Requisito: RF-SRC-03
-    // =========================================================================
-
-    /** @test */
-    public function prefijo_negacion_establece_flag_en_opciones(): void
+    /**
+     * UT-SRC-011
+     * Prefijo de negación en exacts, tags y filtros.
+     */
+    public function test_prefijo_negacion_establece_flag_en_opciones(): void
     {
-        $this->asEditor();
+        $this->actAsRole('editor');
+
         $opciones = SearchOptions::fromString('cat -"dog" -[bad_tag] -{is_template}');
 
-        // Término estándar 'cat' NO es negable
         $this->assertCount(1, $opciones->searches->all());
+        $this->assertSame(['cat'], $opciones->searches->toValueArray());
 
-        // Exacts, tags y filtros con '-' deben tener negated=true
+        $this->assertCount(1, $opciones->exacts->all());
+        $this->assertCount(1, $opciones->tags->all());
+        $this->assertCount(1, $opciones->filters->all());
+
         $this->assertTrue(
             $opciones->exacts->all()[0]->negated,
-            'Exact con prefijo - debe estar negado'
+            'Exact con prefijo - debe estar negado.'
         );
+
         $this->assertTrue(
             $opciones->tags->all()[0]->negated,
-            'Tag con prefijo - debe estar negado'
+            'Tag con prefijo - debe estar negado.'
         );
+
         $this->assertTrue(
             $opciones->filters->all()[0]->negated,
-            'Filter con prefijo - debe estar negado'
+            'Filtro con prefijo - debe estar negado.'
         );
     }
 
-    // =========================================================================
-    // UT-SRC-012 — Rate limiting: invitado (5) vs autenticado (10)
-    // Técnica: Análisis de valores límite (en y por encima del límite)
-    // Requisito: RF-SRC-04
-    // Código fuente: limitOptions() líneas 156-168
-    // =========================================================================
-
-    /** @test */
-    public function rate_limiting_diferente_para_guest_vs_autenticado(): void
+    /**
+     * UT-SRC-012
+     * Rate limiting: invitado vs autenticado.
+     */
+    public function test_rate_limiting_diferente_para_guest_vs_autenticado(): void
     {
-        // Arrange — Cadena con 15 términos
-        $muchos_terminos = implode(' ', array_fill(0, 15, 'termino'));
+        $muchosTerminos = implode(' ', array_map(
+            fn (int $index) => 'termino' . $index,
+            range(1, 15)
+        ));
 
-        // Act & Assert — Sin autenticación: máximo 5 términos
-        $opcionesGuest = SearchOptions::fromString($muchos_terminos);
+        auth()->logout();
+
+        $opcionesGuest = SearchOptions::fromString($muchosTerminos);
+
         $this->assertCount(
             5,
             $opcionesGuest->searches->all(),
-            'Usuarios invitados deben estar limitados a 5 términos'
+            'Usuarios invitados deben estar limitados a 5 términos.'
         );
 
-        // Act & Assert — Autenticado: máximo 10 términos
-        $this->asEditor();
-        $opcionesAuth = SearchOptions::fromString($muchos_terminos);
+        $this->assertSame(
+            ['termino1', 'termino2', 'termino3', 'termino4', 'termino5'],
+            $opcionesGuest->searches->toValueArray()
+        );
+
+        $this->actAsRole('editor');
+
+        $opcionesAuth = SearchOptions::fromString($muchosTerminos);
+
         $this->assertCount(
             10,
             $opcionesAuth->searches->all(),
-            'Usuarios autenticados deben estar limitados a 10 términos'
+            'Usuarios autenticados deben estar limitados a 10 términos.'
+        );
+
+        $this->assertSame(
+            [
+                'termino1',
+                'termino2',
+                'termino3',
+                'termino4',
+                'termino5',
+                'termino6',
+                'termino7',
+                'termino8',
+                'termino9',
+                'termino10',
+            ],
+            $opcionesAuth->searches->toValueArray()
+        );
+    }
+
+    /**
+     * UT-SRC-013
+     * Serialización inversa de opciones a string.
+     */
+    public function test_to_string_serializa_busqueda_con_terminos_exactos_tags_y_filtros(): void
+    {
+        $this->actAsRole('editor');
+
+        $opciones = SearchOptions::fromString('cat "dog house" [category=php] {sort_by:name}');
+
+        $resultado = $opciones->toString();
+
+        $this->assertStringContainsString('cat', $resultado);
+        $this->assertStringContainsString('"dog house"', $resultado);
+        $this->assertStringContainsString('[category=php]', $resultado);
+        $this->assertStringContainsString('{sort_by:name}', $resultado);
+    }
+
+    /**
+     * UT-SRC-014
+     * Serialización conserva negaciones.
+     */
+    public function test_to_string_conserva_negaciones_en_exactos_tags_y_filtros(): void
+    {
+        $this->actAsRole('editor');
+
+        $opciones = SearchOptions::fromString('-"privado" -[estado=borrador] -{is_template}');
+
+        $resultado = $opciones->toString();
+
+        $this->assertStringContainsString('-"privado"', $resultado);
+        $this->assertStringContainsString('-[estado=borrador]', $resultado);
+        $this->assertStringContainsString('-{is_template}', $resultado);
+    }
+
+    /**
+     * UT-SRC-015
+     * Entrada vacía no genera opciones de búsqueda.
+     */
+    public function test_entrada_vacia_no_genera_opciones_de_busqueda(): void
+    {
+        $this->actAsRole('editor');
+
+        $opciones = SearchOptions::fromString('');
+
+        $this->assertCount(0, $opciones->searches->all());
+        $this->assertCount(0, $opciones->exacts->all());
+        $this->assertCount(0, $opciones->tags->all());
+        $this->assertCount(0, $opciones->filters->all());
+    }
+
+    /**
+     * UT-SRC-016
+     * Espacios repetidos son ignorados.
+     */
+    public function test_espacios_repetidos_son_ignorados_al_parsear_terminos(): void
+    {
+        $this->actAsRole('editor');
+
+        $opciones = SearchOptions::fromString('   laravel    php     testing   ');
+
+        $this->assertSame(
+            ['laravel', 'php', 'testing'],
+            $opciones->searches->toValueArray()
         );
     }
 }
