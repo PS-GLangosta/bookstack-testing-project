@@ -1,33 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="[http://www.w3.org/2001/XMLSchema-instance](http://www.w3.org/2001/XMLSchema-instance)"
-  xsi:noNamespaceSchemaLocation="[https://schema.phpunit.de/11.5/phpunit.xsd](https://schema.phpunit.de/11.5/phpunit.xsd)"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
   bootstrap="vendor/autoload.php"
   displayDetailsOnTestsThatTriggerDeprecations="true"
   colors="true">
-  
   <testsuites>
     <testsuite name="Application Test Suite">
       <directory>./tests/</directory>
     </testsuite>
     
-    <!-- Suites del Pipeline CI/CD (PR #70) -->
-    <testsuite name="Unit">
-      <directory>./tests/Unit</directory>
-    </testsuite>
-    <testsuite name="Integration">
-      <directory>./tests/Integration</directory>
-    </testsuite>
-    <testsuite name="System">
-      <directory>./tests/System</directory>
-    </testsuite>
-    <testsuite name="Feature">
-      <directory>./tests</directory>
-      <exclude>./tests/Unit</exclude>
-      <exclude>./tests/Integration</exclude>
-      <exclude>./tests/System</exclude>
-    </testsuite>
-
-    <!-- Suite Métrica de Defensa (PR #77) -->
+    <!-- Suite Métrica de Defensa (Current Change) -->
     <testsuite name="Langosta">
       <!-- 55 archivos autorados por los 6 integrantes del equipo Langosta -->
       <file>tests/Api/BookApiControllerTest.php</file>
@@ -86,16 +68,33 @@
       <file>tests/Unit/UserServiceTest.php</file>
       <file>tests/Unit/ZipExportsUnitTest.php</file>
     </testsuite>
+
+    <!-- Suites del Pipeline CI/CD (Incoming Change) -->
+    <testsuite name="Unit">
+      <directory>./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Integration">
+      <directory>./tests/Integration</directory>
+    </testsuite>
+    <testsuite name="System">
+      <directory>./tests/System</directory>
+    </testsuite>
+    <testsuite name="Feature">
+      <directory>./tests</directory>
+      <exclude>./tests/Unit</exclude>
+      <exclude>./tests/Integration</exclude>
+      <exclude>./tests/System</exclude>
+    </testsuite>
   </testsuites>
 
-  <!-- Bloque <php> proveniente de main para asegurar compatibilidad CI/CD -->
+  <!-- Configuración segura Incoming Change (sin tocar la URL) -->
   <php>
     <server name="APP_ENV" value="testing"/>
     <server name="APP_DEBUG" value="false"/>
     <server name="APP_LANG" value="en"/>
     <server name="APP_THEME" value="none"/>
     <server name="APP_AUTO_LANG_PUBLIC" value="true"/>
-    <server name="APP_URL" value="[http://bookstack.dev](http://bookstack.dev)"/>
+    <server name="APP_URL" value="http://bookstack.dev"/>
     <server name="APP_TIMEZONE" value="UTC"/>
     <server name="APP_DISPLAY_TIMEZONE" value="UTC"/>
     <server name="ALLOWED_STYLE_SOURCES" value=""/>
@@ -159,7 +158,7 @@
     </include>
   </source>
   
-  <!-- Bloque de cobertura proveniente de main -->
+  <!-- Cobertura del Incoming Change -->
   <coverage>
     <report>
       <clover outputFile="coverage.xml"/>
