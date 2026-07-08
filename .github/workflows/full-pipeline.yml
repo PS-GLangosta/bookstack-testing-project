@@ -251,11 +251,16 @@ jobs:
           name: coverage-system
           path: coverage-raw
 
-      - name: Fusionar cobertura de las 3 suites
+      - name: Fusionar cobertura de las 3 suites (formato Clover)
         run: |
           echo "=== Archivos de cobertura crudos descargados ==="
           ls -la coverage-raw/
-          ~/.composer/vendor/bin/phpcov merge coverage-raw --cobertura=coverage.xml
+          ~/.composer/vendor/bin/phpcov merge coverage-raw --clover=coverage.xml
+
+      - name: Mostrar resumen de cobertura total (texto)
+        run: |
+          ~/.composer/vendor/bin/phpcov merge coverage-raw --text=coverage-summary.txt
+          cat coverage-summary.txt
 
       - name: Depurar coverage.xml fusionado
         run: |
@@ -263,9 +268,11 @@ jobs:
           ls -la coverage.xml
           echo "=== Nodo raíz <coverage> completo ==="
           grep -o '<coverage[^>]*>' coverage.xml | head -1
-          echo "=== Validando presencia de line-rate ==="
-          if ! grep -q 'line-rate=' coverage.xml; then
-            echo "ERROR: coverage.xml fusionado no contiene el atributo 'line-rate' en el nodo raíz."
+          echo "=== Cantidad de <file> individuales en el reporte ==="
+          grep -c '<file name=' coverage.xml || true
+          echo "=== Validando presencia de metrics ==="
+          if ! grep -q '<metrics' coverage.xml; then
+            echo "ERROR: coverage.xml fusionado no contiene el nodo <metrics>."
             exit 1
           fi
 
