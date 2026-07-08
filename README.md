@@ -1,4 +1,10 @@
+
+[![Full Pipeline CI/CD](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml)
+
+
+
 # **BookStack Testing Project**
+
 
 **Asignatura:** Pruebas de Software \- UNSA 2026
 
