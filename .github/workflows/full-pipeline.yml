@@ -60,31 +60,23 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
-      - name: Verificar configuración de cobertura en phpunit.xml
-        run: |
-          echo "=== Buscando bloque <coverage> en phpunit.xml ==="
-          if ! grep -q "<coverage" phpunit.xml 2>/dev/null && ! grep -q "<coverage" phpunit.xml.dist 2>/dev/null; then
-            echo "ADVERTENCIA: No se encontró un bloque <coverage> explícito en phpunit.xml/phpunit.xml.dist."
-            echo "Esto puede causar que el clover.xml generado no incluya line-rate correctamente."
-          fi
-
       - name: Ejecutar suite completa con cobertura
-        run: vendor/bin/phpunit --coverage-clover coverage.xml
+        env:
+          XDEBUG_MODE: coverage
+        run: vendor/bin/phpunit --coverage-cobertura coverage.xml
 
       - name: Depurar coverage.xml
         run: |
           echo "=== Tamaño del archivo ==="
           ls -la coverage.xml
           echo "=== Nodo raíz <coverage> completo ==="
-          grep -o '<coverage[^>]*>' coverage.xml | head -5
-          echo "=== Nodo <metrics> a nivel proyecto ==="
-          grep -o '<metrics[^/]*/>' coverage.xml | head -5
+          grep -o '<coverage[^>]*>' coverage.xml | head -1
           echo "=== Primeras 40 líneas ==="
           head -40 coverage.xml
           echo "=== Validando presencia de line-rate ==="
           if ! grep -q 'line-rate=' coverage.xml; then
             echo "ERROR: coverage.xml no contiene el atributo 'line-rate' en el nodo raíz."
-            echo "Revisa la sección <coverage><report><clover/></report></coverage> en phpunit.xml."
+            echo "Verifica que se use --coverage-cobertura y no --coverage-clover."
             exit 1
           fi
 
@@ -226,19 +218,6 @@ jobs:
         with:
           name: coverage-report
           path: .
-
-      - name: Verificar archivo descargado
-        run: |
-          echo "=== Listado del workspace ==="
-          find . -maxdepth 2 -name "coverage.xml"
-          echo "=== Contenido de coverage.xml ==="
-          ls -la coverage.xml
-          head -5 coverage.xml
-          echo "=== Validando line-rate en el archivo descargado ==="
-          if ! grep -q 'line-rate=' coverage.xml; then
-            echo "ERROR: El coverage.xml descargado no contiene 'line-rate'. Verifica el job unit-tests."
-            exit 1
-          fi
 
       - name: Publicar resumen de cobertura como comentario en el PR
         uses: irongut/CodeCoverageSummary@v1.3.0
