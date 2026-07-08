@@ -15,6 +15,15 @@
 * Perez Huamani Jeremy Joshua  
 * Zegarra Puma Mauricio Eduardo
 
+
+
+[![Unit Tests](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/unit-tests.yml)
+
+![Unit Tests](https://github.com/[org]/[repo]/actions/workflows/unit-tests.yml/badge.svg)
+
+[![Full Pipeline CI/CD](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml)
+
+
 Proyecto académico orientado al análisis, diseño, implementación y documentación de un proceso completo de pruebas de software sobre [**BookStack**](https://github.com/BookStackApp/BookStack), una plataforma de documentación de código abierto construida con PHP y Laravel.
 
 ## **Autoevaluación del Equipo \- Hito 2**

@@ -1,0 +1,199 @@
+name: Full Pipeline CI/CD – BookStack
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # -------------------------------------------------------------------------
+  # JOB 1 — Unit Tests
+  # -------------------------------------------------------------------------
+  unit-tests:
+    name: PHPUnit – Suite Unitaria
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, gd, zip, fileinfo, mysqli
+          coverage: xdebug
+
+      - name: Instalar dependencias con Composer
+        run: composer install --prefer-dist --no-progress
+
+      - name: Preparar archivo de entorno de prueba
+        run: |
+          cp .env.example .env.testing
+          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env.testing
+
+      - name: Generar clave de aplicación
+        run: php artisan key:generate --env=testing
+
+      - name: Ejecutar suite de pruebas unitarias con cobertura
+        run: vendor/bin/phpunit --testsuite=Unit --coverage-clover coverage.xml
+
+      - name: Subir artefacto de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 5
+
+  # -------------------------------------------------------------------------
+  # JOB 2 — Integration Tests (depende de unit-tests)
+  # -------------------------------------------------------------------------
+  integration-tests:
+    name: PHPUnit – Suite de Integración
+    runs-on: ubuntu-latest
+    needs: unit-tests
+
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: rootpassword
+          MARIADB_DATABASE: bookstack-test
+          MARIADB_USER: bookstack-test
+          MARIADB_PASSWORD: bookstack-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, gd, zip, fileinfo, mysqli
+          coverage: xdebug
+
+      - name: Instalar dependencias con Composer
+        run: composer install --prefer-dist --no-progress
+
+      - name: Preparar archivo de entorno de prueba
+        run: |
+          cp .env.example .env.testing
+          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env.testing
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env.testing
+          sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env.testing
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=bookstack-test/' .env.testing
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=bookstack-test/' .env.testing
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=bookstack-test/' .env.testing
+
+      - name: Generar clave de aplicación
+        run: php artisan key:generate --env=testing
+
+      - name: Ejecutar migraciones en BD de prueba
+        run: php artisan migrate --env=testing --force
+
+      - name: Ejecutar suite de pruebas de integración
+        run: vendor/bin/phpunit --testsuite=Integration
+
+  # -------------------------------------------------------------------------
+  # JOB 3 — System Tests (depende de integration-tests)
+  # -------------------------------------------------------------------------
+  system-tests:
+    name: PHPUnit – Suite de Sistema
+    runs-on: ubuntu-latest
+    needs: integration-tests
+
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: rootpassword
+          MARIADB_DATABASE: bookstack-test
+          MARIADB_USER: bookstack-test
+          MARIADB_PASSWORD: bookstack-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, gd, zip, fileinfo, mysqli
+          coverage: xdebug
+
+      - name: Instalar dependencias con Composer
+        run: composer install --prefer-dist --no-progress
+
+      - name: Preparar archivo de entorno de prueba
+        run: |
+          cp .env.example .env.testing
+          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env.testing
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env.testing
+          sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env.testing
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=bookstack-test/' .env.testing
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=bookstack-test/' .env.testing
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=bookstack-test/' .env.testing
+
+      - name: Generar clave de aplicación
+        run: php artisan key:generate --env=testing
+
+      - name: Ejecutar migraciones en BD de prueba
+        run: php artisan migrate --env=testing --force
+
+      - name: Ejecutar suite de pruebas de sistema
+        run: vendor/bin/phpunit --testsuite=System
+
+  # -------------------------------------------------------------------------
+  # JOB 4 — Coverage Report (depende de todos los anteriores)
+  # -------------------------------------------------------------------------
+  coverage-report:
+    name: Reporte de Cobertura en PR
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, system-tests]
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Descargar artefacto de cobertura
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: .
+
+      - name: Publicar resumen de cobertura como comentario en el PR
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage.xml
+          badge: true
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Comentar en el Pull Request
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
