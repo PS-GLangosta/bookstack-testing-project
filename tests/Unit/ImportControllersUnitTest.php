@@ -2,26 +2,89 @@
 
 namespace Tests\Unit;
 
-use BookStack\Entities\Models\Entity;
+use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Page;
+use BookStack\Entities\Repos\PageRepo;
 use BookStack\Exceptions\ZipImportException;
 use BookStack\Exceptions\ZipValidationException;
 use BookStack\Exports\Controllers\ImportApiController;
 use BookStack\Exports\Controllers\ImportController;
 use BookStack\Exports\Import;
 use BookStack\Exports\ImportRepo;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Database\Eloquent\Collection;
 use Mockery;
 use Tests\TestCase;
 
 class ImportControllersUnitTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected function tearDown(): void
     {
         Mockery::close();
 
         parent::tearDown();
+    }
+
+    protected function userWithRole(string $roleName): User
+    {
+        $role = Role::getRole($roleName);
+
+        $user = User::factory()->create([
+            'name' => 'Import Controllers ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'import-controllers-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function actAsRole(string $roleName): User
+    {
+        $user = $this->userWithRole($roleName);
+
+        $this->actingAs($user);
+
+        return $user;
+    }
+
+    protected function createBookFor(User $user, array $attributes = []): Book
+    {
+        $this->actingAs($user);
+
+        $book = Book::factory()->create(array_merge([
+            'name' => 'Libro Import Controller ' . uniqid(),
+            'description' => 'Libro creado para ImportControllersUnitTest.',
+            'description_html' => '<p>Libro creado para ImportControllersUnitTest.</p>',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ], $attributes));
+
+        $book->rebuildPermissions();
+
+        return $book->refresh();
+    }
+
+    protected function createPublishedPageFor(User $user, Book $book, array $data = []): Page
+    {
+        $this->actingAs($user);
+
+        $pageRepo = app(PageRepo::class);
+        $draft = $pageRepo->getNewDraftPage($book);
+
+        $page = $pageRepo->publishDraft($draft, array_merge([
+            'name' => 'Página Import Controller ' . uniqid(),
+            'html' => '<p>Contenido Import Controller</p>',
+        ], $data));
+
+        return $page->refresh();
     }
 
     protected function fakeImport(string $type = 'book', int $id = 100): Import
@@ -32,7 +95,7 @@ class ImportControllersUnitTest extends TestCase
         $import->type = $type;
         $import->path = 'uploads/files/imports/unit.zip';
         $import->size = 123456;
-        $import->created_by = $this->users->admin()->id;
+        $import->created_by = user()->id;
 
         $import->metadata = match ($type) {
             'page' => json_encode([
@@ -86,14 +149,14 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_list_retorna_listado_json(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = new Import();
         $import->name = 'Import listado API';
         $import->type = 'book';
         $import->path = 'uploads/files/imports/list.zip';
         $import->size = 1000;
-        $import->created_by = $this->users->admin()->id;
+        $import->created_by = $admin->id;
         $import->metadata = json_encode([
             'id' => 1,
             'name' => 'Libro listado',
@@ -128,7 +191,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_create_guarda_import_y_retorna_json(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('page', 101);
 
@@ -155,7 +218,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_create_retorna_422_si_zip_no_valida(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $repo = Mockery::mock(ImportRepo::class);
 
@@ -184,7 +247,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_read_agrega_details_al_json(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 102);
 
@@ -212,10 +275,13 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_run_book_sin_parent_retorna_entidad_importada(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 103);
-        $book = $this->entities->book();
+
+        $book = $this->createBookFor($admin, [
+            'name' => 'Libro importado API final',
+        ]);
 
         $repo = Mockery::mock(ImportRepo::class);
 
@@ -245,10 +311,15 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_run_page_con_parent_retorna_entidad_importada(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->fakeImport('page', 104);
-        $page = $this->entities->newPage([
+
+        $book = $this->createBookFor($admin, [
+            'name' => 'Libro parent API import page',
+        ]);
+
+        $page = $this->createPublishedPageFor($admin, $book, [
             'name' => 'Página importada API final',
             'html' => '<p>Contenido API final</p>',
         ]);
@@ -286,7 +357,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_run_retorna_error_si_import_falla(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 105);
 
@@ -321,7 +392,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_api_controller_delete_elimina_import_y_retorna_204(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 106);
 
@@ -347,7 +418,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_start_muestra_vista_con_imports(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $imports = new Collection([
             $this->fakeImport('book', 201),
@@ -379,7 +450,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_upload_redirige_al_import_guardado(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 203);
 
@@ -401,7 +472,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_upload_redirige_con_errores_si_zip_no_valida(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $repo = Mockery::mock(ImportRepo::class);
 
@@ -424,7 +495,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_show_muestra_import_y_metadata(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('chapter', 204);
 
@@ -448,10 +519,13 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_run_book_redirige_a_entidad_importada(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 205);
-        $book = $this->entities->book();
+
+        $book = $this->createBookFor($admin, [
+            'name' => 'Libro importado web final',
+        ]);
 
         $repo = Mockery::mock(ImportRepo::class);
 
@@ -477,11 +551,15 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_run_page_con_parent_redirige_a_entidad_importada(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $import = $this->fakeImport('page', 206);
 
-        $page = $this->entities->newPage([
+        $book = $this->createBookFor($admin, [
+            'name' => 'Libro parent web import page',
+        ]);
+
+        $page = $this->createPublishedPageFor($admin, $book, [
             'name' => 'Página importada web final',
             'html' => '<p>Contenido web final</p>',
         ]);
@@ -514,7 +592,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_run_fallido_redirige_con_errores(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 207);
 
@@ -545,7 +623,7 @@ class ImportControllersUnitTest extends TestCase
 
     public function test_import_web_controller_delete_elimina_y_redirige_a_import(): void
     {
-        $this->actingAs($this->users->admin());
+        $this->actAsRole('admin');
 
         $import = $this->fakeImport('book', 208);
 

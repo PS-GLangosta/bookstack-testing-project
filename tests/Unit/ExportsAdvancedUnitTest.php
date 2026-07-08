@@ -7,6 +7,7 @@ use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
 use BookStack\Entities\Queries\EntityQueries;
 use BookStack\Entities\Repos\BaseRepo;
+use BookStack\Entities\Repos\ChapterRepo;
 use BookStack\Entities\Repos\PageRepo;
 use BookStack\Exceptions\ZipExportException;
 use BookStack\Exports\Import;
@@ -21,12 +22,17 @@ use BookStack\Exports\ZipExports\ZipReferenceParser;
 use BookStack\Uploads\Attachment;
 use BookStack\Uploads\Image;
 use BookStack\Uploads\ImageResizer;
+use BookStack\Users\Models\Role;
+use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 use Tests\TestCase;
 use ZipArchive;
 
 class ExportsAdvancedUnitTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected array $filesToDelete = [];
 
     protected function tearDown(): void
@@ -40,6 +46,103 @@ class ExportsAdvancedUnitTest extends TestCase
         Mockery::close();
 
         parent::tearDown();
+    }
+
+    protected function userWithRole(string $roleName): User
+    {
+        $role = Role::getRole($roleName);
+
+        $user = User::factory()->create([
+            'name' => 'Exports Advanced ' . ucfirst($roleName) . ' ' . uniqid(),
+            'email' => 'exports-advanced-' . $roleName . '-' . uniqid() . '@example.com',
+        ]);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
+
+        return $user->refresh();
+    }
+
+    protected function actAsRole(string $roleName): User
+    {
+        $user = $this->userWithRole($roleName);
+
+        $this->actingAs($user);
+
+        return $user;
+    }
+
+    protected function createBookFor(User $user, array $attributes = []): Book
+    {
+        $this->actingAs($user);
+
+        $book = Book::factory()->create(array_merge([
+            'name' => 'Libro Export ZIP ' . uniqid(),
+            'description' => 'Libro creado para ExportsAdvancedUnitTest.',
+            'description_html' => '<p>Libro creado para ExportsAdvancedUnitTest.</p>',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ], $attributes));
+
+        $book->rebuildPermissions();
+
+        return $book->refresh();
+    }
+
+    protected function createChapterFor(User $user, Book $book, array $attributes = []): Chapter
+    {
+        $this->actingAs($user);
+
+        $chapter = app(ChapterRepo::class)->create(array_merge([
+            'name' => 'Capítulo Export ZIP ' . uniqid(),
+            'description_html' => '<p>Capítulo creado para ExportsAdvancedUnitTest.</p>',
+        ], $attributes), $book);
+
+        $book->refresh();
+        $book->rebuildPermissions();
+
+        return $chapter->refresh();
+    }
+
+    protected function createPublishedPageFor(User $user, Book|Chapter $parent, array $data = []): Page
+    {
+        $this->actingAs($user);
+
+        $pageRepo = app(PageRepo::class);
+        $draft = $pageRepo->getNewDraftPage($parent);
+
+        $page = $pageRepo->publishDraft($draft, array_merge([
+            'name' => 'Página Export ZIP ' . uniqid(),
+            'html' => '<p>Contenido Export ZIP</p>',
+        ], $data));
+
+        return $page->refresh();
+    }
+
+    protected function createBookWithChapterAndPages(User $user): array
+    {
+        $book = $this->createBookFor($user, [
+            'name' => 'Libro ZIP Builder Unit ' . uniqid(),
+        ]);
+
+        $chapter = $this->createChapterFor($user, $book, [
+            'name' => 'Capítulo ZIP Builder Unit ' . uniqid(),
+        ]);
+
+        $rootPage = $this->createPublishedPageFor($user, $book, [
+            'name' => 'Página raíz ZIP Builder Unit ' . uniqid(),
+            'html' => '<p>Contenido raíz ZIP Builder</p>',
+        ]);
+
+        $chapterPage = $this->createPublishedPageFor($user, $chapter, [
+            'name' => 'Página capítulo ZIP Builder Unit ' . uniqid(),
+            'html' => '<p>Contenido capítulo ZIP Builder</p>',
+        ]);
+
+        $book->refresh()->load(['pages', 'chapters', 'chapters.pages']);
+        $chapter->refresh()->load(['pages']);
+
+        return compact('book', 'chapter', 'rootPage', 'chapterPage');
     }
 
     protected function createZipBuilder(ZipExportFiles $files, ZipExportReferences $references): ZipExportBuilder
@@ -207,7 +310,7 @@ class ExportsAdvancedUnitTest extends TestCase
 
     public function test_zip_export_builder_crea_zip_para_pagina_capitulo_y_libro(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $files = Mockery::mock(ZipExportFiles::class);
         $references = Mockery::mock(ZipExportReferences::class);
@@ -242,16 +345,19 @@ class ExportsAdvancedUnitTest extends TestCase
 
         $builder = $this->createZipBuilder($files, $references);
 
-        $page = $this->entities->newPage([
-            'name' => 'Página ZIP Builder Unit',
-            'html' => '<p>Contenido ZIP Builder</p>',
-        ]);
+        $entities = $this->createBookWithChapterAndPages($admin);
 
-        $chapter = $this->entities->chapterHasPages();
-        $book = $this->entities->bookHasChaptersAndPages();
+        /** @var Page $page */
+        $page = $entities['rootPage'];
+
+        /** @var Chapter $chapter */
+        $chapter = $entities['chapter'];
+
+        /** @var Book $book */
+        $book = $entities['book'];
 
         $pageZip = $builder->buildForPage($page);
-        $this->assertZipContainsData($pageZip, 'page', 'Página ZIP Builder Unit');
+        $this->assertZipContainsData($pageZip, 'page', $page->name);
 
         $chapterZip = $builder->buildForChapter($chapter);
         $this->assertZipContainsData($chapterZip, 'chapter', $chapter->name);
@@ -262,7 +368,7 @@ class ExportsAdvancedUnitTest extends TestCase
 
     public function test_zip_export_builder_limpia_archivos_y_lanza_excepcion_si_falla_extract_each(): void
     {
-        $this->actingAs($this->users->admin());
+        $admin = $this->actAsRole('admin');
 
         $tempFile = tempnam(sys_get_temp_dir(), 'bs-builder-payload-');
 
@@ -293,7 +399,7 @@ class ExportsAdvancedUnitTest extends TestCase
 
         $builder = $this->createZipBuilder($files, $references);
 
-        $page = $this->entities->newPage([
+        $page = $this->createPublishedPageFor($admin, $this->createBookFor($admin), [
             'name' => 'Página ZIP Builder Error Unit',
             'html' => '<p>Contenido ZIP Builder Error</p>',
         ]);
