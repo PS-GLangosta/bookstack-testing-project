@@ -230,8 +230,8 @@ jobs:
       - name: Instalar dependencias con Composer
         run: composer install --prefer-dist --no-progress
 
-      - name: Instalar phpcov para fusionar cobertura
-        run: composer global require phpunit/phpcov --no-interaction
+      - name: Instalar phpcov para fusionar cobertura (versión compatible con PHPUnit 11)
+        run: composer global require "phpunit/phpcov:^10" --no-interaction
 
       - name: Descargar artefacto de cobertura (Unit)
         uses: actions/download-artifact@v4
