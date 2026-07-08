@@ -30,7 +30,7 @@ class UserManagementFlowTest extends TestCase
         // ST-04-01: Admin crea usuario nuevo con rol desde el panel
         // ---------------------------------------------------------
         $this->asAdmin();
-        $viewerRole = Role::where('display_name', 'Viewer')->first();
+        $editorRole = Role::where('display_name', 'Editor')->first();
 
         $userData = [
             'name' => 'System Flow Test User',
@@ -38,7 +38,7 @@ class UserManagementFlowTest extends TestCase
             'password' => 'password123',
             'password-confirm' => 'password123',
             'language' => 'en',
-            'roles' => [$viewerRole->id],
+            'roles' => [$editorRole->id],
         ];
 
         // Ejecutar creación
@@ -48,7 +48,7 @@ class UserManagementFlowTest extends TestCase
         // Verificar persistencia en BD
         $this->assertDatabaseHas('users', ['email' => 'systemflow@example.com']);
         $createdUser = User::where('email', 'systemflow@example.com')->first();
-        $this->assertTrue($createdUser->hasRole($viewerRole->id));
+        $this->assertTrue($createdUser->hasRole($editorRole->id));
 
         // ---------------------------------------------------------
         // ST-04-02: El usuario recién creado puede iniciar sesión
@@ -68,18 +68,18 @@ class UserManagementFlowTest extends TestCase
         $this->assertAuthenticatedAs($createdUser);
 
         // ---------------------------------------------------------
-        // ST-04-03: Admin cambia el rol de Viewer a Editor
+        // ST-04-03: Admin cambia el rol de Editor a Viewer
         // ---------------------------------------------------------
         Auth::logout();
         session()->flush();
         $this->asAdmin();
         
-        $editorRole = Role::where('display_name', 'Editor')->first();
+        $viewerRole = Role::where('display_name', 'Viewer')->first();
         
         $updateData = [
             'name' => 'System Flow Test User Updated',
             'email' => 'systemflow@example.com',
-            'roles' => [$editorRole->id],
+            'roles' => [$viewerRole->id],
         ];
 
         // Ejecutar actualización
@@ -88,8 +88,8 @@ class UserManagementFlowTest extends TestCase
         
         // Refrescar entidad y validar cambio de rol efectivo
         $createdUser->refresh();
-        $this->assertTrue($createdUser->hasRole($editorRole->id));
-        $this->assertFalse($createdUser->hasRole($viewerRole->id));
+        $this->assertTrue($createdUser->hasRole($viewerRole->id));
+        $this->assertFalse($createdUser->hasRole($editorRole->id));
 
         // ---------------------------------------------------------
         // ST-04-04: Admin desactiva (elimina) un usuario -> error de acceso
