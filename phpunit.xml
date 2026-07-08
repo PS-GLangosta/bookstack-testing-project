@@ -83,4 +83,9 @@
       <directory suffix=".php">app/</directory>
     </include>
   </source>
+  <coverage>
+    <report>
+      <clover outputFile="coverage.xml"/>
+    </report>
+  </coverage>
 </phpunit>

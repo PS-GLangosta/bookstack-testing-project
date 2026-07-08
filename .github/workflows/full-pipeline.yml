@@ -60,8 +60,8 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
-      - name: Ejecutar suite de pruebas unitarias con cobertura
-        run: vendor/bin/phpunit --testsuite=Unit --coverage-clover coverage.xml
+      - name: Ejecutar suite completa con cobertura
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
 
       - name: Subir artefacto de cobertura
         uses: actions/upload-artifact@v4
