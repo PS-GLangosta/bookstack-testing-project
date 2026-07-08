@@ -1,76 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         displayDetailsOnTestsThatTriggerDeprecations="true"
-         colors="true">
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+  bootstrap="vendor/autoload.php"
+  displayDetailsOnTestsThatTriggerDeprecations="true"
+  colors="true">
   <testsuites>
     <testsuite name="Application Test Suite">
       <directory>./tests/</directory>
     </testsuite>
+    <testsuite name="Langosta">
+      <!-- 55 archivos autorados por los 6 integrantes del equipo Langosta (commits del equipo,
+      excl. Dan Brown) -->
+      <file>tests/Api/BookApiControllerTest.php</file>
+      <file>tests/Api/BookshelfApiControllerTest.php</file>
+      <file>tests/Api/ChapterApiControllerTest.php</file>
+      <file>tests/Entity/BookContentsTest.php</file>
+      <file>tests/Entity/BookControllerTest.php</file>
+      <file>tests/Entity/BookQueriesTest.php</file>
+      <file>tests/Entity/BookRepoTest.php</file>
+      <file>tests/Entity/BookshelfControllerTest.php</file>
+      <file>tests/Entity/BookshelfModelTest.php</file>
+      <file>tests/Entity/BookshelfQueriesTest.php</file>
+      <file>tests/Entity/BookshelfRepoTest.php</file>
+      <file>tests/Entity/ChapterControllerTest.php</file>
+      <file>tests/Entity/ChapterQueriesTest.php</file>
+      <file>tests/Entity/ChapterRepoTest.php</file>
+      <file>tests/Exports/BookExportApiControllerTest.php</file>
+      <file>tests/Exports/BookExportControllerTest.php</file>
+      <file>tests/Exports/ChapterExportApiControllerTest.php</file>
+      <file>tests/Exports/ChapterExportControllerTest.php</file>
+      <file>tests/Integration/ApiTargetedCoverageTest.php</file>
+      <file>tests/Integration/ApiTest.php</file>
+      <file>tests/Integration/App/AppHttpCoverageTest.php</file>
+      <file>tests/Integration/Entities/EntityApiControllerCoverageTest.php</file>
+      <file>tests/Integration/Entities/EntityWebControllerCoverageTest.php</file>
+      <file>tests/Integration/PermissionIntegrationTest.php</file>
+      <file>tests/References/BookLinkModelResolverTest.php</file>
+      <file>tests/References/BookshelfLinkModelResolverTest.php</file>
+      <file>tests/References/ChapterLinkModelResolverTest.php</file>
+      <file>tests/Sorting/BookSortControllerTest.php</file>
+      <file>tests/Sorting/BookSorterTest.php</file>
+      <file>tests/System/ApiFlowTest.php</file>
+      <file>tests/System/ContentCreationFlowTest.php</file>
+      <file>tests/System/PageRevisionFlowTest.php</file>
+      <file>tests/System/PermissionFlowTest.php</file>
+      <file>tests/System/SearchAndExportFlowTest.php</file>
+      <file>tests/System/UserManagementFlowTest.php</file>
+      <file>tests/UAT/Issue45UatTest.php</file>
+      <file>tests/Unit/Api/ApiDocsAndFormatterTest.php</file>
+      <file>tests/Unit/App/AppCoreCoverageTest.php</file>
+      <file>tests/Unit/App/AppProviderCoverageTest.php</file>
+      <file>tests/Unit/BookModelTest.php</file>
+      <file>tests/Unit/BookSortMapTest.php</file>
+      <file>tests/Unit/Entities/SlugGeneratorTest.php</file>
+      <file>tests/Unit/ExportControllersUnitTest.php</file>
+      <file>tests/Unit/ExportsAdvancedUnitTest.php</file>
+      <file>tests/Unit/ImportControllersUnitTest.php</file>
+      <file>tests/Unit/ImportRepoUnitTest.php</file>
+      <file>tests/Unit/PageServiceTest.php</file>
+      <file>tests/Unit/PdfGeneratorAdvancedUnitTest.php</file>
+      <file>tests/Unit/PdfGeneratorUnitTest.php</file>
+      <file>tests/Unit/PermissionServiceTest.php</file>
+      <file>tests/Unit/Search/SearchOptionsParsingTest.php</file>
+      <file>tests/Unit/Search/SearchResultsFormatterTest.php</file>
+      <file>tests/Unit/Search/SearchTextTokenizerTest.php</file>
+      <file>tests/Unit/UserServiceTest.php</file>
+      <file>tests/Unit/ZipExportsUnitTest.php</file>
+    </testsuite>
   </testsuites>
+
   <php>
-    <server name="APP_ENV" value="testing"/>
-    <server name="APP_DEBUG" value="false"/>
-    <server name="APP_LANG" value="en"/>
-    <server name="APP_THEME" value="none"/>
-    <server name="APP_AUTO_LANG_PUBLIC" value="true"/>
-    <server name="APP_URL" value="http://bookstack.dev"/>
-    <server name="APP_TIMEZONE" value="UTC"/>
-    <server name="APP_DISPLAY_TIMEZONE" value="UTC"/>
-    <server name="ALLOWED_STYLE_SOURCES" value=""/>
-    <server name="ALLOWED_IMAGE_SOURCES" value=""/>
-    <server name="ALLOWED_IFRAME_HOSTS" value=""/>
-    <server name="ALLOWED_IFRAME_SOURCES" value="https://*.draw.io https://*.youtube.com https://*.youtube-nocookie.com https://*.vimeo.com"/>
-    <server name="ALLOWED_SSR_HOSTS" value="*"/>
-    <server name="CACHE_DRIVER" value="array"/>
-    <server name="SESSION_DRIVER" value="array"/>
-    <server name="QUEUE_CONNECTION" value="sync"/>
-    <server name="DB_CONNECTION" value="mysql_testing"/>
-    <server name="BCRYPT_ROUNDS" value="4"/>
-    <server name="MAIL_DRIVER" value="array"/>
-    <server name="MAIL_PORT" value="587"/>
-    <server name="MAIL_VERIFY_SSL" value="true"/>
-    <server name="LOG_CHANNEL" value="single"/>
-    <server name="AUTH_METHOD" value="standard"/>
-    <server name="AUTH_AUTO_INITIATE" value="false"/>
-    <server name="DISABLE_EXTERNAL_SERVICES" value="true"/>
-    <server name="ALLOW_UNTRUSTED_SERVER_FETCHING" value="false"/>
-    <server name="CONTENT_FILTERING" value="jhfa"/>
-    <server name="ALLOW_CONTENT_SCRIPTS" value="false"/>
-    <server name="AVATAR_URL" value=""/>
-    <server name="LDAP_START_TLS" value="false"/>
-    <server name="LDAP_VERSION" value="3"/>
-    <server name="LDAP_DUMP_USER_DETAILS" value="false"/>
-    <server name="LDAP_DUMP_USER_GROUPS" value="false"/>
-    <server name="SESSION_SECURE_COOKIE" value="null"/>
-    <server name="STORAGE_TYPE" value="local"/>
-    <server name="STORAGE_ATTACHMENT_TYPE" value="local"/>
-    <server name="STORAGE_IMAGE_TYPE" value="local"/>
-    <server name="GITHUB_APP_ID" value="aaaaaaaaaaaaaa"/>
-    <server name="GITHUB_APP_SECRET" value="aaaaaaaaaaaaaa"/>
-    <server name="GITHUB_AUTO_REGISTER" value=""/>
-    <server name="GITHUB_AUTO_CONFIRM_EMAIL" value=""/>
-    <server name="GOOGLE_APP_ID" value="aaaaaaaaaaaaaa"/>
-    <server name="GOOGLE_APP_SECRET" value="aaaaaaaaaaaaaa"/>
-    <server name="GOOGLE_AUTO_REGISTER" value=""/>
-    <server name="GOOGLE_AUTO_CONFIRM_EMAIL" value=""/>
-    <server name="GOOGLE_SELECT_ACCOUNT" value=""/>
-    <server name="DEBUGBAR_ENABLED" value="false"/>
-    <server name="SAML2_ENABLED" value="false"/>
-    <server name="API_REQUESTS_PER_MIN" value="180"/>
-    <server name="LOG_FAILED_LOGIN_MESSAGE" value=""/>
-    <server name="LOG_FAILED_LOGIN_CHANNEL" value="testing"/>
-    <server name="WKHTMLTOPDF" value="false"/>
-    <server name="EXPORT_PDF_COMMAND" value="false"/>
-    <server name="APP_DEFAULT_DARK_MODE" value="false"/>
-    <server name="IP_ADDRESS_PRECISION" value="4"/>
-    
-    <env name="DB_TESTING_HOST" value="127.0.0.1"/>
-    <env name="DB_TESTING_PORT" value="3306"/>
-    <env name="DB_TESTING_DATABASE" value="bookstack-test"/>
-    <env name="DB_TESTING_USERNAME" value="bookstack-test"/>
-    <env name="DB_TESTING_PASSWORD" value="bookstack-test"/>
+    <server name="APP_ENV" value="testing" />
+    <server name="APP_DEBUG" value="false" />
+    <server name="APP_LANG" value="en" />
+    <server name="APP_THEME" value="none" />
+    <server name="APP_AUTO_LANG_PUBLIC" value="true" />
+    <server name="APP_URL" value="http://bookstack.dev" />
+    <server name="APP_TIMEZONE" value="UTC" />
+    <server name="APP_DISPLAY_TIMEZONE" value="UTC" />
+    <server name="ALLOWED_STYLE_SOURCES" value="" />
+    <server name="ALLOWED_IMAGE_SOURCES" value="" />
+    <server name="ALLOWED_IFRAME_HOSTS" value="" />
+    <server name="ALLOWED_IFRAME_SOURCES"
+      value="https://*.draw.io https://*.youtube.com https://*.youtube-nocookie.com https://*.vimeo.com" />
+    <server name="ALLOWED_SSR_HOSTS" value="*" />
+    <server name="CACHE_DRIVER" value="array" />
+    <server name="SESSION_DRIVER" value="array" />
+    <server name="QUEUE_CONNECTION" value="sync" />
+    <server name="DB_CONNECTION" value="mysql" />
+    <server name="BCRYPT_ROUNDS" value="4" />
+    <server name="MAIL_DRIVER" value="array" />
+    <server name="MAIL_PORT" value="587" />
+    <server name="MAIL_VERIFY_SSL" value="true" />
+    <server name="LOG_CHANNEL" value="single" />
+    <server name="AUTH_METHOD" value="standard" />
+    <server name="AUTH_AUTO_INITIATE" value="false" />
+    <server name="DISABLE_EXTERNAL_SERVICES" value="true" />
+    <server name="ALLOW_UNTRUSTED_SERVER_FETCHING" value="false" />
+    <server name="CONTENT_FILTERING" value="jhfa" />
+    <server name="ALLOW_CONTENT_SCRIPTS" value="false" />
+    <server name="AVATAR_URL" value="" />
+    <server name="LDAP_START_TLS" value="false" />
+    <server name="LDAP_VERSION" value="3" />
+    <server name="LDAP_DUMP_USER_DETAILS" value="false" />
+    <server name="LDAP_DUMP_USER_GROUPS" value="false" />
+    <server name="SESSION_SECURE_COOKIE" value="null" />
+    <server name="STORAGE_TYPE" value="local" />
+    <server name="STORAGE_ATTACHMENT_TYPE" value="local" />
+    <server name="STORAGE_IMAGE_TYPE" value="local" />
+    <server name="GITHUB_APP_ID" value="aaaaaaaaaaaaaa" />
+    <server name="GITHUB_APP_SECRET" value="aaaaaaaaaaaaaa" />
+    <server name="GITHUB_AUTO_REGISTER" value="" />
+    <server name="GITHUB_AUTO_CONFIRM_EMAIL" value="" />
+    <server name="GOOGLE_APP_ID" value="aaaaaaaaaaaaaa" />
+    <server name="GOOGLE_APP_SECRET" value="aaaaaaaaaaaaaa" />
+    <server name="GOOGLE_AUTO_REGISTER" value="" />
+    <server name="GOOGLE_AUTO_CONFIRM_EMAIL" value="" />
+    <server name="GOOGLE_SELECT_ACCOUNT" value="" />
+    <server name="DEBUGBAR_ENABLED" value="false" />
+    <server name="SAML2_ENABLED" value="false" />
+    <server name="API_REQUESTS_PER_MIN" value="180" />
+    <server name="LOG_FAILED_LOGIN_MESSAGE" value="" />
+    <server name="LOG_FAILED_LOGIN_CHANNEL" value="testing" />
+    <server name="WKHTMLTOPDF" value="false" />
+    <server name="EXPORT_PDF_COMMAND" value="false" />
+    <server name="APP_DEFAULT_DARK_MODE" value="false" />
+    <server name="IP_ADDRESS_PRECISION" value="4" />
+
+    <env name="DB_TESTING_HOST" value="127.0.0.1" />
+    <env name="DB_TESTING_PORT" value="3306" />
+    <env name="DB_TESTING_DATABASE" value="bookstack-test" />
+    <env name="DB_TESTING_USERNAME" value="bookstack-test" />
+    <env name="DB_TESTING_PASSWORD" value="bookstack-test" />
   </php>
   <source>
     <include>
