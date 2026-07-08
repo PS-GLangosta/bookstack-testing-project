@@ -14,6 +14,22 @@ jobs:
     name: PHPUnit – Suite Unitaria
     runs-on: ubuntu-latest
 
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: rootpassword
+          MARIADB_DATABASE: bookstack-test
+          MARIADB_USER: bookstack-test
+          MARIADB_PASSWORD: bookstack-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
@@ -31,7 +47,12 @@ jobs:
       - name: Preparar archivo de entorno de prueba
         run: |
           cp .env.example .env.testing
-          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env.testing
+          sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env.testing
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env.testing
+          sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env.testing
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=bookstack-test/' .env.testing
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=bookstack-test/' .env.testing
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=bookstack-test/' .env.testing
 
       - name: Generar clave de aplicación
         run: php artisan key:generate --env=testing
