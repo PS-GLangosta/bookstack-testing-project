@@ -5,25 +5,91 @@ namespace Tests\Integration;
 use BookStack\Activity\ActivityType;
 use BookStack\Api\ApiToken;
 use BookStack\Entities\Models\Book;
+use BookStack\Entities\Models\Chapter;
+use BookStack\Entities\Models\Page;
 use BookStack\Users\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class ApiTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected string $baseEndpoint = '/api/books';
 
     protected function apiTokenHeaderFor(User $user, string $secret = 'integration-api-secret'): array
     {
         $token = ApiToken::factory()->create([
             'user_id' => $user->id,
+            'token_id' => 'api-test-' . uniqid(),
             'secret' => Hash::make($secret),
         ]);
 
         return [
             'Authorization' => "Token {$token->token_id}:{$secret}",
         ];
+    }
+
+    protected function missingBookId(): int
+    {
+        return (Book::query()->max('id') ?? 0) + 999999;
+    }
+
+    protected function createBookFor(User $user, array $attributes = []): Book
+    {
+        $book = Book::factory()->create(array_merge([
+            'name' => 'Libro API Test ' . uniqid(),
+            'description' => 'Libro creado para prueba de integración API.',
+            'description_html' => '<p>Libro creado para prueba de integración API.</p>',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ], $attributes));
+
+        $book->rebuildPermissions();
+
+        return $book;
+    }
+
+    protected function createBookWithContentsFor(User $user): Book
+    {
+        $book = $this->createBookFor($user, [
+            'name' => 'Libro API con contenido ' . uniqid(),
+        ]);
+
+        Chapter::factory()->create([
+            'name' => 'Capítulo API Test ' . uniqid(),
+            'book_id' => $book->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ]);
+
+        Page::factory()->create([
+            'name' => 'Página API Test ' . uniqid(),
+            'book_id' => $book->id,
+            'chapter_id' => null,
+            'html' => '<p>Contenido de página para API Test.</p>',
+            'text' => 'Contenido de página para API Test.',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+            'owned_by' => $user->id,
+        ]);
+
+        $book->rebuildPermissions();
+
+        return $book->refresh();
+    }
+
+    protected function userWithoutPermissions(): User
+    {
+        return User::factory()->create([
+            'name' => 'Usuario sin permisos API ' . uniqid(),
+            'email' => 'api-no-permissions-' . uniqid() . '@example.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 
     /**
@@ -33,7 +99,7 @@ class ApiTest extends TestCase
     public function test_it_api_01_get_books_retorna_lista_json_con_estructura_correcta(): void
     {
         $admin = $this->users->admin();
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin);
         $headers = $this->apiTokenHeaderFor($admin);
 
         $response = $this->getJson($this->baseEndpoint . '?filter[id]=' . $book->id, $headers);
@@ -140,7 +206,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $missingBookId = 99999999;
+        $missingBookId = $this->missingBookId();
 
         $response = $this->getJson($this->baseEndpoint . '/' . $missingBookId, $headers);
 
@@ -162,7 +228,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin);
 
         $payload = [
             'name' => 'Libro actualizado por API Integration Test',
@@ -202,7 +268,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin);
 
         $response = $this->deleteJson($this->baseEndpoint . '/' . $book->id, [], $headers);
 
@@ -222,6 +288,7 @@ class ApiTest extends TestCase
 
         $this->assertActivityExists(ActivityType::BOOK_DELETE, $book);
     }
+
     /**
      * IT-API-07
      * GET /api/books con token con formato inválido retorna 401.
@@ -251,7 +318,7 @@ class ApiTest extends TestCase
 
         $token = ApiToken::factory()->create([
             'user_id' => $admin->id,
-            'token_id' => 'decisiontoken',
+            'token_id' => 'decisiontoken-' . uniqid(),
             'secret' => Hash::make('secret-correcto'),
         ]);
 
@@ -268,7 +335,7 @@ class ApiTest extends TestCase
         ]);
     }
 
-        /**
+    /**
      * IT-API-09
      * POST /api/books sin campo name retorna error de validación 422.
      */
@@ -307,7 +374,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin);
 
         $response = $this->getJson($this->baseEndpoint . '/' . $book->id, $headers);
 
@@ -329,6 +396,7 @@ class ApiTest extends TestCase
             'owned_by',
         ]);
     }
+
     /**
      * IT-API-11
      * PUT /api/books/{id} con name mayor a 255 caracteres retorna error de validación 422.
@@ -337,7 +405,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $book = $this->entities->book();
+        $book = $this->createBookFor($admin);
 
         $originalName = $book->name;
         $originalDescription = $book->description;
@@ -375,7 +443,7 @@ class ApiTest extends TestCase
     {
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
-        $missingBookId = 99999999;
+        $missingBookId = $this->missingBookId();
 
         $response = $this->deleteJson($this->baseEndpoint . '/' . $missingBookId, [], $headers);
 
@@ -395,8 +463,8 @@ class ApiTest extends TestCase
      */
     public function test_it_api_13_post_books_con_usuario_sin_permisos_retorna_403(): void
     {
-        $viewer = $this->users->viewer();
-        $headers = $this->apiTokenHeaderFor($viewer);
+        $userWithoutPermissions = $this->userWithoutPermissions();
+        $headers = $this->apiTokenHeaderFor($userWithoutPermissions);
 
         $booksBefore = Book::query()->count();
 
@@ -423,6 +491,7 @@ class ApiTest extends TestCase
             'name' => $payload['name'],
         ]);
     }
+
     /**
      * IT-API-14
      * GET /api/books con token_id inexistente retorna 401.
@@ -453,7 +522,7 @@ class ApiTest extends TestCase
 
         $token = ApiToken::factory()->create([
             'user_id' => $admin->id,
-            'token_id' => 'expiredtoken',
+            'token_id' => 'expiredtoken-' . uniqid(),
             'secret' => Hash::make($secret),
             'expires_at' => Carbon::now()->subDay(),
         ]);
@@ -559,7 +628,7 @@ class ApiTest extends TestCase
         $admin = $this->users->admin();
         $headers = $this->apiTokenHeaderFor($admin);
 
-        $book = $this->entities->bookHasChaptersAndPages();
+        $book = $this->createBookWithContentsFor($admin);
 
         $response = $this->getJson($this->baseEndpoint . '/' . $book->id, $headers);
 
