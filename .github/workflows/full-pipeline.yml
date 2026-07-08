@@ -60,31 +60,16 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
-      - name: Ejecutar suite completa con cobertura
+      - name: Ejecutar suite unitaria con cobertura
         env:
           XDEBUG_MODE: coverage
-        run: vendor/bin/phpunit --coverage-cobertura coverage.xml
+        run: vendor/bin/phpunit --testsuite=Unit --coverage-php coverage-unit.cov --coverage-clover coverage.xml
 
-      - name: Depurar coverage.xml
-        run: |
-          echo "=== Tamaño del archivo ==="
-          ls -la coverage.xml
-          echo "=== Nodo raíz <coverage> completo ==="
-          grep -o '<coverage[^>]*>' coverage.xml | head -1
-          echo "=== Primeras 40 líneas ==="
-          head -40 coverage.xml
-          echo "=== Validando presencia de line-rate ==="
-          if ! grep -q 'line-rate=' coverage.xml; then
-            echo "ERROR: coverage.xml no contiene el atributo 'line-rate' en el nodo raíz."
-            echo "Verifica que se use --coverage-cobertura y no --coverage-clover."
-            exit 1
-          fi
-
-      - name: Subir artefacto de cobertura
+      - name: Subir artefacto de cobertura (Unit)
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
-          path: coverage.xml
+          name: coverage-unit
+          path: coverage-unit.cov
           retention-days: 5
 
   # -------------------------------------------------------------------------
@@ -141,8 +126,17 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
-      - name: Ejecutar suite de pruebas de integración
-        run: vendor/bin/phpunit --testsuite=Integration
+      - name: Ejecutar suite de integración con cobertura
+        env:
+          XDEBUG_MODE: coverage
+        run: vendor/bin/phpunit --testsuite=Integration --coverage-php coverage-integration.cov
+
+      - name: Subir artefacto de cobertura (Integration)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-integration
+          path: coverage-integration.cov
+          retention-days: 5
 
   # -------------------------------------------------------------------------
   # JOB 3 — System Tests (depende de integration-tests)
@@ -198,11 +192,20 @@ jobs:
       - name: Ejecutar migraciones en BD de prueba
         run: php artisan migrate --env=testing --force
 
-      - name: Ejecutar suite de pruebas de sistema
-        run: vendor/bin/phpunit --testsuite=System
+      - name: Ejecutar suite de sistema con cobertura
+        env:
+          XDEBUG_MODE: coverage
+        run: vendor/bin/phpunit --testsuite=System --coverage-php coverage-system.cov
+
+      - name: Subir artefacto de cobertura (System)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-system
+          path: coverage-system.cov
+          retention-days: 5
 
   # -------------------------------------------------------------------------
-  # JOB 4 — Coverage Report (depende de todos los anteriores)
+  # JOB 4 — Coverage Report (depende de todos los anteriores, fusiona cobertura)
   # -------------------------------------------------------------------------
   coverage-report:
     name: Reporte de Cobertura en PR
@@ -217,11 +220,54 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Descargar artefacto de cobertura
+      - name: Instalar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, gd, zip, fileinfo, mysqli
+          coverage: xdebug
+
+      - name: Instalar dependencias con Composer
+        run: composer install --prefer-dist --no-progress
+
+      - name: Instalar phpcov para fusionar cobertura
+        run: composer global require phpunit/phpcov --no-interaction
+
+      - name: Descargar artefacto de cobertura (Unit)
         uses: actions/download-artifact@v4
         with:
-          name: coverage-report
-          path: .
+          name: coverage-unit
+          path: coverage-raw
+
+      - name: Descargar artefacto de cobertura (Integration)
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-integration
+          path: coverage-raw
+
+      - name: Descargar artefacto de cobertura (System)
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-system
+          path: coverage-raw
+
+      - name: Fusionar cobertura de las 3 suites
+        run: |
+          echo "=== Archivos de cobertura crudos descargados ==="
+          ls -la coverage-raw/
+          ~/.composer/vendor/bin/phpcov merge coverage-raw --cobertura=coverage.xml
+
+      - name: Depurar coverage.xml fusionado
+        run: |
+          echo "=== Tamaño del archivo ==="
+          ls -la coverage.xml
+          echo "=== Nodo raíz <coverage> completo ==="
+          grep -o '<coverage[^>]*>' coverage.xml | head -1
+          echo "=== Validando presencia de line-rate ==="
+          if ! grep -q 'line-rate=' coverage.xml; then
+            echo "ERROR: coverage.xml fusionado no contiene el atributo 'line-rate' en el nodo raíz."
+            exit 1
+          fi
 
       - name: Publicar resumen de cobertura como comentario en el PR
         uses: irongut/CodeCoverageSummary@v1.3.0
