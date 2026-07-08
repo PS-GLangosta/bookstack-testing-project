@@ -5,9 +5,21 @@
          displayDetailsOnTestsThatTriggerDeprecations="true"
          colors="true">
   <testsuites>
-    <testsuite name="Application Test Suite">
-      <directory>./tests/</directory>
-    </testsuite>
+      <testsuite name="Unit">
+          <directory>./tests/Unit</directory>
+      </testsuite>
+      <testsuite name="Integration">
+          <directory>./tests/Integration</directory>
+      </testsuite>
+      <testsuite name="System">
+          <directory>./tests/System</directory>
+      </testsuite>
+      <testsuite name="Feature">
+          <directory>./tests</directory>
+          <exclude>./tests/Unit</exclude>
+          <exclude>./tests/Integration</exclude>
+          <exclude>./tests/System</exclude>
+      </testsuite>
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
@@ -65,7 +77,7 @@
     <server name="EXPORT_PDF_COMMAND" value="false"/>
     <server name="APP_DEFAULT_DARK_MODE" value="false"/>
     <server name="IP_ADDRESS_PRECISION" value="4"/>
-    
+
     <env name="DB_TESTING_HOST" value="127.0.0.1"/>
     <env name="DB_TESTING_PORT" value="3306"/>
     <env name="DB_TESTING_DATABASE" value="bookstack-test"/>
@@ -77,4 +89,9 @@
       <directory suffix=".php">app/</directory>
     </include>
   </source>
+  <coverage>
+    <report>
+      <clover outputFile="coverage.xml"/>
+    </report>
+  </coverage>
 </phpunit>
