@@ -5,9 +5,15 @@
          displayDetailsOnTestsThatTriggerDeprecations="true"
          colors="true">
   <testsuites>
-    <testsuite name="Application Test Suite">
-      <directory>./tests/</directory>
-    </testsuite>
+      <testsuite name="Unit">
+          <directory>./tests/Unit</directory>
+      </testsuite>
+      <testsuite name="Integration">
+          <directory>./tests/Integration</directory>
+      </testsuite>
+      <testsuite name="System">
+          <directory>./tests/System</directory>
+      </testsuite>
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
