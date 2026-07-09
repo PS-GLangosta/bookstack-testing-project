@@ -1,26 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         displayDetailsOnTestsThatTriggerDeprecations="true"
-         colors="true">
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+  bootstrap="vendor/autoload.php"
+  displayDetailsOnTestsThatTriggerDeprecations="true"
+  colors="true">
   <testsuites>
-      <testsuite name="Unit">
-          <directory>./tests/Unit</directory>
-      </testsuite>
-      <testsuite name="Integration">
-          <directory>./tests/Integration</directory>
-      </testsuite>
-      <testsuite name="System">
-          <directory>./tests/System</directory>
-      </testsuite>
-      <testsuite name="Feature">
-          <directory>./tests</directory>
-          <exclude>./tests/Unit</exclude>
-          <exclude>./tests/Integration</exclude>
-          <exclude>./tests/System</exclude>
-      </testsuite>
+    <testsuite name="Application Test Suite">
+      <directory>./tests/</directory>
+    </testsuite>
+    
+    <!-- Suite Métrica de Defensa (Current Change) -->
+    <testsuite name="Langosta">
+      <!-- 55 archivos autorados por los 6 integrantes del equipo Langosta -->
+      <file>tests/Api/BookApiControllerTest.php</file>
+      <file>tests/Api/BookshelfApiControllerTest.php</file>
+      <file>tests/Api/ChapterApiControllerTest.php</file>
+      <file>tests/Entity/BookContentsTest.php</file>
+      <file>tests/Entity/BookControllerTest.php</file>
+      <file>tests/Entity/BookQueriesTest.php</file>
+      <file>tests/Entity/BookRepoTest.php</file>
+      <file>tests/Entity/BookshelfControllerTest.php</file>
+      <file>tests/Entity/BookshelfModelTest.php</file>
+      <file>tests/Entity/BookshelfQueriesTest.php</file>
+      <file>tests/Entity/BookshelfRepoTest.php</file>
+      <file>tests/Entity/ChapterControllerTest.php</file>
+      <file>tests/Entity/ChapterQueriesTest.php</file>
+      <file>tests/Entity/ChapterRepoTest.php</file>
+      <file>tests/Exports/BookExportApiControllerTest.php</file>
+      <file>tests/Exports/BookExportControllerTest.php</file>
+      <file>tests/Exports/ChapterExportApiControllerTest.php</file>
+      <file>tests/Exports/ChapterExportControllerTest.php</file>
+      <file>tests/Integration/ApiTargetedCoverageTest.php</file>
+      <file>tests/Integration/ApiTest.php</file>
+      <file>tests/Integration/App/AppHttpCoverageTest.php</file>
+      <file>tests/Integration/Entities/EntityApiControllerCoverageTest.php</file>
+      <file>tests/Integration/Entities/EntityWebControllerCoverageTest.php</file>
+      <file>tests/Integration/PermissionIntegrationTest.php</file>
+      <file>tests/References/BookLinkModelResolverTest.php</file>
+      <file>tests/References/BookshelfLinkModelResolverTest.php</file>
+      <file>tests/References/ChapterLinkModelResolverTest.php</file>
+      <file>tests/Sorting/BookSortControllerTest.php</file>
+      <file>tests/Sorting/BookSorterTest.php</file>
+      <file>tests/System/ApiFlowTest.php</file>
+      <file>tests/System/ContentCreationFlowTest.php</file>
+      <file>tests/System/PageRevisionFlowTest.php</file>
+      <file>tests/System/PermissionFlowTest.php</file>
+      <file>tests/System/SearchAndExportFlowTest.php</file>
+      <file>tests/System/UserManagementFlowTest.php</file>
+      <file>tests/UAT/Issue45UatTest.php</file>
+      <file>tests/Unit/Api/ApiDocsAndFormatterTest.php</file>
+      <file>tests/Unit/App/AppCoreCoverageTest.php</file>
+      <file>tests/Unit/App/AppProviderCoverageTest.php</file>
+      <file>tests/Unit/BookModelTest.php</file>
+      <file>tests/Unit/BookSortMapTest.php</file>
+      <file>tests/Unit/Entities/SlugGeneratorTest.php</file>
+      <file>tests/Unit/ExportControllersUnitTest.php</file>
+      <file>tests/Unit/ExportsAdvancedUnitTest.php</file>
+      <file>tests/Unit/ImportControllersUnitTest.php</file>
+      <file>tests/Unit/ImportRepoUnitTest.php</file>
+      <file>tests/Unit/PageServiceTest.php</file>
+      <file>tests/Unit/PdfGeneratorAdvancedUnitTest.php</file>
+      <file>tests/Unit/PdfGeneratorUnitTest.php</file>
+      <file>tests/Unit/PermissionServiceTest.php</file>
+      <file>tests/Unit/Search/SearchOptionsParsingTest.php</file>
+      <file>tests/Unit/Search/SearchResultsFormatterTest.php</file>
+      <file>tests/Unit/Search/SearchTextTokenizerTest.php</file>
+      <file>tests/Unit/UserServiceTest.php</file>
+      <file>tests/Unit/ZipExportsUnitTest.php</file>
+    </testsuite>
+
+    <!-- Suites del Pipeline CI/CD (Incoming Change) -->
+    <testsuite name="Unit">
+      <directory>./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Integration">
+      <directory>./tests/Integration</directory>
+    </testsuite>
+    <testsuite name="System">
+      <directory>./tests/System</directory>
+    </testsuite>
+    <testsuite name="Feature">
+      <directory>./tests</directory>
+      <exclude>./tests/Unit</exclude>
+      <exclude>./tests/Integration</exclude>
+      <exclude>./tests/System</exclude>
+    </testsuite>
   </testsuites>
+
+  <!-- Configuración segura Incoming Change (sin tocar la URL) -->
   <php>
     <server name="APP_ENV" value="testing"/>
     <server name="APP_DEBUG" value="false"/>
@@ -84,11 +151,14 @@
     <env name="DB_TESTING_USERNAME" value="bookstack-test"/>
     <env name="DB_TESTING_PASSWORD" value="bookstack-test"/>
   </php>
+  
   <source>
     <include>
       <directory suffix=".php">app/</directory>
     </include>
   </source>
+  
+  <!-- Cobertura del Incoming Change -->
   <coverage>
     <report>
       <clover outputFile="coverage.xml"/>
