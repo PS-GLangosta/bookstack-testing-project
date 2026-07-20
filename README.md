@@ -1,133 +1,180 @@
 
 [![Full Pipeline CI/CD](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml/badge.svg)](https://github.com/PS-GLangosta/bookstack-testing-project/actions/workflows/full-pipeline.yml)
 
+![Tests](https://img.shields.io/badge/tests-600-blue)
+![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
+![Assertions](https://img.shields.io/badge/assertions-2545-blue)
+![UAT](https://img.shields.io/badge/UAT-100%25%20aprobado-brightgreen)
 
+# BookStack Testing Project
 
-# **BookStack Testing Project**
-
-
-**Asignatura:** Pruebas de Software \- UNSA 2026
-
+**Asignatura:** Pruebas de Software — UNSA 2026
 **Docente:** Ing. Robert Edison Arisaca Mamani
-
-**Fase de Evaluación:** Hito 2 – Sprint 2 (Fecha límite: 10 de junio de 2026\)
+**Fase de Evaluación:** Hito 3 — Defensa Final
 
 **Integrantes del Equipo:**
 
-* Chambi Velasquez Rommel Abraham  
-* Flores Choquehuanca Joe Daniel  
-* Lopez Arela Ower Frank  
-* Meza Vizcarra Cielo Cristal  
-* Perez Huamani Jeremy Joshua  
-* Zegarra Puma Mauricio Eduardo
+| Nombre | Rol |
+|:-------|:----|
+| Joe Daniel Flores Choquehuenca | Test Leader |
+| Mauricio Eduardo Zegarra Puma | Test Architect |
+| Cielo Cristal Meza Vizcarra | Test Analyst |
+| Rommel Abraham Chambi Velasquez | Test Analyst |
+| Jeremy Joshua Perez Huamani | Test Analyst |
+| Ower Frank Lopez Arela | Test Designer |
 
 Proyecto académico orientado al análisis, diseño, implementación y documentación de un proceso completo de pruebas de software sobre [**BookStack**](https://github.com/BookStackApp/BookStack), una plataforma de documentación de código abierto construida con PHP y Laravel.
 
-## **Autoevaluación del Equipo \- Hito 2**
+---
 
-**Nota:** Los siguientes porcentajes son de carácter preliminar y se encuentran sujetos a validación final por parte del equipo previo a la entrega oficial de la documentación.
+## Métricas Finales 
 
-| Integrante | Porcentaje de esfuerzo (Hito 2\) |
-| :---- | :---- |
-| Joe Daniel Flores Choquehuenca | 83% |
-| Mauricio Eduardo Zegarra Puma | 82% |
-| Cielo Cristal Meza Vizcarra | 80% |
-| Rommel Abraham Chambi Velasquez | 80% |
-| Jeremy Joshua Perez Huamani | 74% |
-| Ower Frank Lopez Arela | 81% |
+| Métrica | Valor |
+|:--------|:------|
+| Tests totales (suite Langosta) | **600** |
+| Aserciones totales | **2,545** |
+| Cobertura global de líneas (phpcov) | **95%** (12,718 / 13,419 líneas) |
+| Cobertura módulo API | ~98% |
+| Flujos de sistema evaluados | **6** (ST-01 a ST-06) |
+| Casos de sistema | **60** (31 base + 29 complementarios) |
+| Tasa de éxito pruebas de sistema | **98.3%** (59/60) |
+| Defecto detectado (ST-D-01) | 1 — evidencia formal mantenida |
+| Hallazgos técnicos documentados | **7** (HT-01 a HT-07) |
+| Escenarios UAT aprobados | **16/16 (100%)** |
+| Aserciones UAT | **124** |
+| Atributos Myers evaluados | **2** (Seguridad · Usabilidad) |
+| Jobs pipeline CI/CD | **5** (Unit · Integration · System · Feature · Coverage-merge) |
+| Archivos nativos BookStack excluidos | 55 |
+| Tests nativos BookStack (referencia) | 1,802 |
 
-## **Recursos del Proyecto**
+---
 
-| Recurso | Enlace de Acceso | Estado de Verificación |
-| :---- | :---- | :---- |
-| Repositorio | [PS-GLangosta/bookstack-testing-project](https://github.com/PS-GLangosta/bookstack-testing-project) | Público y accesible |
-| Presentación del Producto | [GitHub Pages](https://ps-glangosta.github.io/bookstack-testing-project/) | Activo (En proceso de actualización para el Hito 2\) |
-| Tablero de Gestión (Kanban) | [GitHub Projects](https://github.com/orgs/PS-GLangosta/projects/1) | Activo |
-| Documentación Técnica | [GitHub Wiki](https://github.com/PS-GLangosta/bookstack-testing-project/wiki) | Activo (8 documentos registrados) |
-| Integración Continua (CI/CD) | [GitHub Actions](https://github.com/PS-GLangosta/bookstack-testing-project/actions) | Parcialmente activo (Despliegue operativo; CI en configuración) |
-| Seguimiento de Incidencias | [GitHub Issues](https://github.com/PS-GLangosta/bookstack-testing-project/issues) | Activo |
+## Recursos del Proyecto
 
-## **Documentación Técnica (Wiki) \- Hito 2**
+| Recurso | Enlace |
+|:--------|:-------|
+| Repositorio | [PS-GLangosta/bookstack-testing-project](https://github.com/PS-GLangosta/bookstack-testing-project) |
+| Presentación del Producto | [GitHub Pages](https://ps-glangosta.github.io/bookstack-testing-project/) |
+| Tablero de Gestión (Kanban) | [GitHub Projects](https://github.com/orgs/PS-GLangosta/projects/1) |
+| Documentación Técnica | [GitHub Wiki](https://github.com/PS-GLangosta/bookstack-testing-project/wiki) |
+| Pipeline CI/CD | [GitHub Actions](https://github.com/PS-GLangosta/bookstack-testing-project/actions) |
+| Seguimiento de Incidencias | [GitHub Issues](https://github.com/PS-GLangosta/bookstack-testing-project/issues) |
 
-| Documento | Descripción del Contenido |
-| :---- | :---- |
-| [REQUISITOS DEL SISTEMA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/REQUISITOS-DEL-SISTEMA) | Especificación de requisitos funcionales (RF-01 al RF-08) y no funcionales (RNF-01 al RNF-06) de BookStack, incluyendo matriz de trazabilidad. |
-| [PLAN DE PRUEBAS UNITARIAS (HITO 2\)](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS-%28HITO-2%29) | Planificación actualizada de pruebas unitarias: componentes identificados, técnicas de diseño a aplicar y criterios de finalización. |
-| [PRUEBAS UNITARIAS Y COBERTURA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PRUEBAS-UNITARIAS-Y-COBERTURA) | Resultados de la ejecución, métricas de cobertura (91.44% en líneas), aportes individuales y registro de hallazgos técnicos (HT-01 al HT-05). |
-| [DISEÑO DE CASOS DE PRUEBAS FUNCIONALES](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/DISE%C3%91O-DE-CASOS-DE-PRUEBAS-FUNCIONALES) | Diseño de 30 casos de prueba de caja negra (CPF-001 al CPF-030) basados en técnicas de Partición de Equivalencia, Valores Límite, Tabla de Decisión y Transición de Estados. |
-| [PLAN DE PRUEBAS DE INTEGRACIÓN](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-DE-INTEGRACI%C3%93N) | Definición de puntos de integración (PI-001 al PI-008) y estrategia de implementación. Ejecución programada para el Hito 3\. |
-| [EVIDENCIAS CI CD](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/EVIDENCIAS-CI-CD) | Configuración del flujo de trabajo de GitHub Actions para validación automática de pruebas unitarias. |
+---
 
-## **Estructura del Repositorio**
+## Documentación Técnica (Wiki) — Estado Final
 
-bookstack-testing-project/  
-├── .github/  
-│   └── workflows/                       \# Archivos de configuración de GitHub Actions  
-│       └── pages-build-deployment.yml   \# Activo: Despliegue de GitHub Pages  
-│       └── unit-tests.yml               \# En configuración: Integración Continua para PHPUnit  
-├── tests/  
-│   ├── Unit/                            \# Pruebas unitarias desarrolladas por el equipo (Hito 2\)  
-│   ├── Integration/                     \# Pruebas de integración (Planificadas para el Hito 3\)  
-│   └── System/                          \# Pruebas de sistema (Planificadas para el Hito 3\)  
-├── index.html                           \# Código fuente de GitHub Pages  
-└── README.md                            \# Documento principal de información
+| Documento | Descripción |
+|:----------|:------------|
+| [HOME](https://github.com/PS-GLangosta/bookstack-testing-project/wiki) | Índice general del proyecto con métricas finales y enlaces a todas las páginas |
+| [REQUISITOS DEL SISTEMA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/REQUISITOS-DEL-SISTEMA) | Requisitos funcionales (RF) y no funcionales (RNF) de BookStack con matriz de trazabilidad |
+| [PLAN DE PRUEBAS UNITARIAS](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS) | Estrategia, casos diseñados y criterios — Hito 1 |
+| [PLAN DE PRUEBAS UNITARIAS (HITO 2)](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS-%28HITO-2%29) | Plan extendido de pruebas unitarias para la fase de ejecución |
+| [PRUEBAS UNITARIAS Y COBERTURA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PRUEBAS-UNITARIAS-Y-COBERTURA) | Resultados de ejecución, métricas de cobertura global (95%) y hallazgos HT-01 a HT-07 |
+| [Diseño de Casos Funcionales (CPF)](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/Dise%C3%B1o-de-Casos-Funcionales) | 220 casos de prueba de caja negra — CPF-001 a CPF-220 |
+| [INFORME DE CASOS DE PRUEBA FUNCIONALES](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-CASOS-DE-PRUEBA-FUNCIONALES) | Resultados de ejecución de los casos funcionales priorizados |
+| [PLAN DE PRUEBAS DE INTEGRACIÓN](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-DE-INTEGRACI%C3%93N) | Puntos de integración IT-001–IT-008, estrategia y criterios |
+| [PLAN DE PRUEBAS DE SISTEMA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-DE-SISTEMA) | Diseño de flujos ST-01–ST-06 y selección de atributos Myers |
+| [INFORME DE PRUEBAS DE SISTEMA](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-PRUEBAS-DE-SISTEMA) | Resultados ST-01–ST-06 · Seguridad y Usabilidad · Defecto ST-D-01 |
+| [PLAN UAT](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-UAT) | Estrategia y escenarios de pruebas de aceptación de usuario |
+| [INFORME DE PRUEBAS DE ACEPTACIÓN (UAT)](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-PRUEBAS-DE-ACEPTACION-DE-USUARIO-%28UAT%29) | 16 tests · 124 aserciones · 100% aprobados · 32.53s |
+| [EVIDENCIAS CI CD](https://github.com/PS-GLangosta/bookstack-testing-project/wiki/EVIDENCIAS-CI-CD) | Pipeline 5 jobs en verde · cobertura 95% · badge GitHub Actions |
 
-## **Cronograma del Proyecto**
+---
 
-### **Hito 1 – Sprint 1 (Mayo 2026\) \- Estado: Finalizado**
+## Estructura del Repositorio
 
-* \[x\] Configuración de tablero de gestión (GitHub Projects)  
-* \[x\] Despliegue de la presentación del producto (GitHub Pages)  
-* \[x\] Elaboración del plan de pruebas unitarias (GitHub Wiki)  
-* \[x\] Estructuración del repositorio de código y documentación
+```
+bookstack-testing-project/
+├── .github/
+│   └── workflows/
+│       ├── full-pipeline.yml          # Pipeline completo: 5 jobs paralelos + coverage-merge
+│       └── pages-build-deployment.yml # GitHub Pages
+├── tests/
+│   ├── Unit/                          # Pruebas unitarias del equipo (~20 archivos)
+│   ├── Integration/                   # Pruebas de integración (4 archivos: IT-001 a IT-008)
+│   ├── System/                        # Flujos E2E ST-01 a ST-06 (6 archivos)
+│   └── UAT/                           # Escenarios UAT + complementos (1 archivo, 16 tests)
+├── dev/
+│   └── docker/                        # Dockerfile y entrypoint de producción
+├── phpunit.xml                        # Testsuite "Langosta" — 55 archivos nativos excluidos
+├── index.html                         # Presentación pública (GitHub Pages)
+└── README.md                          # Este archivo
+```
 
-### **Hito 2 – Sprint 2 (Junio 2026\) \- Estado: En Fase de Cierre**
+---
 
-* \[x\] Actualización del Plan de Pruebas Unitarias  
-* \[x\] Implementación de pruebas unitarias (Cobertura alcanzada: 91.44% en líneas)  
-* \[x\] Diseño de casos de pruebas funcionales (30 casos de caja negra)  
-* \[ \] Ejecución manual de casos funcionales en entorno de calidad (En curso)  
-* \[x\] Elaboración del Plan de Pruebas de Integración  
-* \[ \] Configuración de flujo automatizado CI/CD para pruebas unitarias (En curso)
+## Estrategia de Pruebas — Resumen por Nivel
 
-### **Hito 3 – Sprints 3 y 4 \- Estado: Pendiente**
+### Hito 1 — Pruebas Unitarias (Sprint 1)
+- Plan de pruebas unitarias elaborado
+- Estructura del repositorio y tablero Kanban configurados
 
-* \[ \] Ejecución de pruebas de integración (Casos IT-001 al IT-006)  
-* \[ \] Elaboración del plan e informe de pruebas del sistema  
-* \[ \] Automatización completa del despliegue (CI/CD) para la suite completa  
-* \[ \] Consolidación de la documentación técnica del proceso
+### Hito 2 — Pruebas Unitarias + Funcionales + Integración (Sprint 2)
+- **Cobertura base alcanzada:** 91.44% (suite nativa BookStack)
+- **Casos funcionales diseñados:** 220 CPF (caja negra)
+- **Plan de integración:** IT-001 a IT-008 definidos
 
-### **Defensa Final \- Estado: Pendiente**
+### Hito 3 — Sistema, Aceptación y CI/CD completo (Sprints 3 y 4)
+- **Suite Langosta aislada:** 600 tests / 2,545 aserciones / 95% cobertura global
+- **Pruebas de sistema:** 6 flujos E2E, atributos Myers (Seguridad + Usabilidad)
+- **Pruebas de aceptación:** 16 escenarios UAT, 100% aprobados
+- **Pipeline CI/CD:** 5 jobs en verde, consolidación de cobertura con phpcov
+- **Defecto real detectado:** ST-D-01 — desincronización SoftDelete / índice de búsqueda
+- **Principio de independencia:** todas las pruebas crean sus propios datos — cero dependencias globales
 
-* \[ \] Presentación del informe final de calidad  
-* \[ \] Redacción del artículo de investigación en formato IEEE  
-* \[ \] Demostración del uso integrado de las herramientas aplicadas
+---
 
-## **Entorno Tecnológico**
+## Cronograma del Proyecto
 
-| Herramienta | Propósito en el Proyecto |
-| :---- | :---- |
-| **PHPUnit 11.5** | Ejecución de pruebas unitarias (Backend PHP/Laravel) |
-| **MariaDB 11.4 (Docker)** | Gestión de base de datos para el entorno de pruebas |
-| **Xdebug 3.5** | Análisis y medición de cobertura de código |
-| **GitHub Actions** | Automatización de flujos de trabajo (CI/CD) |
-| **GitHub Projects** | Gestión ágil de sprints y control de actividades |
-| **GitHub Wiki** | Almacenamiento centralizado de documentación técnica |
-| **GitHub Pages** | Alojamiento de la presentación pública del proyecto |
-| **GitHub Issues** | Trazabilidad y seguimiento de defectos |
+### Hito 1 — Sprint 1 (Mayo 2026)
+- Configuración de tablero de gestión (GitHub Projects)
+- Presentación inicial del producto (GitHub Pages)
+- Plan de pruebas unitarias
+- Estructura inicial del repositorio
 
-## **Métricas de Rendimiento \- Hito 2**
+### Hito 2 — Sprint 2 (Junio 2026)
+- Actualización del Plan de Pruebas Unitarias
+- Implementación de pruebas unitarias (91.44% cobertura base)
+- Diseño de 220 casos funcionales (CPF-001 a CPF-220)
+- Plan de Pruebas de Integración (IT-001 a IT-008)
+- Configuración inicial de CI/CD
 
-| Indicador | Resultado Obtenido | Objetivo | Estado Actual |
-| :---- | :---- | :---- | :---- |
-| Cobertura de líneas | 91.44% (12,270 / 13,419) | Superior al 85% | Objetivo superado |
-| Cobertura de métodos | 81.56% (1,698 / 2,082) | N/A | Informativo |
-| Pruebas ejecutadas | 1,802 (7,578 aserciones) | N/A | Informativo |
-| Pruebas desarrolladas por el equipo | 45 | N/A | Informativo |
-| Casos funcionales diseñados | 30 | Mínimo 30 | Objetivo alcanzado |
-| Tiempo de ejecución general | 31 min 37 seg | Menor a 10 min | Requerimiento de optimización (Sprint 3\) |
+### Hito 3 — Sprints 3 y 4 (Junio–Julio 2026)
+- Ejecución de pruebas de integración (IT-001 a IT-008, ~98% cobertura API)
+- Pruebas de sistema: 6 flujos E2E, ST-01 a ST-06
+- Pruebas de aceptación: 16 escenarios UAT, 100% aprobados
+- Pipeline CI/CD completo: 5 jobs en verde (PR #70)
+- Suite Langosta aislada: 600 tests, 2,545 aserciones (PR #77)
+- Consolidación de cobertura: 95% global (phpcov merge)
+- Documentación técnica completa en Wiki (13 páginas)
 
-## **Equipo de Trabajo**
+### Defensa Final (Julio 2026)
+- Artículo IEEE — borrador v3 completo
+- Presentación de defensa
+- Demostración integrada de herramientas
+
+---
+
+## Entorno Tecnológico
+
+| Herramienta | Versión | Propósito |
+|:------------|:--------|:----------|
+| PHP | 8.2 | Runtime del sistema bajo prueba |
+| Laravel | 12 | Framework del SUT |
+| MariaDB | 11.4 | Base de datos (Docker) |
+| PHPUnit | 11.x | Ejecución de pruebas unitarias, integración y sistema |
+| Xdebug | 3.5 | Medición de cobertura de código |
+| phpcov | 9.x | Consolidación de artefactos de cobertura entre jobs |
+| Docker Compose | ≥2.0 | Contenerización del entorno local |
+| GitHub Actions | — | Pipeline CI/CD automatizado |
+| GitHub Wiki | — | Documentación técnica centralizada (13 páginas) |
+| GitHub Projects | — | Gestión ágil del proyecto (Kanban) |
+| GitHub Pages | — | Presentación pública del proyecto |
+
+---
+
+## Equipo de Trabajo
 
 | Integrante | Rol Asignado |
 | :---- | :---- |
@@ -137,5 +184,6 @@ bookstack-testing-project/
 | Rommel Abraham Chambi Velasquez | Analista de Pruebas |
 | Jeremy Joshua Perez Huamani | Analista de Pruebas |
 | Ower Frank Lopez Arela | Diseñador de Pruebas |
+---
 
-*Universidad Nacional de San Agustín de Arequipa \- Facultad de Producción y Servicios \- Escuela Profesional de Ingeniería de Sistemas \- 2026*
+*Universidad Nacional de San Agustín de Arequipa — Facultad de Producción y Servicios — Escuela Profesional de Ingeniería de Sistemas — 2026*
