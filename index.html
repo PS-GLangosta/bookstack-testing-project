@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BookStack - Proyecto de Pruebas de Software - Grupo UNSA 2026</title>
+  <title>BookStack - Proyecto de Pruebas de Software - Grupo Langosta UNSA 2026</title>
   <style>
     :root {
       --primary: #0A304E;
@@ -19,17 +19,8 @@
       --warning-bg: #FFF3CD;
       --danger: #DC3545;
     }
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
-    body { 
-      font-family: 'Segoe UI', system-ui, sans-serif; 
-      color: var(--text-main); 
-      background: var(--bg-white); 
-      line-height: 1.6;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text-main); background: var(--bg-white); line-height: 1.6; }
 
     /* NAVEGACION */
     nav {
@@ -40,41 +31,18 @@
       justify-content: space-between;
       padding: 0 2rem;
       height: 60px;
-      position: sticky; 
-      top: 0; 
+      position: sticky;
+      top: 0;
       z-index: 100;
       border-bottom: 2px solid var(--secondary);
     }
-    nav .brand { 
-      font-size: 1.1rem; 
-      font-weight: 600; 
-      display: flex; 
-      align-items: center; 
-      gap: 1rem; 
-    }
-    nav .brand span { 
-      background: var(--secondary); 
-      padding: 4px 10px; 
-      border-radius: 4px; 
-      font-size: 0.85rem; 
-    }
-    nav .links {
-      display: flex;
-      gap: 1.5rem;
-    }
-    nav a { 
-      color: var(--bg-white); 
-      text-decoration: none; 
-      font-size: 0.9rem;
-      opacity: 0.85;
-      transition: opacity 0.2s;
-    }
-    nav a:hover { 
-      opacity: 1; 
-      text-decoration: underline;
-    }
+    nav .brand { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 1rem; }
+    nav .brand span { background: var(--secondary); padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; }
+    nav .links { display: flex; gap: 1.5rem; }
+    nav a { color: var(--bg-white); text-decoration: none; font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s; }
+    nav a:hover { opacity: 1; text-decoration: underline; }
 
-    /* ENCABEZADO PRINCIPAL */
+    /* HERO */
     .hero {
       background: var(--bg-light);
       border-bottom: 1px solid var(--border-color);
@@ -94,289 +62,100 @@
       margin-bottom: 1.5rem;
       text-transform: uppercase;
     }
-    .hero h1 { 
-      font-size: 2.8rem; 
-      font-weight: 700; 
-      margin-bottom: 1rem; 
-      color: var(--primary);
-    }
-    .hero p.sub { 
-      font-size: 1.1rem; 
-      color: var(--text-muted); 
-      max-width: 700px; 
-      margin: 0 auto 2rem; 
-    }
-    .hero .btns { 
-      display: flex; 
-      gap: 1rem; 
-      justify-content: center; 
-      flex-wrap: wrap; 
-    }
-    .btn {
-      display: inline-flex; 
-      align-items: center;
-      padding: 0.6rem 1.4rem; 
-      border-radius: 4px;
-      font-size: 0.95rem; 
-      font-weight: 600; 
-      text-decoration: none; 
-      transition: background-color 0.2s;
-    }
-    .btn-primary { 
-      background: var(--primary); 
-      color: var(--bg-white); 
-      border: 1px solid var(--primary);
-    }
-    .btn-primary:hover {
-      background: var(--secondary);
-      border-color: var(--secondary);
-    }
-    .btn-outline { 
-      background: transparent; 
-      color: var(--primary); 
-      border: 1px solid var(--primary); 
-    }
-    .btn-outline:hover {
-      background: var(--bg-light);
-    }
+    .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary); }
+    .hero p.sub { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem; }
+    .hero .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; padding: 0.6rem 1.4rem; border-radius: 4px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background-color 0.2s; }
+    .btn-primary { background: var(--primary); color: var(--bg-white); border: 1px solid var(--primary); }
+    .btn-primary:hover { background: var(--secondary); border-color: var(--secondary); }
+    .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-outline:hover { background: var(--bg-light); }
 
-    /* BARRA DE ESTADISTICAS */
-    .stats-bar {
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--border-color);
-      display: flex; 
-      justify-content: center; 
-      flex-wrap: wrap; 
-    }
-    .stat {
-      padding: 1.5rem 2.5rem;
-      text-align: center;
-      border-right: 1px solid var(--border-color);
-    }
-    .stat:last-child { 
-      border-right: none; 
-    }
-    .stat .num { 
-      font-size: 1.6rem; 
-      font-weight: 700; 
-      color: var(--primary); 
-    }
-    .stat .lbl { 
-      font-size: 0.85rem; 
-      color: var(--text-muted); 
-      text-transform: uppercase; 
-      letter-spacing: 0.05em; 
-      margin-top: 0.3rem;
-    }
+    /* STATS BAR */
+    .stats-bar { background: var(--bg-white); border-bottom: 1px solid var(--border-color); display: flex; justify-content: center; flex-wrap: wrap; }
+    .stat { padding: 1.5rem 2.5rem; text-align: center; border-right: 1px solid var(--border-color); }
+    .stat:last-child { border-right: none; }
+    .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+    .stat .lbl { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.3rem; }
 
-    /* SECCIONES GENERALES */
-    section { 
-      padding: 4rem 2rem; 
-      max-width: 1100px; 
-      margin: 0 auto; 
-    }
-    section h2 { 
-      font-size: 1.8rem; 
-      font-weight: 600; 
-      margin-bottom: 0.5rem; 
-      color: var(--primary);
-    }
-    .section-sub { 
-      color: var(--text-muted); 
-      margin-bottom: 2.5rem; 
-      font-size: 1rem; 
-    }
-    hr.divider { 
-      border: none; 
-      border-top: 1px solid var(--border-color); 
-      margin: 0; 
-    }
+    /* SECCIONES */
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    section h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary); }
+    .section-sub { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1rem; }
+    hr.divider { border: none; border-top: 1px solid var(--border-color); margin: 0; }
 
-    /* CUADRICULA DE TARJETAS */
-    .grid { 
-      display: grid; 
-      gap: 1.5rem; 
-    }
+    /* GRID Y CARDS */
+    .grid { display: grid; gap: 1.5rem; }
     .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
     .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    
-    .card {
-      background: var(--bg-white);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      padding: 1.5rem;
-    }
-    .card h3 { 
-      font-size: 1.1rem; 
-      font-weight: 600; 
-      margin-bottom: 0.8rem; 
-      color: var(--primary);
-      border-bottom: 1px solid var(--bg-light);
-      padding-bottom: 0.5rem;
-    }
-    .card p { 
-      font-size: 0.95rem; 
-      color: var(--text-main); 
-    }
+    .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 4px; padding: 1.5rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--primary); border-bottom: 1px solid var(--bg-light); padding-bottom: 0.5rem; }
+    .card p { font-size: 0.95rem; color: var(--text-main); }
 
-    /* TARJETAS DE METRICAS */
-    .metric-card {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .metric-card .big { 
-      font-size: 2rem; 
-      font-weight: 700; 
-      color: var(--primary); 
-    }
-    .metric-card .label { 
-      font-size: 0.9rem; 
-      color: var(--text-main); 
-      margin-top: 0.5rem; 
-      font-weight: 600;
-    }
-    .metric-card .target { 
-      font-size: 0.85rem; 
-      color: var(--success); 
-      margin-top: 0.5rem; 
-    }
-    .metric-card.warn { 
-      background: var(--warning-bg); 
-      border-color: #F5E5B8; 
-    }
-    .metric-card.warn .big { 
-      color: var(--warning); 
-    }
-    .metric-card.warn .target { 
-      color: var(--warning); 
-    }
+    /* METRIC CARDS */
+    .metric-card { background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 4px; padding: 1.5rem; text-align: center; }
+    .metric-card .big { font-size: 2rem; font-weight: 700; color: var(--primary); }
+    .metric-card .label { font-size: 0.9rem; color: var(--text-main); margin-top: 0.5rem; font-weight: 600; }
+    .metric-card .target { font-size: 0.85rem; color: var(--success); margin-top: 0.5rem; }
+    .metric-card.warn { background: var(--warning-bg); border-color: #F5E5B8; }
+    .metric-card.warn .big { color: var(--warning); }
+    .metric-card.warn .target { color: var(--warning); }
+    .metric-card.success { background: var(--success-bg); border-color: #A3CFBB; }
+    .metric-card.success .big { color: var(--success); }
+    .metric-card.success .target { color: var(--success); }
 
-    /* ETIQUETAS TECNOLOGICAS */
-    .tech-grid { 
-      display: flex; 
-      flex-wrap: wrap; 
-      gap: 0.5rem; 
-      margin-top: 1rem; 
-    }
-    .tech-tag {
-      background: var(--bg-light);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-    }
+    /* TECH TAGS */
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .tech-tag { background: var(--bg-light); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; }
 
-    /* TABLA DE HITOS */
-    table { 
-      width: 100%; 
-      border-collapse: collapse; 
-      font-size: 0.95rem; 
-    }
-    thead tr { 
-      background: var(--primary); 
-      color: var(--bg-white); 
-    }
-    th, td { 
-      padding: 1rem; 
-      text-align: left; 
-      border: 1px solid var(--border-color); 
-    }
-    tbody tr:nth-child(even) { 
-      background: var(--bg-light); 
-    }
-    .status-text {
-      font-size: 0.85rem; 
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: inline-block;
-    }
+    /* TABLA */
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    thead tr { background: var(--primary); color: var(--bg-white); }
+    th, td { padding: 1rem; text-align: left; border: 1px solid var(--border-color); }
+    tbody tr:nth-child(even) { background: var(--bg-light); }
+    .status-text { font-size: 0.85rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; }
     .status-completed { background: var(--success-bg); color: var(--success); }
     .status-progress { background: var(--warning-bg); color: var(--warning); }
-    
-    .list-unstyled {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .list-unstyled li {
-      margin-bottom: 0.4rem;
-    }
+    .list-unstyled { list-style-type: none; padding-left: 0; }
+    .list-unstyled li { margin-bottom: 0.4rem; }
+    .list-unstyled li::before { content: "✓ "; color: var(--success); font-weight: 700; }
 
-    /* LISTA DE ENLACES WIKI */
-    .wiki-list { 
-      list-style: none; 
-      margin-top: 1rem; 
-    }
-    .wiki-list li {
-      padding: 1.2rem;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      background: var(--bg-white);
-    }
-    .wiki-list a { 
-      color: var(--primary); 
-      font-weight: 600; 
-      text-decoration: none; 
-      font-size: 1rem; 
-    }
-    .wiki-list a:hover { 
-      text-decoration: underline; 
-    }
-    .wiki-list .desc { 
-      font-size: 0.9rem; 
-      color: var(--text-muted); 
-      margin-top: 0.5rem; 
-    }
+    /* WIKI LIST */
+    .wiki-list { list-style: none; margin-top: 1rem; }
+    .wiki-list li { padding: 1.2rem; border: 1px solid var(--border-color); border-radius: 4px; margin-bottom: 1rem; background: var(--bg-white); }
+    .wiki-list a { color: var(--primary); font-weight: 600; text-decoration: none; font-size: 1rem; }
+    .wiki-list a:hover { text-decoration: underline; }
+    .wiki-list .desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; }
+    .wiki-badge { display: inline-block; background: var(--success-bg); color: var(--success); font-size: 0.75rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle; }
 
-    /* SECCION DE EQUIPO */
-    .team-grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-      gap: 1.5rem; 
-      margin-top: 1rem; 
-    }
-    .member {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      padding: 1.5rem;
-    }
-    .member .name { 
-      font-weight: 600; 
-      font-size: 1rem; 
-      color: var(--primary);
-    }
-    .member .role { 
-      font-size: 0.85rem; 
-      color: var(--text-muted); 
-      margin-top: 0.3rem; 
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+    /* DEFECT HIGHLIGHT */
+    .defect-box { background: #FFF3CD; border: 1px solid #F5E5B8; border-left: 4px solid var(--warning); border-radius: 4px; padding: 1.2rem 1.5rem; margin-top: 1.5rem; }
+    .defect-box h4 { color: var(--warning); font-size: 1rem; margin-bottom: 0.5rem; }
+    .defect-box p { font-size: 0.9rem; color: var(--text-main); }
 
-    /* PIE DE PAGINA */
-    footer {
-      background: var(--primary);
-      color: var(--bg-light);
-      text-align: center;
-      padding: 2.5rem;
-      font-size: 0.9rem;
-    }
-    footer a { 
-      color: var(--bg-white); 
-      margin: 0 0.5rem;
-    }
+    /* EQUIPO */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .member { background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 4px; padding: 1.5rem; }
+    .member .name { font-weight: 600; font-size: 1rem; color: var(--primary); }
+    .member .role { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .member .contrib { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
+
+    /* PIPELINE VISUAL */
+    .pipeline { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+    .pipe-job { background: var(--success-bg); border: 1px solid #A3CFBB; color: var(--success); border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; }
+    .pipe-arrow { color: var(--text-muted); font-size: 1.2rem; }
+    .pipe-merge { background: var(--primary); color: white; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; }
+
+    /* FOOTER */
+    footer { background: var(--primary); color: var(--bg-light); text-align: center; padding: 2.5rem; font-size: 0.9rem; }
+    footer a { color: var(--bg-white); margin: 0 0.5rem; }
 
     @media (max-width: 768px) {
       .hero h1 { font-size: 2.2rem; }
       .stat { padding: 1rem; border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; }
       nav { flex-direction: column; height: auto; padding: 1rem; gap: 1rem; }
+      .pipeline { justify-content: center; }
     }
   </style>
 </head>
@@ -384,70 +163,191 @@
 
 <nav>
   <div class="brand">
-    Proyecto de Pruebas BookStack
-    <span>Hito 2</span>
+    Proyecto BookStack · Grupo Langosta
+    <span>Hito 3 — Final</span>
   </div>
   <div class="links">
-    <a href="#producto">Producto</a>
     <a href="#pruebas">Pruebas</a>
+    <a href="#metricas">Métricas</a>
+    <a href="#pipeline">CI/CD</a>
     <a href="#wiki">Documentación</a>
-    <a href="#hitos">Cronograma</a>
     <a href="#equipo">Equipo</a>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="badge">Pruebas de Software - UNSA - 2026 - Sprint 2</div>
+  <div class="badge">Pruebas de Software · UNSA 2026 · Hito 3 — Defensa Final</div>
   <h1>Proyecto BookStack</h1>
-  <p class="sub">Evaluación técnica, diseño e implementación de pruebas de software sobre una plataforma de documentación de código abierto.</p>
+  <p class="sub">Estrategia de pruebas automatizadas multinivel sobre una plataforma de documentación de código abierto — 600 tests · 95% cobertura · pipeline CI/CD en verde.</p>
   <div class="btns">
-    <a class="btn btn-primary" href="https://github.com/PS-GLangosta/bookstack-testing-project" target="_blank">
-      Acceder al Repositorio
-    </a>
-    <a class="btn btn-outline" href="https://github.com/orgs/PS-GLangosta/projects/1" target="_blank">
-      Acceder al Tablero Kanban
-    </a>
-    <a class="btn btn-outline" href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki" target="_blank">
-      Acceder a la Wiki
-    </a>
+    <a class="btn btn-primary" href="https://github.com/PS-GLangosta/bookstack-testing-project" target="_blank">Repositorio</a>
+    <a class="btn btn-outline" href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki" target="_blank">Wiki</a>
+    <a class="btn btn-outline" href="https://github.com/PS-GLangosta/bookstack-testing-project/actions" target="_blank">Pipeline CI/CD</a>
+    <a class="btn btn-outline" href="https://github.com/orgs/PS-GLangosta/projects/1/views/1" target="_blank">Tablero Kanban</a>
   </div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><div class="num">PHP / Laravel</div><div class="lbl">Stack tecnológico</div></div>
-  <div class="stat"><div class="num">91.44%</div><div class="lbl">Cobertura de líneas</div></div>
-  <div class="stat"><div class="num">30</div><div class="lbl">Casos funcionales desarrollados</div></div>
-  <div class="stat"><div class="num">1,802</div><div class="lbl">Pruebas ejecutadas</div></div>
-  <div class="stat"><div class="num">6</div><div class="lbl">Integrantes del equipo</div></div>
+  <div class="stat"><div class="num">600</div><div class="lbl">Tests (suite Langosta)</div></div>
+  <div class="stat"><div class="num">95%</div><div class="lbl">Cobertura de líneas</div></div>
+  <div class="stat"><div class="num">2,545</div><div class="lbl">Aserciones totales</div></div>
+  <div class="stat"><div class="num">6</div><div class="lbl">Flujos de sistema E2E</div></div>
+  <div class="stat"><div class="num">100%</div><div class="lbl">UAT aprobado</div></div>
+  <div class="stat"><div class="num">5</div><div class="lbl">Jobs CI/CD en verde</div></div>
 </div>
 
+<hr class="divider"/>
+
+<section id="pruebas">
+  <h2>Estrategia de Pruebas Multinivel</h2>
+  <p class="section-sub">Cuatro niveles de prueba diseñados e implementados a lo largo de tres sprints (mayo–julio 2026).</p>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Pruebas Unitarias</h3>
+      <p>Cobertura global del 95% sobre 13,419 líneas medibles. Suite del equipo: ~480 tests sobre servicios principales — SlugGenerator, SearchService, PageService, BookService, ChapterService, ApiTokenGuard y más.</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprints 1 y 2</span>
+    </div>
+    <div class="card">
+      <h3>Pruebas Funcionales</h3>
+      <p>220 casos de prueba de caja negra (CPF-001 a CPF-220) distribuidos en 20 requisitos funcionales. Técnicas: Partición de Equivalencia, Valores Límite, Tabla de Decisión y Transición de Estados.</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprint 2</span>
+    </div>
+    <div class="card">
+      <h3>Pruebas de Integración</h3>
+      <p>8 puntos de integración (IT-001 a IT-008) cubriendo los contratos de la API REST de BookStack. Cobertura del módulo API: ~98% tras PR #60 (ApiTokenGuard — tokens expirados, inválidos y usuarios no confirmados).</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprint 3</span>
+    </div>
+    <div class="card">
+      <h3>Pruebas de Sistema</h3>
+      <p>6 flujos E2E (ST-01 a ST-06) evaluando los atributos de <strong>Seguridad</strong> y <strong>Usabilidad</strong> según el marco de Pruebas de Orden Superior de Myers. 60 casos · 59 PASS · 1 FAIL intencional (ST-D-01).</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprint 3</span>
+    </div>
+    <div class="card">
+      <h3>Pruebas de Aceptación (UAT)</h3>
+      <p>16 escenarios de aceptación: 6 UAT (UAT-01 a UAT-06) + 10 complementos funcionales (CF-11 a CF-20). 124 aserciones en 32.53s. Tasa de aceptación: 100%.</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprint 4</span>
+    </div>
+    <div class="card">
+      <h3>Pipeline CI/CD Automatizado</h3>
+      <p>5 jobs paralelos en GitHub Actions: <code>unit-tests</code>, <code>integration-tests</code>, <code>system-tests</code>, <code>feature-tests</code> y <code>coverage-merge</code> (phpcov). Cobertura consolidada: 95%.</p>
+      <span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">✅ Completado — Sprint 4</span>
+    </div>
+  </div>
+
+  <div class="defect-box">
+    <h4>⚠ Defecto detectado — ST-D-01</h4>
+    <p><strong>La eliminación lógica no limpia el índice de búsqueda.</strong> Al eliminar una página con SoftDelete, el indexador de búsqueda no se actualiza de forma sincrónica. El contenido eliminado continúa apareciendo en resultados de búsqueda hasta regeneración manual del índice. Detectado exclusivamente mediante pruebas de sistema E2E (nivel de prueba superior). Clasificado como deuda técnica del sistema base. El caso ST-01-05 permanece en estado FAIL como evidencia formal.</p>
+  </div>
+</section>
+<hr class="divider"/>
+
+<section id="metricas">
+  <h2>Métricas Finales — Hito 3</h2>
+  <p class="section-sub">Resultados consolidados de la ejecución del pipeline completo sobre la suite Langosta.</p>
+  <div class="grid grid-4">
+    <div class="metric-card success">
+      <div class="big">95%</div>
+      <div class="label">Cobertura global de líneas</div>
+      <div class="target">12,718 / 13,419 líneas — phpcov merge</div>
+    </div>
+    <div class="metric-card success">
+      <div class="big">600</div>
+      <div class="label">Tests suite Langosta</div>
+      <div class="target">Objetivo superado — 2,545 aserciones</div>
+    </div>
+    <div class="metric-card success">
+      <div class="big">98.3%</div>
+      <div class="label">Tasa de éxito sistema</div>
+      <div class="target">59/60 — 1 FAIL intencional (ST-D-01)</div>
+    </div>
+    <div class="metric-card success">
+      <div class="big">100%</div>
+      <div class="label">UAT aprobado</div>
+      <div class="target">16/16 escenarios · 124 aserciones · 32.53s</div>
+    </div>
+    <div class="metric-card">
+      <div class="big">~98%</div>
+      <div class="label">Cobertura módulo API</div>
+      <div class="target">ApiTokenGuard cubierto en PR #60</div>
+    </div>
+    <div class="metric-card">
+      <div class="big">7</div>
+      <div class="label">Hallazgos técnicos</div>
+      <div class="target">HT-01 a HT-07 documentados</div>
+    </div>
+    <div class="metric-card">
+      <div class="big">1</div>
+      <div class="label">Defecto confirmado</div>
+      <div class="target">ST-D-01 — deuda técnica BookStack base</div>
+    </div>
+    <div class="metric-card">
+      <div class="big">2</div>
+      <div class="label">Atributos Myers</div>
+      <div class="target">Seguridad + Usabilidad — 6 flujos E2E</div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
+<section id="pipeline">
+  <h2>Pipeline CI/CD</h2>
+  <p class="section-sub">Pipeline de integración continua con 5 jobs paralelos implementado en GitHub Actions (<code>full-pipeline.yml</code>).</p>
+
+  <div class="pipeline">
+    <div class="pipe-job">unit-tests</div>
+    <div class="pipe-arrow">┐</div>
+    <div class="pipe-job">integration-tests</div>
+    <div class="pipe-arrow">├──►</div>
+    <div class="pipe-merge">coverage-merge (phpcov)</div>
+    <div class="pipe-arrow">──►</div>
+    <div class="pipe-job">deploy (main)</div>
+    <br style="width:100%"/>
+    <div class="pipe-job">system-tests</div>
+    <div class="pipe-arrow">┤</div>
+    <div class="pipe-job">feature-tests</div>
+    <div class="pipe-arrow">┘</div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:1.5rem;">
+    <div class="card">
+      <h3>Testsuite Langosta</h3>
+      <p>Suite del equipo aislada explícitamente en <code>phpunit.xml</code>: 55 archivos nativos de BookStack excluidos. Esto permite medir la contribución del equipo con precisión, independiente de las 1,802 pruebas nativas del sistema base.</p>
+    </div>
+    <div class="card">
+      <h3>Principio de Independencia</h3>
+      <p>Todas las pruebas crean sus propios datos mediante asistentes internos y usan <code>DatabaseTransactions</code> para limpieza. Cero dependencias de siembra global. Requisito previo para ejecución confiable en entornos CI/CD limpios.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
 <section id="producto">
-  <h2>Descripción General del Sistema</h2>
-  <p class="section-sub">Plataforma de base de conocimiento autoalojada, de código abierto, construida con PHP y Laravel.</p>
+  <h2>Descripción del Sistema Bajo Prueba</h2>
+  <p class="section-sub">BookStack v26.05-dev — plataforma wiki de código abierto construida con PHP 8.2, Laravel 12 y MariaDB 11.4.</p>
   <div class="grid grid-3">
     <div class="card">
       <h3>Organización jerárquica</h3>
-      <p>El contenido se organiza en Libros, Capítulos y Páginas, facilitando la gestión de documentación técnica a cualquier escala.</p>
+      <p>El contenido se organiza en Estantes, Libros, Capítulos y Páginas, con jerarquía navegable y control de acceso granular a cada nivel.</p>
     </div>
     <div class="card">
       <h3>Control de acceso por roles</h3>
-      <p>Sistema de control de acceso basado en roles con niveles de administrador, editor y visualizador. Permisos aplicables a nivel de libro, capítulo y página.</p>
+      <p>Sistema RBAC con niveles Administrador, Editor y Visualizador. Permisos aplicables a nivel de libro, capítulo y página individual.</p>
     </div>
     <div class="card">
-      <h3>Búsqueda avanzada</h3>
-      <p>Indexación de contenido completa con soporte para búsqueda de texto libre, filtros por tipo y etiquetas personalizadas.</p>
+      <h3>Búsqueda y exportación</h3>
+      <p>Indexación de texto completo con filtros avanzados. Exportación en PDF, HTML, Markdown, texto plano y ZIP (libro completo).</p>
     </div>
     <div class="card">
-      <h3>Edición enriquecida y Markdown</h3>
-      <p>Dos modos de edición disponibles: editor visual enriquecido y editor Markdown, con soporte para diagramas, código con resaltado y tablas.</p>
+      <h3>API REST</h3>
+      <p>API completa autenticada por token con soporte para CRUD de libros, capítulos, páginas, estantes y usuarios. Cubierta al ~98% por el equipo.</p>
     </div>
     <div class="card">
-      <h3>Exportación múltiple</h3>
-      <p>Las páginas se pueden exportar en formatos PDF, HTML, texto plano y Markdown, facilitando la portabilidad del contenido.</p>
+      <h3>Revisiones y trazabilidad</h3>
+      <p>Historial de revisiones por página con mecanismo de diff para comparación entre versiones. Auditado en el flujo ST-05.</p>
     </div>
     <div class="card">
-      <h3>API REST y Webhooks</h3>
-      <p>Interfaz de programación de aplicaciones REST para integración con sistemas externos. Soporte para webhooks, LDAP, SAML y autenticación OAuth2.</p>
+      <h3>Autenticación avanzada</h3>
+      <p>Autenticación local, MFA/TOTP, LDAP, SAML y OAuth2. Ciclo de vida de tokens API con control de expiración y revocación.</p>
     </div>
   </div>
 </section>
@@ -455,80 +355,28 @@
 
 <section>
   <h2>Entorno Tecnológico</h2>
-  <p class="section-sub">Tecnologías que componen la arquitectura de BookStack y el entorno de pruebas configurado por el equipo.</p>
+  <p class="section-sub">Stack del sistema bajo prueba y herramientas de prueba configuradas por el equipo.</p>
   <div class="grid grid-2">
     <div class="card">
-      <h3>Backend y Pruebas</h3>
+      <h3>Sistema bajo prueba</h3>
       <div class="tech-grid">
-        <span class="tech-tag">PHP 8.4.22</span>
-        <span class="tech-tag">Laravel 11</span>
+        <span class="tech-tag">PHP 8.2</span>
+        <span class="tech-tag">Laravel 12</span>
         <span class="tech-tag">MariaDB 11.4</span>
         <span class="tech-tag">Eloquent ORM</span>
-        <span class="tech-tag">PHPUnit 11.5.55</span>
-        <span class="tech-tag">Xdebug 3.5.3</span>
+        <span class="tech-tag">BookStack v26.05-dev</span>
       </div>
     </div>
     <div class="card">
-      <h3>Frontend y Operaciones</h3>
+      <h3>Herramientas de prueba y CI/CD</h3>
       <div class="tech-grid">
-        <span class="tech-tag">JavaScript ES6</span>
-        <span class="tech-tag">Blade Templates</span>
-        <span class="tech-tag">TinyMCE</span>
-        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">PHPUnit 11.x</span>
+        <span class="tech-tag">Xdebug 3.5</span>
+        <span class="tech-tag">phpcov 9.x</span>
+        <span class="tech-tag">Docker Compose</span>
         <span class="tech-tag">GitHub Actions</span>
-        <span class="tech-tag">Composer</span>
+        <span class="tech-tag">GitHub Wiki</span>
       </div>
-    </div>
-  </div>
-</section>
-<hr class="divider"/>
-
-<section id="pruebas">
-  <h2>Estrategia de Pruebas</h2>
-  <p class="section-sub">Proceso progresivo de evaluación técnica planificado a lo largo de los cuatro sprints del proyecto.</p>
-  <div class="grid grid-3">
-    <div class="card">
-      <h3>Pruebas Unitarias</h3>
-      <p>Cobertura de 91.44% en líneas sobre la suite completa, conformada por 1,802 pruebas. Incluye 45 pruebas propias del equipo sobre los servicios principales: SlugGenerator, SearchService, PageService, BookService y ChapterService.</p>
-      <span class="status-text status-completed" style="margin-top: 1rem;">Completado: Sprints 1 y 2</span>
-    </div>
-    <div class="card">
-      <h3>Pruebas Funcionales</h3>
-      <p>Desarrollo de 30 casos de prueba de caja negra fundamentados en técnicas de Partición de Equivalencia, Valores Límite, Tabla de Decisión y Transición de Estados. Ejecución manual en entorno de calidad.</p>
-      <span class="status-text status-completed" style="margin-top: 1rem;">Completado: Sprint 2</span>
-    </div>
-    <div class="card">
-      <h3>Pruebas de Integración</h3>
-      <p>Planificación de 8 puntos de integración y 6 casos detallados. La ejecución práctica se realizará durante el tercer hito, en conformidad con los requerimientos académicos.</p>
-      <span class="status-text status-progress" style="margin-top: 1rem;">Planificado para Sprint 3</span>
-    </div>
-  </div>
-</section>
-<hr class="divider"/>
-
-<section id="metricas">
-  <h2>Métricas de Rendimiento - Hito 2</h2>
-  <p class="section-sub">Resultados objetivos extraídos de la fase de implementación y ejecución de pruebas.</p>
-  <div class="grid grid-4">
-    <div class="metric-card">
-      <div class="big">91.44%</div>
-      <div class="label">Cobertura de líneas</div>
-      <div class="target">Objetivo superado: Superior al 85%</div>
-    </div>
-    <div class="metric-card">
-      <div class="big">81.56%</div>
-      <div class="label">Cobertura de métodos</div>
-      <div class="target">Total: 1,698 de 2,082</div>
-    </div>
-    <div class="metric-card">
-      <div class="big">30</div>
-      <div class="label">Casos funcionales diseñados</div>
-      <div class="target">Objetivo alcanzado: 30 casos mínimos</div>
-    </div>
-    <div class="metric-card warn">
-      <div class="big">31:37 min</div>
-      <div class="label">Tiempo de ejecución general</div>
-      <div class="target">Requerimiento de optimización para Sprint 3</div>
     </div>
   </div>
 </section>
@@ -536,31 +384,67 @@
 
 <section id="wiki">
   <h2>Documentación Técnica</h2>
-  <p class="section-sub">Registros formales y detallados del proceso de pruebas, almacenados en el repositorio del proyecto.</p>
+  <p class="section-sub">13 páginas en la Wiki del repositorio documentando el proceso completo de pruebas.</p>
   <ul class="wiki-list">
     <li>
-      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/REQUISITOS-DEL-SISTEMA" target="_blank">Especificación de Requisitos del Sistema</a>
-      <div class="desc">Definición de requisitos funcionales y no funcionales, acompañados de su respectiva matriz de trazabilidad.</div>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/REQUISITOS-DEL-SISTEMA" target="_blank">Requisitos del Sistema</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">RF y RNF de BookStack con matriz de trazabilidad.</div>
     </li>
     <li>
-      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS-%28HITO-2%29" target="_blank">Plan de Pruebas Unitarias</a>
-      <div class="desc">Identificación de componentes del repositorio, técnicas de diseño a aplicar, criterios de aceptación y cronograma establecido.</div>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS" target="_blank">Plan de Pruebas Unitarias (Hito 1)</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Estrategia, componentes identificados y criterios para pruebas unitarias.</div>
     </li>
     <li>
-      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PRUEBAS-UNITARIAS-Y-COBERTURA" target="_blank">Reporte de Pruebas Unitarias y Cobertura</a>
-      <div class="desc">Resultados de la ejecución, análisis de métricas de cobertura, aportes individuales y registro de hallazgos técnicos.</div>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-UNITARIAS-%28HITO-2%29" target="_blank">Plan de Pruebas Unitarias (Hito 2)</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Plan extendido con cobertura Hito 2 y técnicas de diseño.</div>
     </li>
     <li>
-      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/DISE%C3%91O-DE-CASOS-DE-PRUEBAS-FUNCIONALES" target="_blank">Diseño de Casos de Pruebas Funcionales</a>
-      <div class="desc">Detalle de los 30 casos de prueba de caja negra correspondientes a los requisitos funcionales identificados.</div>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PRUEBAS-UNITARIAS-Y-COBERTURA" target="_blank">Pruebas Unitarias y Cobertura</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Métricas de cobertura global (95%), hallazgos HT-01 a HT-07 y resultados por módulo.</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/Dise%C3%B1o-de-Casos-Funcionales" target="_blank">Diseño de Casos Funcionales (CPF)</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">220 casos de prueba de caja negra — CPF-001 a CPF-220, organizados por 20 requisitos funcionales.</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-CASOS-DE-PRUEBA-FUNCIONALES" target="_blank">Informe de Casos de Prueba Funcionales</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Resultados de ejecución de los casos funcionales priorizados.</div>
     </li>
     <li>
       <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-DE-INTEGRACI%C3%93N" target="_blank">Plan de Pruebas de Integración</a>
-      <div class="desc">Definición de 8 puntos de integración y estrategia de implementación. Programado para ejecución en el Hito 3.</div>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">8 puntos de integración (IT-001 a IT-008) — contratos de la API REST de BookStack.</div>
     </li>
     <li>
-      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/EVIDENCIAS-CI-CD" target="_blank">Evidencias de Integración Continua</a>
-      <div class="desc">Documentación sobre la configuración del flujo de trabajo automatizado para la validación de pruebas unitarias.</div>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-DE-PRUEBAS-DE-SISTEMA" target="_blank">Plan de Pruebas de Sistema</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Diseño de flujos ST-01–ST-06 y selección de atributos Myers (Seguridad + Usabilidad).</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-PRUEBAS-DE-SISTEMA" target="_blank">Informe de Pruebas de Sistema</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Resultados ST-01–ST-06 · Defecto ST-D-01 · 7 hallazgos técnicos · 98.3% tasa de éxito.</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/PLAN-UAT" target="_blank">Plan UAT</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Estrategia, escenarios y criterios de aceptación de usuario.</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/INFORME-DE-PRUEBAS-DE-ACEPTACION-DE-USUARIO-%28UAT%29" target="_blank">Informe de Pruebas de Aceptación (UAT)</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">16 tests · 124 aserciones · 32.53s · 100% aprobado — sistema declarado aceptado.</div>
+    </li>
+    <li>
+      <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki/EVIDENCIAS-CI-CD" target="_blank">Evidencias CI/CD</a>
+      <span class="wiki-badge">✅</span>
+      <div class="desc">Pipeline 5 jobs en verde · badge GitHub Actions · cobertura consolidada 95% · logs de ejecución.</div>
     </li>
   </ul>
 </section>
@@ -568,20 +452,20 @@
 
 <section id="hitos">
   <h2>Cronograma del Proyecto</h2>
-  <p class="section-sub">Programación de entregables dividida por fase de desarrollo y evaluación académica.</p>
+  <p class="section-sub">Estado final de los entregables por fase académica.</p>
   <table>
     <thead>
       <tr>
         <th>Fase</th>
         <th>Periodo</th>
-        <th>Entregables Requeridos</th>
-        <th>Estado Actual</th>
+        <th>Entregables</th>
+        <th>Estado</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>Hito 1</strong></td>
-        <td>Sprint 1 (Mayo 2026)</td>
+        <td>Sprint 1 — Mayo 2026</td>
         <td>
           <ul class="list-unstyled">
             <li>Tablero de gestión de actividades</li>
@@ -594,40 +478,43 @@
       </tr>
       <tr>
         <td><strong>Hito 2</strong></td>
-        <td>Sprint 2 (Junio 2026)</td>
+        <td>Sprint 2 — Junio 2026</td>
         <td>
           <ul class="list-unstyled">
-            <li>Implementación de pruebas unitarias</li>
-            <li>Diseño de casos de pruebas funcionales</li>
-            <li>Planificación de pruebas de integración</li>
-            <li>Configuración inicial de Integración Continua</li>
+            <li>Pruebas unitarias (91.44% cobertura base)</li>
+            <li>220 casos funcionales diseñados (CPF)</li>
+            <li>Plan de pruebas de integración</li>
+            <li>Configuración inicial CI/CD</li>
           </ul>
         </td>
         <td><span class="status-text status-completed">Entregado</span></td>
       </tr>
       <tr>
         <td><strong>Hito 3</strong></td>
-        <td>Sprint 3 y 4</td>
+        <td>Sprints 3 y 4 — Jun–Jul 2026</td>
         <td>
           <ul class="list-unstyled">
-            <li>Ejecución de pruebas de integración</li>
-            <li>Plan e informe de pruebas del sistema</li>
-            <li>Automatización completa de despliegue</li>
-            <li>Documentación técnica consolidada</li>
+            <li>Integración ~98% cobertura API</li>
+            <li>Sistema: 6 flujos E2E, atributos Myers</li>
+            <li>UAT: 16 escenarios, 100% aprobado</li>
+            <li>Pipeline CI/CD: 5 jobs en verde</li>
+            <li>Suite Langosta: 600 tests / 95% global</li>
+            <li>Wiki completa: 13 páginas</li>
           </ul>
         </td>
-        <td><span class="status-text status-progress">Pendiente</span></td>
+        <td><span class="status-text status-completed">Completado</span></td>
       </tr>
       <tr>
         <td><strong>Defensa Final</strong></td>
-        <td>Cierre de Semestre</td>
+        <td>Julio 2026</td>
         <td>
           <ul class="list-unstyled">
-            <li>Presentación del informe final de calidad</li>
-            <li>Documento de investigación en formato IEEE</li>
+            <li>Artículo IEEE (v3 — borrador completo)</li>
+            <li>Presentación de defensa</li>
+            <li>Demostración integrada de herramientas</li>
           </ul>
         </td>
-        <td><span class="status-text status-progress">Pendiente</span></td>
+        <td><span class="status-text status-completed" style="margin-top: 1rem; display: inline-block;">20 a 24 de julio</span></td>
       </tr>
     </tbody>
   </table>
@@ -636,45 +523,52 @@
 
 <section id="equipo">
   <h2>Equipo de Trabajo</h2>
-  <p class="section-sub">Universidad Nacional de San Agustín de Arequipa - Escuela Profesional de Ingeniería de Sistemas - 2026</p>
+  <p class="section-sub">Universidad Nacional de San Agustín de Arequipa — Escuela Profesional de Ingeniería de Sistemas — 2026</p>
   <div class="team-grid">
     <div class="member">
       <div class="name">Joe Daniel Flores Choquehuenca</div>
-      <div class="role">Líder de Pruebas</div>
+      <div class="role">Test Leader</div>
+      <div class="contrib">Orquestación, Wiki, consolidación de hitos</div>
     </div>
     <div class="member">
       <div class="name">Mauricio Eduardo Zegarra Puma</div>
-      <div class="role">Arquitecto de Pruebas</div>
+      <div class="role">Test Architect</div>
+      <div class="contrib">Pipeline CI/CD, suite API, testsuite Langosta</div>
     </div>
     <div class="member">
       <div class="name">Cielo Cristal Meza Vizcarra</div>
-      <div class="role">Analista de Pruebas</div>
+      <div class="role">Test Analyst</div>
+      <div class="contrib">Permisos, UAT, casos funcionales</div>
     </div>
     <div class="member">
       <div class="name">Rommel Abraham Chambi Velasquez</div>
-      <div class="role">Analista de Pruebas</div>
+      <div class="role">Test Analyst</div>
+      <div class="contrib">ST-01 ContentCreationFlow</div>
     </div>
     <div class="member">
       <div class="name">Jeremy Joshua Perez Huamani</div>
-      <div class="role">Analista de Pruebas</div>
+      <div class="role">Test Analyst</div>
+      <div class="contrib">ST-03, ST-05, exportaciones, PageRepo</div>
     </div>
     <div class="member">
       <div class="name">Ower Frank Lopez Arela</div>
-      <div class="role">Diseñador de Pruebas</div>
+      <div class="role">Test Designer</div>
+      <div class="contrib">ST-04 UserManagementFlow</div>
     </div>
   </div>
 </section>
 
 <footer>
   <p>
-    Flores - Zegarra - Meza - Chambi - Perez - Lopez<br>
-    Asignatura de Pruebas de Software - UNSA 2026<br>
-    Docente responsable: Ing. Robert Edison Arisaca Mamani
+    Flores · Zegarra · Meza · Chambi · Perez · Lopez — Grupo Langosta<br>
+    Asignatura de Pruebas de Software · UNSA 2026<br>
+    Docente: Ing. Robert Edison Arisaca Mamani
   </p>
   <p style="margin-top: 1.5rem; font-size: 0.85rem;">
     <a href="https://github.com/PS-GLangosta/bookstack-testing-project" target="_blank">Repositorio del equipo</a> |
-    <a href="https://github.com/BookStackApp/BookStack" target="_blank">Repositorio de BookStack</a> |
-    <a href="https://www.bookstackapp.com" target="_blank">Sitio oficial de BookStack</a>
+    <a href="https://github.com/PS-GLangosta/bookstack-testing-project/wiki" target="_blank">Wiki técnica</a> |
+    <a href="https://github.com/PS-GLangosta/bookstack-testing-project/actions" target="_blank">Pipeline CI/CD</a> |
+    <a href="https://github.com/BookStackApp/BookStack" target="_blank">BookStack oficial</a>
   </p>
 </footer>
 
